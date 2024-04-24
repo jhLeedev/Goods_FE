@@ -1,0 +1,38 @@
+module.exports = {
+  root: true,
+  env: { browser: true, es2020: true },
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react-hooks/recommended',
+    'airbnb',
+    'airbnb-typescript',
+    'prettier',
+  ],
+  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['react-refresh'],
+  rules: {
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+  },
+  parserOptions: {
+    project: ['./tsconfig.json'],
+  },
+  rules: {
+    'react/react-in-jsx-scope': 'off',
+    'react/button-has-type': 'off',
+    '@typescript-eslint/no-shadow': 'off',
+    'no-shadow': 'off',
+    'react/jsx-no-target-blank': 'off',
+    'no-console': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'import/extensions': 'off',
+    'import/no-absolute-path': 'off',
+    'import/prefer-default-export': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'consistent-return': 'off',
+    'arrow-body-style': 'off',
+    'import/order': 'off',
+  },
+  ignorePatterns: ['.eslintrc.cjs', 'public', 'tailwind.config.js'],
+};
