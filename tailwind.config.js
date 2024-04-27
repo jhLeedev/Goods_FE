@@ -8,6 +8,6 @@ export default {
   },
   plugins: [daisyui],
   daisyui: {
-    themes: ['dark'], // https://daisyui.com/docs/themes/
+    themes: ['winter'], // https://daisyui.com/docs/themes/
   },
 };
