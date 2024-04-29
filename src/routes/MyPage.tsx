@@ -12,20 +12,20 @@ export default function MyPage() {
     <>
       <h1>logo</h1>
       <div className='w-full px-5 md:mx-auto md:max-w-5xl'>
-        <h2 className='text-center my-10 text-xl font-bold md:text-3xl'>마이페이지</h2>
+        <h2 className='text-center my-12 text-2xl font-bold md:text-3xl'>마이페이지</h2>
         <div className='flex flex-col md:flex-row md:items-end'>
           {/* 판매자 정보 페이지와 공통 컴포넌트 사용 */}
           <Profile />
           <a
             href='/#'
             role='button'
-            className='btn btn-lg w-full max-w-md mx-auto btn-neutral no-animation md:flex-none md:btn md:btn-neutral md:w-28'
+            className='btn btn-lg w-full max-w-md mx-auto btn-neutral no-animation md:flex-none md:btn md:btn-neutral md:w-28 md:mr-0'
           >
             프로필 수정
           </a>
         </div>
-        <div className='md:flex md:flex-row-reverse'>
-          <div className='w-full max-w-md h-40 mx-auto my-10 px-10 py-5 flex flex-col border border-neutral md:mr-0'>
+        <div className='w-full max-w-md mx-auto border-t-2 mt-8 md:max-w-5xl md:flex md:flex-row-reverse'>
+          <div className='h-40 my-8 px-10 py-5 flex flex-col border border-neutral md:max-w-80 md:mr-0'>
             <div className='mb-10 flex flex-auto justify-between items-center'>
               <p className='text-xl font-bold'>포인트</p>
               {/* 사용자 포인트 받아오기 */}
@@ -40,7 +40,7 @@ export default function MyPage() {
               </a>
             </div>
           </div>
-          <ul className='w-full max-w-md min-h-full mx-auto mt-5 text-xl font-semibold md:ml-0 md:mt-10'>
+          <ul className='w-full min-h-full mt-5 text-xl font-semibold md:ml-0 md:mt-10'>
             <li className='mb-8'>
               <a href='/#' className='flex items-center'>
                 <p className='mr-4'>관심 목록</p>
