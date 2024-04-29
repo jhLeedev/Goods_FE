@@ -3,10 +3,10 @@ import axios from 'axios';
 
 export default function Profile() {
   const getProfileInfo = () => {
-    return axios.get('http://localhost:5173/profile').then((res) => res.data);
+    return axios.get('/profile').then((res) => res.data);
   };
 
-  const result = useQuery({
+  const { data } = useQuery({
     queryKey: ['profile'],
     queryFn: getProfileInfo,
   });
@@ -16,14 +16,14 @@ export default function Profile() {
       <div className='card card-side h-full pb-8 md:pb-0'>
         <div className='avatar'>
           <div className='w-28 rounded-xl mr-4 md:w-36 md:mr-8'>
-            <img src={result.data.profile_image} alt='profile_image' />
+            <img src={data.profile_image} alt='profile_image' />
           </div>
         </div>
         <div className='w-full flex flex-col items-start justify-around'>
           <div className='flex items-center'>
-            <h2 className='card-title mr-2'>{result.data.username}</h2>
+            <h2 className='card-title mr-2'>{data.username}</h2>
             <div className='rating rating-sm'>
-              {[...Array(Math.floor(result.data.star))].map((i) => (
+              {[...Array(Math.floor(data.star))].map((i) => (
                 <svg
                   key={i}
                   xmlns='http://www.w3.org/2000/svg'
@@ -36,7 +36,7 @@ export default function Profile() {
                   <path d='M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z' />
                 </svg>
               ))}
-              {[...Array(5 - Math.floor(result.data.star))].map((i) => (
+              {[...Array(5 - Math.floor(data.star))].map((i) => (
                 <svg
                   key={i}
                   xmlns='http://www.w3.org/2000/svg'
@@ -52,10 +52,10 @@ export default function Profile() {
             </div>
           </div>
           <div className='card-actions justify-end'>
-            {result.data.sell_badge && (
+            {data.sell_badge && (
               <div className='badge badge-secondary badge-outline md:badge-lg'>판매왕</div>
             )}
-            {result.data.manner_badge && (
+            {data.manner_badge && (
               <div className='badge badge-primary badge-outline md:badge-lg'>매너왕</div>
             )}
           </div>

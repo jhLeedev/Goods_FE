@@ -1,5 +1,7 @@
 import { useRef } from 'react';
 import Profile from '../components/common/Profile';
+import { Link } from 'react-router-dom';
+import logo from '../assets/logo.webp';
 
 export default function MyPage() {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -10,7 +12,13 @@ export default function MyPage() {
 
   return (
     <>
-      <h1>logo</h1>
+      <div className='h-20 px-3 py-3 flex md:px-7'>
+        <Link to='/'>
+          <div className='p-1 rounded-lg hover:bg-neutral-100 '>
+            <img src={logo} alt='logo img' className='w-12 h-12' />
+          </div>
+        </Link>
+      </div>
       <div className='w-full px-5 md:mx-auto md:max-w-5xl'>
         <h2 className='text-center my-12 text-2xl font-bold md:text-3xl'>마이페이지</h2>
         <div className='flex flex-col md:flex-row md:items-end'>

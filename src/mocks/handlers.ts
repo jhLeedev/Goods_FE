@@ -34,7 +34,7 @@ export const handlers = [
     console.log(testData);
     return HttpResponse.json(testData);
   }),
-  http.get('http://localhost:5173/profile', () => {
+  http.get('/profile', () => {
     return HttpResponse.json(profileData);
   }),
 ];
