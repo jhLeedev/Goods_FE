@@ -106,20 +106,3 @@ export default function SignUp() {
     </div>
   );
 }
-
-/* <div className='flex items-center justify-center gap-x-1'>
-              <input
-                className='w-20 border-2 input input-sm input-bordered md:w-28'
-                type='number'
-              />{' '}
-              -
-              <input
-                className='w-20 border-2 input input-sm input-bordered md:w-28'
-                type='number'
-              />{' '}
-              -
-              <input
-                className='w-20 border-2 input input-sm input-bordered md:w-28'
-                type='number'
-              />
-            </div> */
