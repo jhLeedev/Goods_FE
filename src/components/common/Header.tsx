@@ -1,12 +1,29 @@
 import { useRecoilValue } from 'recoil';
 import { isLoggedInState } from '../../store/test';
 import Drawer from './Drawer';
+import { useNavigate, useMatch, Link } from 'react-router-dom';
+import React from 'react';
+import logo from '../../assets/logo.webp';
 
 export default function Header() {
   const isLoggedIn = useRecoilValue(isLoggedInState);
+  const signinMatch = useMatch('/signin');
+  const navigate = useNavigate();
+
+  const handleNavigateClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (e.currentTarget.innerText === '로그인') {
+      navigate('/signin');
+      return;
+    }
+    navigate('/signup');
+  };
   return (
     <div className='fixed top-0 left-0 z-50 flex items-center justify-between w-full h-20 px-3 py-3 bg-white border shadow md:px-7 gap-x-2'>
-      <h1>Logo</h1>
+      <Link to='/'>
+        <div className='p-1 rounded-lg hover:bg-neutral-100 '>
+          <img src={logo} alt='logo img' className='w-8 h-8 md:w-12 md:h-12' />
+        </div>
+      </Link>
       <label
         htmlFor='searchInput'
         className='flex items-center w-1/2 gap-2 md:w-1/3 input rounded-3xl input-bordered input-sm md:input-md'
@@ -28,7 +45,9 @@ export default function Header() {
       {isLoggedIn ? (
         <Drawer /> // 사이드바 (로그인 시)
       ) : (
-        <button className='btn btn-outline btn-xs md:btn-sm'>로그인</button>
+        <button onClick={handleNavigateClick} className='btn btn-outline btn-xs md:btn-sm'>
+          {signinMatch ? '회원가입' : '로그인'}
+        </button>
       )}
     </div>
   );
