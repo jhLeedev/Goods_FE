@@ -1,6 +1,14 @@
+import { kakaoSigninLink } from '../../constants';
+
 export default function KakaoLoginButton() {
+  const handleLoginKakao = () => {
+    window.location.href = kakaoSigninLink;
+  };
   return (
-    <button className='flex items-center justify-center p-2 font-bold rounded-lg gap-x-2 bg-[rgb(247,225,17)] hover:bg-[rgba(193,177,30,0.8)]'>
+    <button
+      onClick={handleLoginKakao}
+      className='flex items-center justify-center p-2 font-bold rounded-lg gap-x-2 bg-[rgb(247,225,17)] hover:bg-[rgba(193,177,30,0.8)]'
+    >
       <svg
         aria-hidden='true'
         focusable='false'
