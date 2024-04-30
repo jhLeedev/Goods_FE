@@ -25,6 +25,7 @@ export const profileData: IProfileData = {
   manner_badge: false,
   star: 3.0,
 };
+const tokenData = { accessToken: 'accessaccessaccess', refreshToken: 'refreshrefreshrefresh' };
 
 export const handlers = [
   http.get('/test', () => HttpResponse.json(testData)),
@@ -36,5 +37,8 @@ export const handlers = [
   }),
   http.get('/profile', () => {
     return HttpResponse.json(profileData);
+  }),
+  http.post('/auth/kakao', () => {
+    return HttpResponse.json(tokenData);
   }),
 ];
