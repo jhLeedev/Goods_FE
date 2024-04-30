@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { FormValueTypes } from '../types/interface';
-import axios from 'axios';
 import EmailAuthModal from '../components/common/EmailAuthModal';
 import { useState } from 'react';
+import { useAuthEmailMutation } from '../service/signup/useAuthEmailMutation';
 
 export default function SignUp() {
   const [shwoModal, setShowModal] = useState(false);
@@ -14,9 +14,10 @@ export default function SignUp() {
   } = useForm<FormValueTypes>();
   const onSubmit = handleSubmit((data) => console.log(data));
 
+  const sendEmail = useAuthEmailMutation();
+
   const handleAuthEmailClick = async () => {
-    const res = (await axios.post('/auth/email', watch('email'))).data;
-    console.log(res);
+    sendEmail(watch('email'));
     setShowModal(true);
   };
   return (

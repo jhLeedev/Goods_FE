@@ -1,7 +1,7 @@
 export default function EmailAuthModal({ closeModal }: { closeModal: () => void }) {
   return (
-    <div className='fixed top-0 left-0 flex items-center justify-center w-full h-screen'>
-      <div className='relative flex items-center justify-center border-2 bg-neutral-100 rounded-lg boder w-64 h-48 md:w-[500px] md:h-72'>
+    <div className='fixed top-0 left-0 z-50 flex items-center justify-center w-full h-screen bg-[rgba(0,0,0,.7)]'>
+      <div className='relative flex items-center justify-center border-2 bg-neutral-100 rounded-lg boder w-72 h-48 md:w-[500px] md:h-72'>
         <div className='flex flex-col items-center justify-center gap-y-5'>
           <h1 className='text-lg font-bold'>이메일이 전송되었습니다.</h1>
           <label htmlFor='emailAuth' className='flex items-center gap-2 input input-bordered'>
@@ -19,11 +19,13 @@ export default function EmailAuthModal({ closeModal }: { closeModal: () => void 
             </svg>
             <input id='emailAuth' type='password' className='grow' placeholder='인증번호' />
           </label>
-          <button className='w-full btn btn-neutral'>인증 완료</button>
+          <button type='button' className='w-full btn btn-neutral'>
+            인증 완료
+          </button>
         </div>
         <button
           onClick={closeModal}
-          className='absolute top-0 right-0 text-lg text-blue-300 btn btn-ghost'
+          className='absolute text-lg top-1 right-1 md:top-3 md:right-3 '
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
