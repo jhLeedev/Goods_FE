@@ -41,4 +41,5 @@ export const handlers = [
   http.post('/auth/kakao', () => {
     return HttpResponse.json(tokenData);
   }),
+  http.post('/auth/email', () => HttpResponse.json(1234)),
 ];
