@@ -5,6 +5,7 @@ export interface ITestData {
   content: string;
 }
 const testData: ITestData[] = [];
+const tokenData = { accessToken: 'accessaccessaccess', refreshToken: 'refreshrefreshrefresh' };
 
 export const handlers = [
   http.get('/test', () => HttpResponse.json(testData)),
@@ -13,5 +14,8 @@ export const handlers = [
     testData.push(req as ITestData);
     console.log(testData);
     return HttpResponse.json(testData);
+  }),
+  http.post('/auth/kakao', () => {
+    return HttpResponse.json(tokenData);
   }),
 ];
