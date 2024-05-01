@@ -5,6 +5,7 @@ import SignIn from './routes/SignIn';
 import SignUp from './routes/SignUp';
 import MyPage from './routes/MyPage';
 import KakaoRedirection from './components/socialLogin/KakaoRedirection';
+import Shop from './routes/Shop';
 
 export default function Router() {
   return (
@@ -16,6 +17,7 @@ export default function Router() {
       </Route>
       <Route path='/mypage' element={<MyPage />} />
       <Route path='/auth/kakao' element={<KakaoRedirection />} />
+      <Route path='/shop/:id' element={<Shop />} />
     </Routes>
   );
 }
