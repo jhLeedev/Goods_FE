@@ -1,11 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { getProfileInfo } from '../../store/api';
 
 export default function Profile() {
-  const getProfileInfo = () => {
-    return axios.get('/profile').then((res) => res.data);
-  };
-
   const { isLoading, data } = useQuery({
     queryKey: ['profile'],
     queryFn: getProfileInfo,

@@ -23,13 +23,12 @@ export default function MyPage() {
         <h2 className='text-center my-12 text-2xl font-bold md:text-3xl'>마이페이지</h2>
         <div className='flex flex-col md:flex-row md:items-end'>
           <Profile />
-          <a
-            href='/#'
-            role='button'
+          <Link
+            to='/mypage/update'
             className='btn btn-lg w-full max-w-md mx-auto btn-neutral no-animation md:flex-none md:btn md:btn-neutral md:w-28 md:mr-0'
           >
             프로필 수정
-          </a>
+          </Link>
         </div>
         <div className='w-full max-w-md mx-auto border-t-2 mt-8 md:max-w-5xl md:flex md:flex-row-reverse'>
           <div className='h-40 my-8 px-10 py-5 flex flex-col border border-neutral md:max-w-80 md:mr-0'>

@@ -1,7 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { FormValueTypes } from '../types/interface';
+import EmailAuthModal from '../components/common/EmailAuthModal';
+import { useState } from 'react';
+import { useAuthEmailMutation } from '../service/signup/useAuthEmailMutation';
 
 export default function SignUp() {
+  const [shwoModal, setShowModal] = useState(false);
   const {
     register,
     handleSubmit,
@@ -9,6 +13,13 @@ export default function SignUp() {
     formState: { errors },
   } = useForm<FormValueTypes>();
   const onSubmit = handleSubmit((data) => console.log(data));
+
+  const sendEmail = useAuthEmailMutation();
+
+  const handleAuthEmailClick = async () => {
+    sendEmail(watch('email'));
+    setShowModal(true);
+  };
   return (
     <div className='absolute top-0 left-0 w-full h-screen p-3 mt-24'>
       <div className='flex flex-col items-center w-full'>
@@ -32,9 +43,10 @@ export default function SignUp() {
               className='w-full input input-bordered'
             />
             {errors?.email && <p className='text-red-700'>{errors.email.message}</p>}
-            <button type='button' className='w-full btn btn-neutral'>
+            <button onClick={handleAuthEmailClick} type='button' className='w-full btn btn-neutral'>
               이메일 인증
             </button>
+            {shwoModal && <EmailAuthModal closeModal={() => setShowModal(false)} />}
 
             <input
               {...register('password', {
