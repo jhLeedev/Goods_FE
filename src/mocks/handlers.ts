@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import { FormValueTypes, IProfileData } from '../types/interface';
+import { IProfileData } from '../types/interface';
 
 export interface ITestData {
   id: number;
@@ -7,8 +7,6 @@ export interface ITestData {
 }
 
 const testData: ITestData[] = [];
-
-const memberData: FormValueTypes[] = [];
 
 /* profile mock data */
 export const profileData: IProfileData = {
@@ -36,8 +34,7 @@ export const handlers = [
     return HttpResponse.json(tokenData);
   }),
   http.put('/member', async ({ request }) => {
-    const req = await request.json();
-    memberData.push(req as FormValueTypes);
-    return HttpResponse.json(memberData);
+    const req = await request.formData();
+    return HttpResponse.formData(req);
   }),
 ];

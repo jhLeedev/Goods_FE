@@ -16,3 +16,14 @@ export interface IProfileData {
   manner_badge: boolean;
   star: number;
 }
+
+/* profile update mock interface */
+export interface IProfileUpdate {
+  username: string;
+  curPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+  phoneNumber: string;
+  profileImageUrl?: string;
+  profileImage?: File;
+}

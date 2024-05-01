@@ -3,7 +3,7 @@ import logo from '../assets/logo.webp';
 import { getProfileInfo, updateProfileInfo } from '../store/api';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { FormValueTypes } from '../types/interface';
+import { IProfileUpdate } from '../types/interface';
 import React, { useRef, useState } from 'react';
 
 export default function ProfileUpdate() {
@@ -11,15 +11,20 @@ export default function ProfileUpdate() {
     queryKey: ['profile'],
     queryFn: getProfileInfo,
   });
-  const [curImg, setCurImg] = useState(data?.profile_image || '');
+
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [curImg, setCurImg] = useState<string>(data?.profile_image || '');
+
   const imageRef = useRef<HTMLInputElement | null>(null);
+
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<FormValueTypes>();
+  } = useForm<IProfileUpdate>();
 
   const { mutate } = useMutation({
     mutationFn: updateProfileInfo,
@@ -28,8 +33,18 @@ export default function ProfileUpdate() {
     },
   });
 
-  const onSubmit = handleSubmit((form: FormValueTypes) => {
-    mutate(form);
+  const onSubmit = handleSubmit((form: IProfileUpdate) => {
+    const formData = new FormData();
+    if (selectedFile) {
+      formData.append('profileImage', selectedFile);
+    } else {
+      formData.append('profileImageUrl', data.profile_image);
+    }
+    formData.append('username', form.username);
+    formData.append('curPassword', form.curPassword);
+    formData.append('newPassword', form.newPassword);
+    formData.append('phoneNumber', String(form.phoneNumber));
+    mutate(formData);
   });
 
   const onUploadBtnClick = () => {
@@ -43,11 +58,9 @@ export default function ProfileUpdate() {
     if (!e.target.files) {
       return;
     }
-    const reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onload = (event) => {
-      setCurImg(event.target?.result);
-    };
+    setSelectedFile(e.target.files[0]);
+    const url = URL.createObjectURL(e.target.files[0]);
+    setCurImg(url);
   };
 
   return (
@@ -89,7 +102,7 @@ export default function ProfileUpdate() {
               </button>
 
               <input
-                {...register('nickName', {
+                {...register('username', {
                   required: { message: '필수항목입니다.', value: true },
                   pattern: {
                     value: /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/,
@@ -101,10 +114,19 @@ export default function ProfileUpdate() {
                 defaultValue={data.username}
                 className='w-full max-w-lg input input-bordered'
               />
-              {errors?.nickName && <p className='text-red-700'>{errors.nickName.message}</p>}
+              {errors?.username && <p className='text-red-700'>{errors.username.message}</p>}
 
               <input
-                {...register('password', {
+                {...register('curPassword', {
+                  required: { message: '필수항목입니다.', value: true },
+                })}
+                type='password'
+                placeholder='현재 비밀번호'
+                className='w-full max-w-lg input input-bordered'
+              />
+              {errors?.curPassword && <p className='text-red-700'>{errors.curPassword.message}</p>}
+              <input
+                {...register('newPassword', {
                   required: { message: '필수항목입니다.', value: true },
                   pattern: {
                     value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/,
@@ -112,19 +134,23 @@ export default function ProfileUpdate() {
                   },
                 })}
                 type='password'
-                placeholder='비밀번호'
+                placeholder='새로운 비밀번호'
                 className='w-full max-w-lg input input-bordered'
               />
-              {errors?.password && <p className='text-red-700'>{errors.password.message}</p>}
+              {errors?.newPassword && <p className='text-red-700'>{errors.newPassword.message}</p>}
               <input
                 {...register('confirmPassword', {
                   required: { message: '필수항목입니다.', value: true },
+                  pattern: {
+                    value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/,
+                    message: '숫자, 문자만 포함 (8자 이상, 최대 20자)',
+                  },
                 })}
                 type='password'
-                placeholder='비밀번호 확인'
+                placeholder='새로운 비밀번호'
                 className='w-full max-w-lg input input-bordered'
               />
-              {watch('password') !== watch('confirmPassword') && (
+              {watch('newPassword') !== watch('confirmPassword') && (
                 <p className='text-red-700'>비밀번호가 일지하지 않습니다.</p>
               )}
               {errors?.confirmPassword && (
