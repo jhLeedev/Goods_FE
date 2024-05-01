@@ -4,6 +4,7 @@ import Home from './routes/Home';
 import SignIn from './routes/SignIn';
 import SignUp from './routes/SignUp';
 import MyPage from './routes/MyPage';
+import ProfileUpdate from './routes/ProfileUpdate';
 import KakaoRedirection from './components/socialLogin/KakaoRedirection';
 
 export default function Router() {
@@ -15,6 +16,7 @@ export default function Router() {
         <Route path='/signup' element={<SignUp />} />
       </Route>
       <Route path='/mypage' element={<MyPage />} />
+      <Route path='/mypage/update' element={<ProfileUpdate />} />
       <Route path='/auth/kakao' element={<KakaoRedirection />} />
     </Routes>
   );
