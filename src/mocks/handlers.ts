@@ -1,4 +1,5 @@
 import { http, HttpResponse } from 'msw';
+import { positions } from './positionData';
 
 export interface ITestData {
   id: number;
@@ -42,4 +43,5 @@ export const handlers = [
     return HttpResponse.json(tokenData);
   }),
   http.post('/auth/email', () => HttpResponse.json(1234)),
+  http.get(`/location`, () => HttpResponse.json(positions)),
 ];

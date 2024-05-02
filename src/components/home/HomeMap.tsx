@@ -1,16 +1,21 @@
-import { useEffect, useState } from 'react';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { LegacyRef, useRef, useState } from 'react';
+import { Map } from 'react-kakao-maps-sdk';
+import MyLocationMarker from './MyLocationMarker';
+import { IMyLocation } from '../../types/interface';
+import ProductMarkers from './ProductMarkers';
 
-interface IGeo {
-  center: {
-    lat: number;
-    lng: number;
-  };
-  errMsg: null | string;
-  isLoading: boolean;
-}
 export default function HomeMap() {
-  const [state, setState] = useState<IGeo>({
+  const mapRef = useRef<kakao.maps.Map>();
+
+  const onClusterclick = (_: kakao.maps.MarkerClusterer, cluster: kakao.maps.Cluster) => {
+    const map = mapRef.current;
+    // 현재 지도 레벨에서 1레벨 확대한 레벨
+    const level = map!.getLevel() - 1;
+
+    // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
+    map!.setLevel(level, { anchor: cluster.getCenter() });
+  };
+  const [state, setState] = useState<IMyLocation>({
     center: {
       lat: 33.450701,
       lng: 126.570667,
@@ -19,51 +24,17 @@ export default function HomeMap() {
     isLoading: true,
   });
 
-  useEffect(() => {
-    if (navigator.geolocation) {
-      // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setState((prev) => ({
-            ...prev,
-            center: {
-              lat: position.coords.latitude, // 위도
-              lng: position.coords.longitude, // 경도
-            },
-            isLoading: false,
-          }));
-        },
-        (err) => {
-          setState((prev) => ({
-            ...prev,
-            errMsg: err.message,
-            isLoading: false,
-          }));
-        },
-      );
-    } else {
-      // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-      setState((prev) => ({
-        ...prev,
-        errMsg: 'geolocation을 사용할수 없어요..',
-        isLoading: false,
-      }));
-    }
-  }, []);
-
   return (
     <Map // 지도를 표시할 Container
       center={state.center}
       className='w-full h-full'
       level={3} // 지도의 확대 레벨
+      ref={mapRef as LegacyRef<kakao.maps.Map>}
     >
-      {!state.isLoading && (
-        <MapMarker position={state.center}>
-          <div style={{ padding: '5px', color: '#000' }}>
-            {state.errMsg ? state.errMsg : '여기에 계신가요?!'}
-          </div>
-        </MapMarker>
-      )}
+      {/* 현재 내 위치  */}
+      <MyLocationMarker state={state} setState={setState} />
+      {/* 모든 상품 위치 */}
+      <ProductMarkers onClick={onClusterclick} />
     </Map>
   );
 }

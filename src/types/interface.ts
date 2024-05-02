@@ -6,3 +6,14 @@ export type FormValueTypes = {
   phoneNumber: number;
   paymentPassword: number;
 };
+
+export interface ILocation {
+  lat: number;
+  lng: number;
+}
+
+export interface IMyLocation {
+  center: ILocation;
+  errMsg: null | string;
+  isLoading: boolean;
+}
