@@ -22,7 +22,6 @@ export default function MyPage() {
       <div className='w-full px-5 md:mx-auto md:max-w-5xl'>
         <h2 className='text-center my-12 text-2xl font-bold md:text-3xl'>마이페이지</h2>
         <div className='flex flex-col md:flex-row md:items-end'>
-          {/* 판매자 정보 페이지와 공통 컴포넌트 사용 */}
           <Profile />
           <Link
             to='/mypage/update'
