@@ -27,3 +27,8 @@ export interface IProfileUpdate {
   profileImageUrl?: string;
   profileImage?: File;
 }
+
+export interface IMapLocation {
+  lat: number;
+  lng: number;
+}
