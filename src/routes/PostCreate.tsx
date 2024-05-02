@@ -37,24 +37,9 @@ export default function PostCreate() {
         </Link>
       </div>
       <div className='w-full px-5 md:mx-auto md:max-w-5xl'>
-        <h2 className='text-center my-12 text-2xl font-bold md:text-3xl'>상품 등록</h2>
+        <h2 className='text-center my-12 text-2xl font-bold md:text-3xl'>상품 수정</h2>
         <div className='w-full max-w-lg mx-auto md:max-w-5xl'>
           <div className='flex mb-6 overflow-x-auto'>
-            <div className='avatar mr-4'>
-              <div className='w-24 rounded-xl md:w-36'>
-                <img src='/#' alt='uploaded_image' />
-              </div>
-            </div>
-            <div className='avatar mr-4'>
-              <div className='w-24 rounded-xl md:w-36'>
-                <img src='/#' alt='uploaded_image' />
-              </div>
-            </div>
-            <div className='avatar mr-4'>
-              <div className='w-24 rounded-xl md:w-36'>
-                <img src='/#' alt='uploaded_image' />
-              </div>
-            </div>
             <div className='avatar mr-4'>
               <div className='w-24 rounded-xl md:w-36'>
                 <img src='/#' alt='uploaded_image' />
