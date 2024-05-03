@@ -1,4 +1,5 @@
 import { http, HttpResponse } from 'msw';
+import { IProfileData } from '../types/interface';
 import { positions } from './positionData';
 
 export interface ITestData {
@@ -8,15 +9,6 @@ export interface ITestData {
 
 const testData: ITestData[] = [];
 
-/* profile mock interface */
-export interface IProfileData {
-  username: string;
-  phoneNumber: string;
-  profile_image: string;
-  sell_badge: boolean;
-  manner_badge: boolean;
-  star: number;
-}
 /* profile mock data */
 export const profileData: IProfileData = {
   username: '홍길동',
@@ -43,5 +35,9 @@ export const handlers = [
     return HttpResponse.json(tokenData);
   }),
   http.post('/auth/email', () => HttpResponse.json(1234)),
+  http.put('/member', async ({ request }) => {
+    const req = await request.formData();
+    return HttpResponse.formData(req);
+  }),
   http.get(`/location`, () => HttpResponse.json(positions)),
 ];
