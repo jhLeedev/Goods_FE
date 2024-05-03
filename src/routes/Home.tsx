@@ -1,21 +1,35 @@
-import { useRecoilValue } from 'recoil';
-import { testState } from '../store/test';
+import HomeMap from '../components/home/HomeMap';
 
 export default function Home() {
-  const test = useRecoilValue(testState);
-  const onClick = () => {
-    return fetch('/test', {
-      method: 'POST',
-      body: JSON.stringify({ id: Date.now(), content: 'aa' }),
-    });
-  };
   return (
-    <div>
-      <h1 className='text-3xl font-bold underline mb-5'>Home</h1>
-      <h1>recoil test : {test ?? 'fail'}</h1>
-      <button className='btn btn-outline' onClick={onClick}>
-        add
-      </button>
+    <div className='absolute top-0 left-0 flex flex-col w-full h-full pt-20'>
+      <div className='flex items-center justify-center px-5 py-2 gap-x-5'>
+        <select className='w-full max-w-xs select select-bordered'>
+          <option disabled>Who shot first?</option>
+          <option>Han Solo</option>
+          <option>Greedo</option>
+        </select>
+
+        <select className='w-full max-w-xs select select-bordered'>
+          <option disabled>Who shot first?</option>
+          <option>Han Solo</option>
+          <option>Greedo</option>
+        </select>
+
+        <select className='w-full max-w-xs select select-bordered'>
+          <option disabled>Who shot first?</option>
+          <option>Han Solo</option>
+          <option>Greedo</option>
+        </select>
+      </div>
+      <div className='flex flex-col h-full md:flex-row-reverse'>
+        <HomeMap />
+        <ul className='overflow-y-auto border h-96 md:h-full md:w-48 lg:w-60 bg-neutral-400'>
+          <li>item</li>
+          <li>item</li>
+          <li>item</li>
+        </ul>
+      </div>
     </div>
   );
 }

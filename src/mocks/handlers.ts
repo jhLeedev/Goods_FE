@@ -1,5 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import { IProfileData } from '../types/interface';
+import { positions } from './positionData';
 
 export interface ITestData {
   id: number;
@@ -38,4 +39,5 @@ export const handlers = [
     const req = await request.formData();
     return HttpResponse.formData(req);
   }),
+  http.get(`/location`, () => HttpResponse.json(positions)),
 ];

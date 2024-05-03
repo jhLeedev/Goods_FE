@@ -32,3 +32,9 @@ export interface IMapLocation {
   lat: number;
   lng: number;
 }
+
+export interface IMyLocation {
+  center: IMapLocation;
+  errMsg: null | string;
+  isLoading: boolean;
+}

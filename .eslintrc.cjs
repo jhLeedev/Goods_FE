@@ -33,6 +33,7 @@ module.exports = {
     'consistent-return': 'off',
     'arrow-body-style': 'off',
     'import/order': 'off',
+    'import/no-cycle': 'off',
   },
   ignorePatterns: ['.eslintrc.cjs', 'public', 'tailwind.config.js'],
 };
