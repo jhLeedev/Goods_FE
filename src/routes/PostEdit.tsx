@@ -79,13 +79,19 @@ export default function PostEdit() {
           onSubmit={onSubmit}
           className='w-full mb-10 flex flex-col items-center justify-center gap-y-6 md:items-start'
         >
-          <label className='w-full max-w-lg input input-bordered flex items-center gap-2 md:max-w-5xl'>
+          <label
+            htmlFor='priceInput'
+            className='w-full max-w-lg input input-bordered flex items-center gap-2 md:max-w-5xl'
+          >
             가격
-            <input type='number' className='grow text-right' />
+            <input id='priceInput' type='number' className='grow text-right' />
           </label>
-          <label className='w-full max-w-lg input input-bordered flex items-center gap-2 md:max-w-5xl'>
+          <label
+            htmlFor='nameInput'
+            className='w-full max-w-lg input input-bordered flex items-center gap-2 md:max-w-5xl'
+          >
             상품 이름
-            <input type='text' className='grow text-right' />
+            <input id='nameInput' type='text' className='grow text-right' />
           </label>
           <textarea
             placeholder='상세 내용'
@@ -107,6 +113,7 @@ export default function PostEdit() {
             }}
             className='w-full h-48 max-w-lg md:h-64 md:max-w-5xl'
           >
+            {/* eslint-disable-next-line react/jsx-curly-brace-presence */}
             <ZoomControl position={'RIGHT'} />
             <MapMarker
               position={{
