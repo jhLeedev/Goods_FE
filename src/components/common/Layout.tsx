@@ -5,7 +5,7 @@ export default function Layout() {
   return (
     <>
       <Header />
-      <div className='mt-20 border'>
+      <div className='mt-20 border-t'>
         <Outlet />
       </div>
     </>
