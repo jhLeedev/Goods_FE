@@ -9,6 +9,7 @@ import KakaoRedirection from './components/socialLogin/KakaoRedirection';
 import PostCreate from './routes/PostCreate';
 import PostEdit from './routes/PostEdit';
 import Shop from './routes/Shop';
+import PostDetail from './routes/PostDetail';
 
 export default function Router() {
   return (
@@ -17,6 +18,7 @@ export default function Router() {
         <Route path='/' element={<Home />} />
         <Route path='/signin' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
+        <Route path='/posts/:id' element={<PostDetail />} />
       </Route>
       <Route path='/mypage' element={<MyPage />} />
       <Route path='/mypage/update' element={<ProfileUpdate />} />
