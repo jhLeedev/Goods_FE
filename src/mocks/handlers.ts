@@ -2,13 +2,6 @@ import { http, HttpResponse } from 'msw';
 import { IProfileData } from '../types/interface';
 import { positions } from './positionData';
 
-export interface ITestData {
-  id: number;
-  content: string;
-}
-
-const testData: ITestData[] = [];
-
 /* profile mock data */
 export const profileData: IProfileData = {
   username: '홍길동',
@@ -21,13 +14,6 @@ export const profileData: IProfileData = {
 const tokenData = { accessToken: 'accessaccessaccess', refreshToken: 'refreshrefreshrefresh' };
 
 export const handlers = [
-  http.get('/test', () => HttpResponse.json(testData)),
-  http.post('/test', async ({ request }) => {
-    const req = await request.json();
-    testData.push(req as ITestData);
-    console.log(testData);
-    return HttpResponse.json(testData);
-  }),
   http.get('/profile', () => {
     return HttpResponse.json(profileData);
   }),
