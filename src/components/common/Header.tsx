@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { isLoggedInState } from '../../store/test';
+import { isLoggedInState } from '../../store/atom';
 import Drawer from './Drawer';
 import { useNavigate, useMatch, Link } from 'react-router-dom';
 import React from 'react';
