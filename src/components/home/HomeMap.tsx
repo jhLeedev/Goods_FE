@@ -1,5 +1,5 @@
 import { LegacyRef, useRef, useState } from 'react';
-import { Map } from 'react-kakao-maps-sdk';
+import { Map, ZoomControl } from 'react-kakao-maps-sdk';
 import MyLocationMarker from './MyLocationMarker';
 import { IMyLocation } from '../../types/interface';
 import ProductMarkers from './ProductMarkers';
@@ -7,14 +7,6 @@ import ProductMarkers from './ProductMarkers';
 export default function HomeMap() {
   const mapRef = useRef<kakao.maps.Map>();
 
-  const onClusterclick = (_: kakao.maps.MarkerClusterer, cluster: kakao.maps.Cluster) => {
-    const map = mapRef.current;
-    // 현재 지도 레벨에서 1레벨 확대한 레벨
-    const level = map!.getLevel() - 1;
-
-    // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
-    map!.setLevel(level, { anchor: cluster.getCenter() });
-  };
   const [state, setState] = useState<IMyLocation>({
     center: {
       lat: 33.450701,
@@ -34,7 +26,8 @@ export default function HomeMap() {
       {/* 현재 내 위치  */}
       <MyLocationMarker state={state} setState={setState} />
       {/* 모든 상품 위치 */}
-      <ProductMarkers onClick={onClusterclick} />
+      <ProductMarkers />
+      <ZoomControl position='RIGHT' />
     </Map>
   );
 }
