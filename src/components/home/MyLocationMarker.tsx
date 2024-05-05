@@ -23,11 +23,15 @@ export default function MyLocationMarker({
             isLoading: false,
           }));
         },
-        (err) => {
+        () => {
           setState((prev) => ({
             ...prev,
-            errMsg: err.message,
+            errMsg: '위치정보 거부',
             isLoading: false,
+            center: {
+              lat: 37.5696765,
+              lng: 126.976502,
+            },
           }));
         },
       );
@@ -44,9 +48,7 @@ export default function MyLocationMarker({
     <div>
       {!state.isLoading && (
         <MapMarker position={state.center}>
-          <div style={{ padding: '5px', color: '#000' }}>
-            {state.errMsg ? state.errMsg : '여기에 계신가요?!'}
-          </div>
+          <div style={{ padding: '5px', color: '#000' }}>{state.errMsg ?? '여기에 계신가요?!'}</div>
         </MapMarker>
       )}
     </div>
