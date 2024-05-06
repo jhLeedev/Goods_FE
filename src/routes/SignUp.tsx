@@ -70,7 +70,7 @@ export default function SignUp() {
               className='w-full input input-bordered'
             />
             {watch('password') !== watch('confirmPassword') && (
-              <p className='text-red-700'>비밀번호가 일지하지 않습니다.</p>
+              <p className='text-red-700'>비밀번호가 일치하지 않습니다.</p>
             )}
             {errors?.confirmPassword && (
               <p className='text-red-700'>{errors.confirmPassword.message}</p>

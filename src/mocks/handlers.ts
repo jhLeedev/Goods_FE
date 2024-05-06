@@ -26,4 +26,8 @@ export const handlers = [
     return HttpResponse.formData(req);
   }),
   http.get(`/location`, () => HttpResponse.json(positions)),
+  http.put('/member/resign', async ({ request }) => {
+    const req = await request.json();
+    return HttpResponse.json(req);
+  }),
 ];
