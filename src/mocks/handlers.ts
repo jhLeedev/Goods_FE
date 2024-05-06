@@ -7,15 +7,19 @@ export const profileData: IProfileData = {
   username: '홍길동',
   phoneNumber: '010-1234-5678',
   profile_image: 'www.google.com',
-  sell_badge: true,
-  manner_badge: false,
   star: 3.0,
+};
+const badgeData = {
+  badge: 'sell',
 };
 const tokenData = { accessToken: 'accessaccessaccess', refreshToken: 'refreshrefreshrefresh' };
 
 export const handlers = [
   http.get('/profile', () => {
     return HttpResponse.json(profileData);
+  }),
+  http.get('/member/badge', () => {
+    return HttpResponse.json(badgeData);
   }),
   http.post('/auth/kakao', () => {
     return HttpResponse.json(tokenData);

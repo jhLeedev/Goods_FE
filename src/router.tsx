@@ -21,6 +21,7 @@ export default function Router() {
         <Route path='/signin' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/posts/:id' element={<PostDetail />} />
+        <Route path='/mypage/charge' element={<PointCharge />} />
       </Route>
       <Route path='/mypage' element={<MyPage />} />
       <Route path='/mypage/update' element={<ProfileUpdate />} />

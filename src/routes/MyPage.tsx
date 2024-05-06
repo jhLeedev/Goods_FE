@@ -34,7 +34,7 @@ export default function MyPage() {
         </Link>
       </div>
       <div className='w-full px-5 md:mx-auto md:max-w-5xl'>
-        <h2 className='my-12 text-2xl font-bold text-center md:text-3xl'>마이페이지</h2>
+        <h1 className='my-12 text-2xl font-bold text-center md:text-3xl'>마이페이지</h1>
         <div className='flex flex-col md:flex-row md:items-end'>
           <Profile />
           <Link
@@ -52,9 +52,13 @@ export default function MyPage() {
               <p className='text-xl font-bold'>500P</p>
             </div>
             <div className='flex justify-between flex-none'>
-              <a href='/#' role='button' className='w-32 mr-2 btn btn-primary shrink md:w-40'>
+              <Link
+                to='/mypage/charge'
+                role='button'
+                className='w-32 mr-2 btn btn-primary shrink md:w-40'
+              >
                 충전
-              </a>
+              </Link>
               <Link
                 to='/mypage/transfer'
                 role='button'
