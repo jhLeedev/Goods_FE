@@ -38,3 +38,13 @@ export interface IMyLocation {
   errMsg: null | string;
   isLoading: boolean;
 }
+
+export interface IPurchaseHistoryData {
+  seller_name: string;
+  goods_name: string;
+  price: number;
+  goods_thumbnail: string;
+  goods_status: string;
+  soldBefore: string;
+  id: number;
+}
