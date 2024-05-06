@@ -9,6 +9,9 @@ import KakaoRedirection from './components/socialLogin/KakaoRedirection';
 import PostCreate from './routes/PostCreate';
 import PostEdit from './routes/PostEdit';
 import Shop from './routes/Shop';
+import PostDetail from './routes/PostDetail';
+import PointCharge from './routes/PointCharge';
+
 import PurchaseHistory from './routes/PurchaseHistory';
 // protected route : home,signin,signup,kakaoRedirection,shop 제외 모든 페이지
 export default function Router() {
@@ -18,6 +21,8 @@ export default function Router() {
         <Route path='/' element={<Home />} />
         <Route path='/signin' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
+        <Route path='/posts/:id' element={<PostDetail />} />
+        <Route path='/mypage/charge' element={<PointCharge />} />
         <Route path='/purchase-history' element={<PurchaseHistory />} />
       </Route>
       <Route path='/mypage' element={<MyPage />} />
