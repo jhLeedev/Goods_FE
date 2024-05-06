@@ -46,3 +46,8 @@ export interface IPurchaseHistoryData {
   soldBefore: string;
   id: number;
 }
+
+export interface IRatingModal extends IPurchaseHistoryData {
+  onCloseModal: () => void;
+  onComplete: () => void;
+}

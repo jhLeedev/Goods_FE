@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { IPurchaseHistoryData } from '../../types/interface';
+import { IRatingModal } from '../../types/interface';
 import { useSendReviewMutation } from '../../service/mypage/useSendReviewMutation';
 
-export default function RatingModal(
-  { onCloseModal, onComplete }: { onCloseModal: () => void; onComplete: () => void },
-  { goods_name, id }: IPurchaseHistoryData,
-) {
+export default function RatingModal({ onCloseModal, onComplete, id, goods_name }: IRatingModal) {
   const [rating, setRating] = useState<number | null>(null);
   const [rateColor] = useState(null);
   const sendReview = useSendReviewMutation();
