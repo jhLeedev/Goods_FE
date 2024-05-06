@@ -38,3 +38,9 @@ export interface IMyLocation {
   errMsg: null | string;
   isLoading: boolean;
 }
+
+export interface IPointCalc {
+  type: string;
+  bank?: string;
+  account?: number;
+}

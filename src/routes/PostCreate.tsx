@@ -6,7 +6,7 @@ import { IMapLocation } from '../types/interface';
 
 export default function PostCreate() {
   const [result, setResult] = useState<IMapLocation>();
-  const [files, setFiles] = useState<File[]>([]);
+  const [, setFiles] = useState<File[]>([]);
   const imageRef = useRef<HTMLInputElement | null>(null);
 
   const onSubmit = () => {
@@ -29,7 +29,7 @@ export default function PostCreate() {
 
   return (
     <>
-      <div className='h-20 px-3 py-3 flex md:px-7'>
+      <div className='flex h-20 px-3 py-3 md:px-7'>
         <Link to='/'>
           <div className='p-1 rounded-lg hover:bg-neutral-100 '>
             <img src={logo} alt='logo img' className='w-12 h-12' />
@@ -37,10 +37,10 @@ export default function PostCreate() {
         </Link>
       </div>
       <div className='w-full px-5 md:mx-auto md:max-w-5xl'>
-        <h2 className='text-center my-12 text-2xl font-bold md:text-3xl'>상품 수정</h2>
+        <h2 className='my-12 text-2xl font-bold text-center md:text-3xl'>상품 수정</h2>
         <div className='w-full max-w-lg mx-auto md:max-w-5xl'>
           <div className='flex mb-6 overflow-x-auto'>
-            <div className='avatar mr-4'>
+            <div className='mr-4 avatar'>
               <div className='w-24 rounded-xl md:w-36'>
                 <img src='/#' alt='uploaded_image' />
               </div>
@@ -55,31 +55,31 @@ export default function PostCreate() {
             className='hidden'
             multiple
           />
-          <button onClick={onUploadBtnClick} className='btn btn-neutral mb-6'>
+          <button onClick={onUploadBtnClick} className='mb-6 btn btn-neutral'>
             이미지 업로드
           </button>
         </div>
         <form
           onSubmit={onSubmit}
-          className='w-full mb-10 flex flex-col items-center justify-center gap-y-6 md:items-start'
+          className='flex flex-col items-center justify-center w-full mb-10 gap-y-6 md:items-start'
         >
           <label
             htmlFor='priceInput'
-            className='w-full max-w-lg input input-bordered flex items-center gap-2 md:max-w-5xl'
+            className='flex items-center w-full max-w-lg gap-2 input input-bordered md:max-w-5xl'
           >
             가격
-            <input id='priceInput' type='number' className='grow text-right' />
+            <input id='priceInput' type='number' className='text-right grow' />
           </label>
           <label
             htmlFor='nameInput'
-            className='w-full max-w-lg input input-bordered flex items-center gap-2 md:max-w-5xl'
+            className='flex items-center w-full max-w-lg gap-2 input input-bordered md:max-w-5xl'
           >
             상품 이름
-            <input id='nameInput' type='text' className='grow text-right' />
+            <input id='nameInput' type='text' className='text-right grow' />
           </label>
           <textarea
             placeholder='상세 내용'
-            className='textarea textarea-bordered textarea-sm w-full max-w-lg md:max-w-5xl'
+            className='w-full max-w-lg textarea textarea-bordered textarea-sm md:max-w-5xl'
           />
           <Map
             id='map'
@@ -109,7 +109,7 @@ export default function PostCreate() {
           <input
             type='text'
             placeholder='상세 주소 입력'
-            className='input input-bordered w-full max-w-lg md:max-w-5xl'
+            className='w-full max-w-lg input input-bordered md:max-w-5xl'
           />
           <button className='w-full max-w-lg btn btn-primary md:max-w-32'>등록하기</button>
         </form>

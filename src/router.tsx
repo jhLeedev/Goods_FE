@@ -10,6 +10,8 @@ import PostCreate from './routes/PostCreate';
 import PostEdit from './routes/PostEdit';
 import Shop from './routes/Shop';
 import PostDetail from './routes/PostDetail';
+import PointCharge from './routes/PointCharge';
+import Transfer from './routes/Transfer';
 
 export default function Router() {
   return (
@@ -26,6 +28,8 @@ export default function Router() {
       <Route path='/posts/new' element={<PostCreate />} />
       <Route path='/posts/edit/:id' element={<PostEdit />} />
       <Route path='/shop/:id' element={<Shop />} />
+      <Route path='/mypage/charge' element={<PointCharge />} />
+      <Route path='/mypage/transfer' element={<Transfer />} />
     </Routes>
   );
 }
