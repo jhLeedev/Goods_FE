@@ -11,3 +11,7 @@ export const updateProfileInfo = (profile: FormData) => {
     },
   });
 };
+
+export const getBadgeInfo = () => {
+  return axios.get('/member/badge').then((res) => res.data);
+};
