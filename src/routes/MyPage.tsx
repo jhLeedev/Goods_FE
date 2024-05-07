@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import Profile from '../components/common/Profile';
+import Profile from '../components/Profile/Profile';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.webp';
 import { useResignMutation } from '../service/mypage/useUserQueries';

@@ -8,7 +8,7 @@ export const profileData: IProfileData = {
   username: '홍길동',
   phoneNumber: '010-1234-5678',
   profile_image: 'www.google.com',
-  star: 3.0,
+  star: 3.5,
 };
 const badgeData = {
   badge: 'sell',
