@@ -13,15 +13,13 @@ export default function MyPage() {
     dialogRef.current?.showModal();
   };
 
-  const { mutate, isSuccess, isError } = useMutation({
+  const { mutate, isError } = useMutation({
     mutationFn: putResignUser,
+    onSuccess: () => dialogRef.current?.close(),
   });
 
   const handleResign = () => {
     mutate({ password: `${password}` });
-    if (isSuccess) {
-      dialogRef.current?.close();
-    }
   };
 
   return (
