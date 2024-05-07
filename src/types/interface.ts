@@ -41,6 +41,7 @@ export interface IPointCalc {
   type: string;
   bank?: string;
   account?: number;
+  password?: number;
 }
 
 export interface IPurchaseHistoryData {
