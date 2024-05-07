@@ -2,8 +2,7 @@ import { useRef, useState } from 'react';
 import Profile from '../components/common/Profile';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.webp';
-import { useMutation } from '@tanstack/react-query';
-import { putResignUser } from '../store/api';
+import { useResignMutation } from '../service/mypage/useUserQueries';
 
 export default function MyPage() {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -13,10 +12,7 @@ export default function MyPage() {
     dialogRef.current?.showModal();
   };
 
-  const { mutate, isError } = useMutation({
-    mutationFn: putResignUser,
-    onSuccess: () => dialogRef.current?.close(),
-  });
+  const { mutate, isError } = useResignMutation(dialogRef);
 
   const handleResign = () => {
     mutate({ password: `${password}` });

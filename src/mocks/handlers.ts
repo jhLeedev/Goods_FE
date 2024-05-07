@@ -16,7 +16,7 @@ const badgeData = {
 const tokenData = { accessToken: 'accessaccessaccess', refreshToken: 'refreshrefreshrefresh' };
 
 export const handlers = [
-  http.get('/profile', () => {
+  http.get('/member/profile', () => {
     return HttpResponse.json(profileData);
   }),
   http.get('/member/badge', () => {
@@ -26,7 +26,7 @@ export const handlers = [
     return HttpResponse.json(tokenData);
   }),
   http.post('/auth/email', () => HttpResponse.json(1234)),
-  http.put('/member', async ({ request }) => {
+  http.put('/member/profile', async ({ request }) => {
     const req = await request.formData();
     return HttpResponse.formData(req);
   }),
