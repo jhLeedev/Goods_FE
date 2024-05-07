@@ -12,7 +12,7 @@ export default function MyPage() {
 
   return (
     <>
-      <div className='h-20 px-3 py-3 flex md:px-7'>
+      <div className='flex h-20 px-3 py-3 md:px-7'>
         <Link to='/'>
           <div className='p-1 rounded-lg hover:bg-neutral-100 '>
             <img src={logo} alt='logo img' className='w-12 h-12' />
@@ -20,32 +20,32 @@ export default function MyPage() {
         </Link>
       </div>
       <div className='w-full px-5 md:mx-auto md:max-w-5xl'>
-        <h1 className='text-center my-12 text-2xl font-bold md:text-3xl'>마이페이지</h1>
+        <h1 className='my-12 text-2xl font-bold text-center md:text-3xl'>마이페이지</h1>
         <div className='flex flex-col md:flex-row md:items-end'>
           <Profile />
           <Link
             to='/mypage/update'
-            className='btn btn-lg w-full max-w-md mx-auto btn-neutral no-animation md:flex-none md:btn md:btn-neutral md:w-28 md:mr-0'
+            className='w-full max-w-md mx-auto btn btn-lg btn-neutral no-animation md:flex-none md:btn md:btn-neutral md:w-28 md:mr-0'
           >
             프로필 수정
           </Link>
         </div>
-        <div className='w-full max-w-md mx-auto border-t-2 mt-8 md:max-w-5xl md:flex md:flex-row-reverse'>
-          <div className='h-40 my-8 px-10 py-5 flex flex-col border border-neutral md:max-w-80 md:mr-0'>
-            <div className='mb-10 flex flex-auto justify-between items-center'>
+        <div className='w-full max-w-md mx-auto mt-8 border-t-2 md:max-w-5xl md:flex md:flex-row-reverse'>
+          <div className='flex flex-col h-40 px-10 py-5 my-8 border border-neutral md:max-w-80 md:mr-0'>
+            <div className='flex items-center justify-between flex-auto mb-10'>
               <p className='text-xl font-bold'>포인트</p>
               {/* 사용자 포인트 받아오기 */}
               <p className='text-xl font-bold'>500P</p>
             </div>
-            <div className='flex flex-none justify-between'>
+            <div className='flex justify-between flex-none'>
               <Link
                 to='/mypage/charge'
                 role='button'
-                className='btn btn-primary w-32 mr-2 shrink md:w-40'
+                className='w-32 mr-2 btn btn-primary shrink md:w-40'
               >
                 충전
               </Link>
-              <a href='/#' role='button' className='btn btn-primary w-32 ml-2 shrink md:w-40'>
+              <a href='/#' role='button' className='w-32 ml-2 btn btn-primary shrink md:w-40'>
                 송금
               </a>
             </div>
@@ -89,7 +89,9 @@ export default function MyPage() {
             </li>
             <li className='my-8'>
               <a href='/#' className='flex items-center'>
-                <p className='mr-4'>구매 내역</p>
+                <Link to='/purchase-history'>
+                  <p className='mr-4'>구매 내역</p>
+                </Link>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width='16'
@@ -111,9 +113,9 @@ export default function MyPage() {
                 <div className='modal-box'>
                   <p className='py-4 text-center'>정말 탈퇴하시겠습니까?</p>
                   <div className='modal-action'>
-                    <form method='dialog' className='flex w-full justify-around'>
-                      <button className='btn w-32 mr-2 shrink md:w-40 btn-accent'>탈퇴</button>
-                      <button className='btn w-32 ml-2 shrink md:w-40 btn-neutral'>취소</button>
+                    <form method='dialog' className='flex justify-around w-full'>
+                      <button className='w-32 mr-2 btn shrink md:w-40 btn-accent'>탈퇴</button>
+                      <button className='w-32 ml-2 btn shrink md:w-40 btn-neutral'>취소</button>
                     </form>
                   </div>
                 </div>
