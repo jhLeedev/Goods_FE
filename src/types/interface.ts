@@ -37,6 +37,12 @@ export interface IMyLocation {
   isLoading: boolean;
 }
 
+export interface IPointCalc {
+  type: string;
+  bank?: string;
+  account?: number;
+}
+
 export interface IPurchaseHistoryData {
   seller_name: string;
   goods_name: string;

@@ -1,13 +1,25 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Profile from '../components/common/Profile';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.webp';
+import { useMutation } from '@tanstack/react-query';
+import { putResignUser } from '../store/api';
 
 export default function MyPage() {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const [password, setPassword] = useState<string>('');
 
   const showModal = () => {
     dialogRef.current?.showModal();
+  };
+
+  const { mutate, isError } = useMutation({
+    mutationFn: putResignUser,
+    onSuccess: () => dialogRef.current?.close(),
+  });
+
+  const handleResign = () => {
+    mutate({ password: `${password}` });
   };
 
   return (
@@ -45,9 +57,13 @@ export default function MyPage() {
               >
                 충전
               </Link>
-              <a href='/#' role='button' className='w-32 ml-2 btn btn-primary shrink md:w-40'>
+              <Link
+                to='/mypage/transfer'
+                role='button'
+                className='w-32 ml-2 btn btn-primary shrink md:w-40'
+              >
                 송금
-              </a>
+              </Link>
             </div>
           </div>
           <ul className='w-full min-h-full mt-5 text-xl font-semibold md:ml-0 md:mt-10'>
@@ -111,11 +127,46 @@ export default function MyPage() {
               <button onClick={showModal}>회원 탈퇴</button>
               <dialog ref={dialogRef} className='modal duration-0'>
                 <div className='modal-box'>
-                  <p className='py-4 text-center'>정말 탈퇴하시겠습니까?</p>
-                  <div className='modal-action'>
-                    <form method='dialog' className='flex justify-around w-full'>
-                      <button className='w-32 mr-2 btn shrink md:w-40 btn-accent'>탈퇴</button>
-                      <button className='w-32 ml-2 btn shrink md:w-40 btn-neutral'>취소</button>
+                  <p className='py-4 text-center'>회원 탈퇴</p>
+                  {isError ? (
+                    <p className='py-4 text-lg font-normal text-center text-red-700'>
+                      비밀번호를 다시 입력해주세요.
+                    </p>
+                  ) : (
+                    <p className='py-4 text-lg font-normal text-center'>비밀번호를 입력하세요.</p>
+                  )}
+                  <div className='justify-center mt-0 modal-action'>
+                    <form method='dialog'>
+                      <label
+                        htmlFor='password'
+                        className='flex w-full max-w-lg mb-8 input input-bordered md:max-w-5xl'
+                      >
+                        <input
+                          id='password'
+                          type='password'
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          placeholder='비밀번호'
+                          className='grow'
+                        />
+                      </label>
+                      <div className='flex justify-around w-full mb-4'>
+                        <button
+                          type='button'
+                          onClick={handleResign}
+                          className={`btn w-32 mr-2 shrink md:w-40 btn-accent ${
+                            password ? '' : ' btn-disabled'
+                          }`}
+                        >
+                          탈퇴
+                        </button>
+                        <button
+                          onClick={() => setPassword('')}
+                          className='w-32 ml-2 btn shrink md:w-40 btn-neutral'
+                        >
+                          취소
+                        </button>
+                      </div>
                     </form>
                   </div>
                 </div>

@@ -12,6 +12,10 @@ export const updateProfileInfo = (profile: FormData) => {
   });
 };
 
+export const putResignUser = (password: { password: string }) => {
+  return axios.put('/member/resign', password);
+};
+
 export const getBadgeInfo = () => {
   return axios.get('/member/badge').then((res) => res.data);
 };

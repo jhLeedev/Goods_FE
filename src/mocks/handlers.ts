@@ -31,6 +31,10 @@ export const handlers = [
     return HttpResponse.formData(req);
   }),
   http.get(`/location`, () => HttpResponse.json(positions)),
+  http.put('/member/resign', async ({ request }) => {
+    const req = await request.json();
+    return HttpResponse.json(req);
+  }),
   http.get('api/goods/purchase', () => HttpResponse.json(purchaseHistoryData)),
   http.post(`/api/trade/goods/:goodsId/star`, async ({ request }) => {
     const req = await request.json();

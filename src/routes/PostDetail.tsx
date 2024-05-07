@@ -1,10 +1,7 @@
-import { useParams } from 'react-router-dom';
 import Carousel from '../components/carousel/Carousel';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
 export default function PostDetail() {
-  const { id } = useParams();
-
   const isHearted = true;
 
   const images = [
@@ -26,7 +23,7 @@ export default function PostDetail() {
               {isHearted ? (
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
-                  className='h-6 w-6 fill-primary stroke-primary'
+                  className='w-6 h-6 fill-primary stroke-primary'
                   fill='none'
                   viewBox='0 0 24 24'
                   stroke='currentColor'
@@ -41,7 +38,7 @@ export default function PostDetail() {
               ) : (
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
-                  className='h-6 w-6 stroke-primary'
+                  className='w-6 h-6 stroke-primary'
                   fill='none'
                   viewBox='0 0 24 24'
                   stroke='currentColor'
@@ -55,12 +52,12 @@ export default function PostDetail() {
                 </svg>
               )}
             </button>
-            <h3 className='text-xl font-bold flex-1'>5,000원</h3>
+            <h3 className='flex-1 text-xl font-bold'>5,000원</h3>
             <button className='btn btn-primary md:btn-lg'>채팅하기</button>
           </div>
         </div>
       </div>
-      <h2 className='min-h-40 py-4 whitespace-pre-wrap md:mt-8 md:pt-8 md:min-h-60 md:border-t'>
+      <h2 className='py-4 whitespace-pre-wrap min-h-40 md:mt-8 md:pt-8 md:min-h-60 md:border-t'>
         상품설명
       </h2>
       <div className='md:mb-12'>
@@ -83,18 +80,18 @@ export default function PostDetail() {
         <h4 className='mt-4 mb-8'>상세 주소</h4>
       </div>
       <div className='mb-20 md:flex md:flex-col md:items-between md:flex-1 md:h-full'>
-        <div className='card card-side h-full pb-4 md:pb-0'>
+        <div className='h-full pb-4 card card-side md:pb-0'>
           <div className='avatar'>
-            <div className='w-16 rounded-xl mr-4 md:w-20 md:mr-8'>
+            <div className='w-16 mr-4 rounded-xl md:w-20 md:mr-8'>
               <img
                 src='https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg'
                 alt='profile_image'
               />
             </div>
           </div>
-          <div className='w-full flex flex-col items-start justify-around'>
-            <p className='card-title mb-2'>닉네임</p>
-            <div className='card-actions justify-end'>
+          <div className='flex flex-col items-start justify-around w-full'>
+            <p className='mb-2 card-title'>닉네임</p>
+            <div className='justify-end card-actions'>
               <div className='badge badge-secondary badge-outline md:badge-lg'>판매왕</div>
               <div className='badge badge-primary badge-outline md:badge-lg'>매너왕</div>
             </div>
