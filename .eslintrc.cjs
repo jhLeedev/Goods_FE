@@ -34,6 +34,7 @@ module.exports = {
     'arrow-body-style': 'off',
     'import/order': 'off',
     'import/no-cycle': 'off',
+    'react/destructuring-assignment': 'off',
   },
   ignorePatterns: ['.eslintrc.cjs', 'public', 'tailwind.config.js'],
 };

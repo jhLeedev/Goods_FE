@@ -1,6 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { IProfileData } from '../types/interface';
 import { positions } from './positionData';
+import { purchaseHistoryData } from './purchaseHistoryData';
 
 /* profile mock data */
 export const profileData: IProfileData = {
@@ -32,6 +33,13 @@ export const handlers = [
   http.get(`/location`, () => HttpResponse.json(positions)),
   http.put('/member/resign', async ({ request }) => {
     const req = await request.json();
+    return HttpResponse.json(req);
+  }),
+  http.get('api/goods/purchase', () => HttpResponse.json(purchaseHistoryData)),
+  http.post(`/api/trade/goods/:goodsId/star`, async ({ request }) => {
+    const req = await request.json();
+    console.log(req);
+
     return HttpResponse.json(req);
   }),
 ];

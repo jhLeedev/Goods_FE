@@ -105,7 +105,9 @@ export default function MyPage() {
             </li>
             <li className='my-8'>
               <a href='/#' className='flex items-center'>
-                <p className='mr-4'>구매 내역</p>
+                <Link to='/purchase-history'>
+                  <p className='mr-4'>구매 내역</p>
+                </Link>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width='16'
