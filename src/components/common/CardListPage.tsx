@@ -9,10 +9,9 @@ export default function CardListPage({
   title: string;
 }) {
   return (
-    <div className='px-3 py-5 '>
-      <h1 className='text-2xl font-bold'>{title}</h1>
-
-      <ul className='flex flex-col items-center justify-center mt-5 gap-y-3'>
+    <div className='flex items-center justify-center px-3 py-5'>
+      <ul className='flex flex-col items-center justify-center w-full md:w-[500px] mt-5  gap-y-3'>
+        <h1 className='mr-auto text-2xl font-bold md:text-3xl '>{title}</h1>
         {data.map((item) => (
           <CardListItem key={item.id} {...item} />
         ))}

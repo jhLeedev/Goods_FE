@@ -16,7 +16,9 @@ export default function CardListItem(props: IPurchaseHistoryData) {
     <>
       <li
         key={props.id}
-        className='flex flex-col w-full transition-all duration-200 md:w-[500px] scale-95 border rounded-xl gap-y-3 hover:scale-105'
+        className={`flex flex-col w-full transition-all duration-200 scale-95 border rounded-xl gap-y-3 hover:scale-105 ${
+          showModal && 'bg-neutral-400'
+        }`}
       >
         <div className='flex items-center justify-start p-1 gap-x-5'>
           <img className='w-20 h-24 rounded-xl' src={props.goods_thumbnail} alt='img' />
