@@ -43,8 +43,7 @@ export interface IPointCalc {
   account?: number;
 }
 
-export interface IPurchaseHistoryData {
-  seller_name: string;
+export interface ISalesHistoryData {
   goods_name: string;
   price: number;
   goods_thumbnail: string;
@@ -52,8 +51,33 @@ export interface IPurchaseHistoryData {
   soldBefore: string;
   id: number;
 }
+export interface IPurchaseHistoryData extends ISalesHistoryData {
+  seller_name: string;
+}
 
-export interface IRatingModal extends IPurchaseHistoryData {
+export interface IRatingModal {
   onCloseModal: () => void;
   onComplete: () => void;
+  id: number;
+}
+
+export interface IWishHistoryData {
+  seller_name: string;
+  goods_name: string;
+  price: number;
+  goods_thumbnail: string;
+  goods_status: string;
+  uploadBefore: string;
+  detail_location: string;
+  id: number;
+}
+
+export interface ICardListItemProps {
+  id: number;
+  img: string;
+  name: string;
+  soldBefore: string;
+  uploadBefore: string;
+  status: string;
+  price: number;
 }
