@@ -58,3 +58,13 @@ export interface IRatingModal extends IPurchaseHistoryData {
   onCloseModal: () => void;
   onComplete: () => void;
 }
+
+export interface IPostCreate {
+  goods_name: string;
+  price: string;
+  description: string;
+  goods_images: File[];
+  lat: number;
+  lng: number;
+  detail_location: string;
+}

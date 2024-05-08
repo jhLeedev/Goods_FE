@@ -100,10 +100,8 @@ export default function MyPage() {
               </a>
             </li>
             <li className='my-8'>
-              <a href='/#' className='flex items-center'>
-                <Link to='/purchase-history'>
-                  <p className='mr-4'>구매 내역</p>
-                </Link>
+              <Link to='/purchase-history' className='flex items-center'>
+                <p className='mr-4'>구매 내역</p>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width='16'
@@ -117,7 +115,7 @@ export default function MyPage() {
                     d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708'
                   />
                 </svg>
-              </a>
+              </Link>
             </li>
             <li className='my-8'>
               <button onClick={showModal}>회원 탈퇴</button>
