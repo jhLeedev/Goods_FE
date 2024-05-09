@@ -14,6 +14,8 @@ import Transfer from './routes/Transfer';
 import PurchaseHistory from './routes/PurchaseHistory';
 import MyPage from './routes/MyPage';
 import Payment from './routes/Payment';
+import SalesHistory from './routes/SalesHistory';
+import WishHistory from './routes/WishHistory';
 // protected route : home,signin,signup,kakaoRedirection,shop 제외 모든 페이지
 export default function Router() {
   return (
@@ -24,11 +26,13 @@ export default function Router() {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/posts/:id' element={<PostDetail />} />
         <Route path='/purchase-history' element={<PurchaseHistory />} />
+        <Route path='/posts/new' element={<PostCreate />} />
+        <Route path='/sales-history' element={<SalesHistory />} />
+        <Route path='/wish-history' element={<WishHistory />} />
       </Route>
       <Route path='/mypage' element={<MyPage />} />
       <Route path='/mypage/update' element={<ProfileUpdate />} />
       <Route path='/auth/kakao' element={<KakaoRedirection />} />
-      <Route path='/posts/new' element={<PostCreate />} />
       <Route path='/posts/edit/:id' element={<PostEdit />} />
       <Route path='/shop/:id' element={<Shop />} />
       <Route path='/mypage/charge' element={<PointCharge />} />

@@ -86,7 +86,7 @@ export default function ProfileUpdate() {
                 onChange={onUploadImage}
                 className='hidden'
               />
-              <button onClick={onUploadBtnClick} className='mb-10 btn btn-neutral'>
+              <button type='button' onClick={onUploadBtnClick} className='mb-10 btn btn-neutral'>
                 이미지 업로드
               </button>
 
