@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import logo from '../assets/logo.webp';
-import Profile from '../components/common/Profile';
+import Profile from '../components/Profile/Profile';
 
 export default function Shop() {
   const { id } = useParams();

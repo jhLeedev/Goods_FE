@@ -1,12 +1,18 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { IPointCalc } from '../../types/interface';
 
-export default function PointCalc({ type, bank, account }: IPointCalc) {
+export default function PointCalc({ type, bank, account, password }: IPointCalc) {
   const [point, setPoint] = useState('');
   const [isNegative, setIsNegative] = useState<boolean>(false);
   const [isValid, setIsValid] = useState<boolean>(false);
 
-  const typeStr = type === 'charge' ? '충전' : '송금';
+  const typeDescription: { [key: string]: string } = {
+    charge: '충전',
+    transfer: '송금',
+    payment: '결제',
+  };
+
+  const typeStr = typeDescription[type];
 
   /* 추후 잔액 조회 api 구현 예정 */
   const curPoint = 1000;
@@ -36,14 +42,15 @@ export default function PointCalc({ type, bank, account }: IPointCalc) {
   };
 
   useEffect(() => {
-    if (type === 'transfer' && bank && account && point) {
-      return setIsValid(true);
-    }
-    if (type === 'charge' && point) {
+    if (
+      (type === 'transfer' && bank && account && point) ||
+      (type === 'charge' && point) ||
+      (type === 'payment' && password && point)
+    ) {
       return setIsValid(true);
     }
     return setIsValid(false);
-  }, [bank, account, point, type]);
+  }, [bank, account, point, type, password]);
 
   const handleSubmit = () => {
     if (type === 'transfer') {
@@ -52,11 +59,16 @@ export default function PointCalc({ type, bank, account }: IPointCalc) {
         bank,
         account,
       });
-      return;
+    } else if (type === 'payment') {
+      console.log({
+        point: Number(point),
+        password,
+      });
+    } else {
+      console.log({
+        point,
+      });
     }
-    console.log({
-      point,
-    });
   };
 
   return (
@@ -78,12 +90,12 @@ export default function PointCalc({ type, bank, account }: IPointCalc) {
           />
         </label>
         {isNegative && (
-          <p className='text-base font-normal text-right text-red-700'>
-            현재 포인트보다 많은 금액은 송금할 수 없습니다.
+          <p className='mt-2 text-sm font-normal text-right text-red-700'>
+            현재 포인트보다 많은 금액은 {typeStr}할 수 없습니다.
           </p>
         )}
       </div>
-      <div className='flex flex-col justify-center w-full h-40 max-w-lg px-5 py-5 my-10 border border-neutral md:px-10'>
+      <div className='flex flex-col justify-center w-full h-40 max-w-lg px-5 py-5 my-10 border rounded-xl border-neutral md:px-10'>
         <div className='flex items-center justify-between flex-auto w-full'>
           <p className='text-lg font-bold md:text-xl'>현재 포인트</p>
           {/* 사용자 포인트 받아오기 */}

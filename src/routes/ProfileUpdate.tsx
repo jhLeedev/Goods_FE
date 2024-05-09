@@ -1,23 +1,17 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.webp';
-import { getProfileInfo, updateProfileInfo } from '../store/api';
-import { useMutation, useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { IProfileUpdate } from '../types/interface';
 import React, { useRef, useState } from 'react';
+import { useProfileQuery, useUpdateProfileMutation } from '../service/mypage/useUserQueries';
 
 export default function ProfileUpdate() {
-  const { isLoading, data } = useQuery({
-    queryKey: ['profile'],
-    queryFn: getProfileInfo,
-  });
+  const { isLoading, data } = useProfileQuery();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [curImg, setCurImg] = useState<string>(data?.profile_image || '');
 
   const imageRef = useRef<HTMLInputElement | null>(null);
-
-  const navigate = useNavigate();
 
   const {
     register,
@@ -26,12 +20,7 @@ export default function ProfileUpdate() {
     formState: { errors },
   } = useForm<IProfileUpdate>();
 
-  const { mutate } = useMutation({
-    mutationFn: updateProfileInfo,
-    onSuccess: () => {
-      navigate('/mypage');
-    },
-  });
+  const mutate = useUpdateProfileMutation();
 
   const onSubmit = handleSubmit((form: IProfileUpdate) => {
     const formData = new FormData();
@@ -65,7 +54,7 @@ export default function ProfileUpdate() {
 
   return (
     <>
-      <div className='h-20 px-3 py-3 flex justify-normal md:px-7'>
+      <div className='flex h-20 px-3 py-3 justify-normal md:px-7'>
         <Link to='/'>
           <div className='p-1 rounded-lg hover:bg-neutral-100 '>
             <img src={logo} alt='logo img' className='w-12 h-12' />
@@ -73,7 +62,7 @@ export default function ProfileUpdate() {
         </Link>
       </div>
       <div className='w-full px-5 md:mx-auto md:max-w-5xl'>
-        <h2 className='text-center my-12 text-2xl font-bold md:text-3xl'>프로필 수정</h2>
+        <h2 className='my-12 text-2xl font-bold text-center md:text-3xl'>프로필 수정</h2>
         {isLoading ? (
           'Loading...'
         ) : (
@@ -87,7 +76,7 @@ export default function ProfileUpdate() {
             </div>
             <form
               onSubmit={onSubmit}
-              className='w-full mb-10 px-5 flex flex-col items-center justify-center gap-y-3 md:mx-auto md:max-w-5xl'
+              className='flex flex-col items-center justify-center w-full px-5 mb-10 gap-y-3 md:mx-auto md:max-w-5xl'
             >
               <input
                 type='file'
@@ -97,7 +86,7 @@ export default function ProfileUpdate() {
                 onChange={onUploadImage}
                 className='hidden'
               />
-              <button onClick={onUploadBtnClick} className='btn btn-neutral mb-10'>
+              <button type='button' onClick={onUploadBtnClick} className='mb-10 btn btn-neutral'>
                 이미지 업로드
               </button>
 

@@ -10,7 +10,7 @@ export const profileData: IProfileData = {
   username: '홍길동',
   phoneNumber: '010-1234-5678',
   profile_image: 'www.google.com',
-  star: 3.0,
+  star: 3.5,
 };
 const badgeData = {
   badge: 'sell',
@@ -54,7 +54,7 @@ let wishHistoryData: IWishHistoryData[] = [
 ];
 
 export const handlers = [
-  http.get('/profile', () => {
+  http.get('/member/profile', () => {
     return HttpResponse.json(profileData);
   }),
   http.get('/member/badge', () => {
@@ -64,7 +64,7 @@ export const handlers = [
     return HttpResponse.json(tokenData);
   }),
   http.post('/auth/email', () => HttpResponse.json(1234)),
-  http.put('/member', async ({ request }) => {
+  http.put('/member/profile', async ({ request }) => {
     const req = await request.formData();
     return HttpResponse.formData(req);
   }),
@@ -79,6 +79,10 @@ export const handlers = [
     console.log(req);
 
     return HttpResponse.json(req);
+  }),
+  http.post('/goods/new', async ({ request }) => {
+    const req = await request.formData();
+    return HttpResponse.formData(req);
   }),
   http.get('/api/goods/sales', () => HttpResponse.json(salesHistoryData)),
   http.get('/api/goods/likes', () => HttpResponse.json(wishHistoryData)),

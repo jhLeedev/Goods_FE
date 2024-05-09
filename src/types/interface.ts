@@ -41,6 +41,7 @@ export interface IPointCalc {
   type: string;
   bank?: string;
   account?: number;
+  password?: number;
 }
 
 export interface ISalesHistoryData {
@@ -80,4 +81,14 @@ export interface ICardListItemProps {
   uploadBefore: string;
   status: string;
   price: number;
+}
+
+export interface IPostCreate {
+  goods_name: string;
+  price: string;
+  description: string;
+  goods_images: File[];
+  lat: number;
+  lng: number;
+  detail_location: string;
 }
