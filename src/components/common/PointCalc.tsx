@@ -95,7 +95,7 @@ export default function PointCalc({ type, bank, account, password }: IPointCalc)
           </p>
         )}
       </div>
-      <div className='flex flex-col justify-center w-full h-40 max-w-lg px-5 py-5 my-10 border border-neutral md:px-10'>
+      <div className='flex flex-col justify-center w-full h-40 max-w-lg px-5 py-5 my-10 border rounded-xl border-neutral md:px-10'>
         <div className='flex items-center justify-between flex-auto w-full'>
           <p className='text-lg font-bold md:text-xl'>현재 포인트</p>
           {/* 사용자 포인트 받아오기 */}

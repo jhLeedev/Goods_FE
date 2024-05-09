@@ -42,4 +42,8 @@ export const handlers = [
 
     return HttpResponse.json(req);
   }),
+  http.post('/goods/new', async ({ request }) => {
+    const req = await request.formData();
+    return HttpResponse.formData(req);
+  }),
 ];
