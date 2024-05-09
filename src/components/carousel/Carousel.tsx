@@ -16,10 +16,13 @@ export default function Carousel({ images }: { images: string[] }) {
   };
 
   return (
-    <div className='relative w-full h-52 mb-4 md:w-96 md:h-96 md:mb-0 md:mr-8 md:max-w-5xl'>
-      <div className='absolute transform -translate-y-1/2 left-5 right-5 top-1/2'>
+    <div className='relative w-full mb-4 h-52 md:w-96 md:h-96 md:mb-0 md:mr-8 md:max-w-5xl'>
+      <div className='absolute h-12 -translate-y-1/2 left-5 right-5 top-1/2'>
         {curIndex > 0 && (
-          <button onClick={handleImgPrevious} className='btn btn-circle'>
+          <button
+            onClick={handleImgPrevious}
+            className='absolute top-0 left-0 opacity-70 btn btn-circle'
+          >
             <svg
               xmlns='http://www.w3.org/2000/svg'
               width='16'
@@ -36,7 +39,10 @@ export default function Carousel({ images }: { images: string[] }) {
           </button>
         )}
         {curIndex < images.length - 1 && (
-          <button onClick={handleImgNext} className='absolute top-0 right-0 btn btn-circle'>
+          <button
+            onClick={handleImgNext}
+            className='absolute top-0 right-0 opacity-70 btn btn-circle'
+          >
             <svg
               xmlns='http://www.w3.org/2000/svg'
               width='16'
@@ -53,7 +59,7 @@ export default function Carousel({ images }: { images: string[] }) {
           </button>
         )}
       </div>
-      <img src={images[curIndex]} className='w-full h-full object-cover' alt='carousel' />
+      <img src={images[curIndex]} className='object-cover w-full h-full' alt='carousel' />
     </div>
   );
 }
