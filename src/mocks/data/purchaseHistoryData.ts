@@ -1,4 +1,4 @@
-import { IPurchaseHistoryData } from '../types/interface';
+import { IPurchaseHistoryData } from '../../types/interface';
 
 export const purchaseHistoryData: IPurchaseHistoryData[] = [
   {

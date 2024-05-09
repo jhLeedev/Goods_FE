@@ -64,7 +64,7 @@ export default function MyPage() {
           </div>
           <ul className='w-full min-h-full mt-5 text-xl font-semibold md:ml-0 md:mt-10'>
             <li className='mb-8'>
-              <a href='/#' className='flex items-center'>
+              <Link to='/wish-history' className='inline-flex items-center'>
                 <p className='mr-4'>관심 목록</p>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -79,11 +79,11 @@ export default function MyPage() {
                     d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708'
                   />
                 </svg>
-              </a>
+              </Link>
             </li>
             <li className='my-8'>
-              <a href='/#' className='flex items-center'>
-                <p className='mr-4'>판매 내역</p>
+              <Link to='/sales-history' className='inline-flex items-center'>
+                <p className='mr-4'>판매 내역</p>{' '}
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width='16'
@@ -97,10 +97,10 @@ export default function MyPage() {
                     d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708'
                   />
                 </svg>
-              </a>
+              </Link>
             </li>
             <li className='my-8'>
-              <Link to='/purchase-history' className='flex items-center'>
+              <Link to='/purchase-history' className='inline-flex items-center'>
                 <p className='mr-4'>구매 내역</p>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
