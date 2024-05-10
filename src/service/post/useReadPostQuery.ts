@@ -4,7 +4,7 @@ import { IGoodsData } from '../../types/interface';
 
 export const useReadPostQuery = (goodsId: string) => {
   const { isLoading, data } = useQuery<IGoodsData>({
-    queryKey: ['goodsDetail'],
+    queryKey: ['goodsDetail', goodsId],
     queryFn: async () => (await axios.get(`/goods/${goodsId}`)).data,
   });
 

@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import Profile from '../components/Profile/Profile';
+import Profile from '../components/profile/Profile';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.webp';
 import { useResignMutation } from '../service/mypage/useUserQueries';
@@ -15,7 +15,7 @@ export default function MyPage() {
   const { mutate, isError } = useResignMutation(dialogRef);
 
   const handleResign = () => {
-    mutate({ password: `${password}` });
+    mutate({ password });
   };
 
   return (

@@ -125,4 +125,8 @@ export const handlers = [
     wishHistoryData.push(req as IWishHistoryData);
     return HttpResponse.json(wishHistoryData);
   }),
+  http.put('/goods/:goodsId', async ({ request }) => {
+    const req = await request.formData();
+    return HttpResponse.formData(req);
+  }),
 ];

@@ -11,3 +11,13 @@ export const homeListState = atom<IMapLocation[]>({
   key: 'homeList',
   default: [],
 });
+
+export const imgFilesState = atom<File[]>({
+  key: 'imgFiles',
+  default: [],
+});
+
+export const imgUrlListState = atom<string[]>({
+  key: 'imgUrlList',
+  default: [],
+});

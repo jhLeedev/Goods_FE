@@ -25,15 +25,15 @@ export default function Router() {
         <Route path='/signin' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/posts/:id' element={<PostDetail />} />
-        <Route path='/purchase-history' element={<PurchaseHistory />} />
         <Route path='/posts/new' element={<PostCreate />} />
+        <Route path='/posts/edit/:id' element={<PostEdit />} />
+        <Route path='/purchase-history' element={<PurchaseHistory />} />
         <Route path='/sales-history' element={<SalesHistory />} />
         <Route path='/wish-history' element={<WishHistory />} />
       </Route>
       <Route path='/mypage' element={<MyPage />} />
       <Route path='/mypage/update' element={<ProfileUpdate />} />
       <Route path='/auth/kakao' element={<KakaoRedirection />} />
-      <Route path='/posts/edit/:id' element={<PostEdit />} />
       <Route path='/shop/:id' element={<Shop />} />
       <Route path='/mypage/charge' element={<PointCharge />} />
       <Route path='/mypage/transfer' element={<Transfer />} />
