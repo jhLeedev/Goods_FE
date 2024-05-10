@@ -59,7 +59,11 @@ export default function Carousel({ images }: { images: string[] }) {
           </button>
         )}
       </div>
-      <img src={images[curIndex]} className='object-cover w-full h-full' alt='carousel' />
+      <img
+        src={images[curIndex]}
+        className='object-cover w-full h-full rounded-xl'
+        alt='carousel'
+      />
     </div>
   );
 }
