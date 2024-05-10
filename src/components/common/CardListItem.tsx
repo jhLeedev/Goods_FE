@@ -25,6 +25,11 @@ export default function CardListItem({
   const handleCloseModal = () => setShowModal(false);
   const handleSubmitComplete = () => setIsSubmit(true);
 
+  const addComma = (price: string): string => {
+    const commaPrice = price.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return commaPrice;
+  };
+
   return (
     <>
       <li
@@ -33,16 +38,30 @@ export default function CardListItem({
           showModal && 'bg-neutral-400'
         }`}
       >
-        <div className='flex items-center justify-start p-1 gap-x-5'>
-          <img className='w-20 h-24 rounded-xl' src={img} alt='img' />
-          <div className='relative flex flex-col w-full p-0 gap-y-2'>
-            <span className='text-sm font-bold'>{name}</span>
-            <span className='text-xs text-neutral-500'>{soldBefore ?? uploadBefore}</span>
-            <div className='flex items-center justify-start text-sm gap-x-2'>
-              <div className='flex items-center justify-center p-1 text-xs text-white w-14 bg-neutral-500 rounded-xl'>
-                {status}
-              </div>
-              <span>{price}원</span>
+        <div className='flex items-center justify-start p-4 gap-x-8'>
+          <img className='object-cover w-24 h-24 rounded-xl md:w-32 md:h-32' src={img} alt='img' />
+          <div className='relative flex flex-col flex-1 py-2'>
+            <p className='text-lg font-bold'>{name}</p>
+            <p className='flex-1 mt-2 mb-4 text-sm text-neutral-500'>
+              {soldBefore ?? uploadBefore}
+            </p>
+            <div className='flex items-center justify-start text-base gap-x-2'>
+              {status === '판매중' && (
+                <div className='flex items-center justify-center w-16 p-1 text-sm text-white bg-secondary rounded-xl'>
+                  {status}
+                </div>
+              )}
+              {status === '예약중' && (
+                <div className='flex items-center justify-center w-16 p-1 text-sm text-white bg-neutral-500 rounded-xl'>
+                  {status}
+                </div>
+              )}
+              {status === '거래완료' && (
+                <div className='flex items-center justify-center w-16 p-1 text-sm text-white bg-neutral rounded-xl'>
+                  {status}
+                </div>
+              )}
+              <span className='font-bold'>{addComma(String(price))}원</span>
             </div>
             {wishHistoryMatch && <AddWishListButton goodsId={id} />}
           </div>
@@ -50,7 +69,7 @@ export default function CardListItem({
         {purchaseHistoryMatch && (
           <button
             onClick={handleOpenModalClick}
-            className='bottom-0 left-0 w-full btn btn-sm btn-active btn-neutral'
+            className='bottom-0 left-0 w-full btn btn-active btn-neutral'
             disabled={isSubmit}
           >
             <svg

@@ -17,14 +17,14 @@ export default function AddWishListButton({ goodsId }: { goodsId: number }) {
     setIsAdded(false);
   };
   return (
-    <button onClick={handleLikeBtnClick} className='absolute top-0 right-0 mr-2'>
+    <button onClick={handleLikeBtnClick} className='absolute right-2 top-2'>
       <svg
         xmlns='http://www.w3.org/2000/svg'
         fill='none'
         viewBox='0 0 24 24'
         strokeWidth={1.5}
-        stroke='currentColor'
-        className={`w-7 h-7 ${isAdded && 'fill-primary'}`}
+        stroke='primary'
+        className={`w-8 h-8 stroke-primary ${isAdded && 'fill-primary'}`}
       >
         <path
           strokeLinecap='round'

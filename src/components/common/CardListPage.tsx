@@ -10,9 +10,9 @@ export default function CardListPage({
   title: string;
 }) {
   return (
-    <div className='flex items-center justify-center px-3 py-5'>
-      <ul className='flex flex-col items-center justify-center w-full md:w-[500px] mt-5  gap-y-3'>
-        <h1 className='mr-auto text-2xl font-bold md:text-3xl '>{title}</h1>
+    <div className='max-w-md px-5 mx-auto md:max-w-5xl'>
+      <ul className='flex flex-col items-center justify-center w-full mx-auto md:max-w-xl gap-y-3'>
+        <h1 className='my-12 text-2xl font-bold text-center md:text-3xl'>{title}</h1>
         {data.length === 0 ? (
           <div className='flex flex-col items-center justify-center w-full h-96 gap-y-5'>
             <svg
