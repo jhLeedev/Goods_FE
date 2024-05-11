@@ -1,19 +1,32 @@
-import { Children, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Map, MapMarker, ZoomControl } from 'react-kakao-maps-sdk';
-import { IMapLocation, IMyLocation, IPostCreate } from '../types/interface';
+import { IEditPostData, IMapLocation, IMyLocation, IPostCreate } from '../types/interface';
 import { useForm } from 'react-hook-form';
 import { useCreatePostMutation } from '../service/post/useCreatePostMutation';
+import { useRecoilValue } from 'recoil';
+import { imgFilesState, imgUrlListState } from '../store/atom';
+import PostImgList from '../components/postImg/PostImgList';
+import { useMatch } from 'react-router-dom';
+import { useUpdatePostMutation } from '../service/post/useUpdatePostMutation';
 
-export default function PostCreate() {
-  const [files, setFiles] = useState<File[]>([]);
-  const [thumbnails, setThumbnails] = useState<string[]>([]);
-  const imageRef = useRef<HTMLInputElement | null>(null);
-  const maxFileCount = 10;
+export default function PostCreate({
+  goods_id,
+  goods_name,
+  price,
+  description,
+  lat,
+  lng,
+  detail_location,
+  curImages,
+}: Partial<IEditPostData>) {
+  const newPostMatch = useMatch('/posts/new');
+  const files = useRecoilValue<File[]>(imgFilesState);
+  const imgUrls = useRecoilValue<string[]>(imgUrlListState);
   const [position, setPosition] = useState<IMapLocation>();
   const [state, setState] = useState<IMyLocation>({
     center: {
-      lat: 37.5696765,
-      lng: 126.976502,
+      lat: lat ?? 37.5696765,
+      lng: lng ?? 126.976502,
     },
     errMsg: null,
     isLoading: true,
@@ -40,121 +53,44 @@ export default function PostCreate() {
     }
   }, []);
 
-  /* 메모리 관리 */
-  useEffect(() => {
-    return () => {
-      if (thumbnails) {
-        thumbnails.forEach((thumbnail) => URL.revokeObjectURL(thumbnail));
-      }
-    };
-  }, [thumbnails]);
-
   /* 데이터 전송 관련 */
-  const mutate = useCreatePostMutation();
+  const newPostMutate = useCreatePostMutation();
+  const updateMutate = useUpdatePostMutation();
 
   const onSubmit = handleSubmit((form: IPostCreate) => {
-    if (files.length === 0) {
+    if (imgUrls.length + files.length < 1) {
       // eslint-disable-next-line no-alert
       alert('사진을 업로드해주세요.');
     }
     const formData = new FormData();
+    imgUrls.forEach((url) => {
+      formData.append('goods_imgesUrl', url);
+    });
     files.forEach((file) => {
       formData.append('goods_images', file);
     });
     formData.append('goods_name', form.goods_name);
-    formData.append('price', form.price);
+    formData.append('price', String(form.price));
     formData.append('description', form.description);
     formData.append('lat', String(position?.lat ?? state.center.lat));
     formData.append('lng', String(position?.lng ?? state.center.lng));
     formData.append('detail_location', form.detail_location);
-    mutate(formData);
+    if (newPostMatch) {
+      newPostMutate(formData);
+    } else {
+      updateMutate({
+        post: formData,
+        goods_id: goods_id!,
+      });
+    }
   });
-
-  /* 이미지 업로드 버튼 관련 메서드들 */
-  const onUploadBtnClick = () => {
-    if (!imageRef.current) {
-      return;
-    }
-    imageRef.current.click();
-  };
-
-  const onUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) {
-      return;
-    }
-    const remainFileCount = maxFileCount - files.length;
-    if (e.target.files.length > remainFileCount) {
-      // eslint-disable-next-line no-alert
-      return alert(`사진은 최대 ${maxFileCount}개까지 첨부 가능합니다.`);
-    }
-    const newFiles = Array.from(e.target.files);
-    const allFiles = [...files, ...newFiles];
-    setFiles(allFiles);
-
-    const urlList = allFiles.map((file) => URL.createObjectURL(file));
-    setThumbnails(urlList);
-  };
-
-  const handleRemove = (idx: number) => {
-    const updatedFiles = files.filter((_, i) => i !== idx);
-    const updatedThumbnails = thumbnails.filter((_, i) => i !== idx);
-    setFiles(updatedFiles);
-    setThumbnails(updatedThumbnails);
-  };
 
   return (
     <div className='w-full px-5 md:mx-auto md:max-w-5xl'>
-      <h2 className='my-12 text-2xl font-bold text-center md:text-3xl'>상품 등록</h2>
-      <div className='w-full max-w-lg mx-auto md:max-w-5xl md:mt-24'>
-        <div className='flex h-32 mb-6 overflow-x-auto md:h-44'>
-          {thumbnails.map((url, idx) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <div key={url + idx} className='mr-4 avatar'>
-              <div className='relative w-24 h-24 rounded-xl md:w-36 md:h-36'>
-                <img src={url} alt='uploaded_image' />
-                <button
-                  onClick={() => handleRemove(idx)}
-                  className='absolute top-1 right-1 btn btn-xs md:btn-sm btn-circle btn-neutral'
-                >
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    className='w-4 h-4 md:w-6 md:h-6'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth='2'
-                      d='M6 18L18 6M6 6l12 12'
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          ))}
-          {Children.toArray(
-            [...Array(maxFileCount - files.length)].map(() => (
-              <div className='mr-4 avatar'>
-                <div className='w-24 h-24 border-2 rounded-xl md:w-36 md:h-36' />
-              </div>
-            )),
-          )}
-        </div>
-        <input
-          type='file'
-          accept='image/*'
-          name='thumbnail'
-          ref={imageRef}
-          onChange={onUploadImage}
-          className='hidden'
-          multiple
-        />
-        <button type='button' onClick={onUploadBtnClick} className='mb-6 btn btn-neutral'>
-          이미지 업로드
-        </button>
-      </div>
+      <h2 className='my-12 text-2xl font-bold text-center md:text-3xl'>
+        {newPostMatch ? '상품 등록' : '상품 수정'}
+      </h2>
+      <PostImgList prevThumbnails={curImages ?? []} />
       <form
         onSubmit={onSubmit}
         className='flex flex-col items-start w-full max-w-lg mx-auto mb-10 md:max-w-5xl'
@@ -171,6 +107,7 @@ export default function PostCreate() {
             id='priceInput'
             type='number'
             className='font-normal text-right grow'
+            defaultValue={price}
           />
           원
         </label>
@@ -188,6 +125,7 @@ export default function PostCreate() {
             id='nameInput'
             type='text'
             className='font-normal text-right grow'
+            defaultValue={goods_name}
           />
         </label>
         {errors?.goods_name && <p className='mt-2 text-red-700'>{errors.goods_name.message}</p>}
@@ -197,6 +135,7 @@ export default function PostCreate() {
             required: { message: '필수항목입니다.', value: true },
           })}
           placeholder='상세 내용'
+          defaultValue={description}
           className='w-full max-w-lg p-4 mt-4 text-base textarea md:mt-8 textarea-bordered textarea-sm md:max-w-5xl md:min-h-60'
         />
         {errors?.description && <p className='mt-2 text-red-700'>{errors.description.message}</p>}
@@ -223,6 +162,7 @@ export default function PostCreate() {
           })}
           type='text'
           placeholder='상세 주소 입력'
+          defaultValue={detail_location}
           className='w-full max-w-lg mt-4 md:mt-8 input input-bordered md:max-w-5xl'
         />
         {errors?.detail_location && (
@@ -230,7 +170,7 @@ export default function PostCreate() {
         )}
 
         <button className='w-full max-w-lg mt-4 md:btn-lg md:mt-8 btn btn-primary md:max-w-32'>
-          등록하기
+          {newPostMatch ? '등록하기' : '수정하기'}
         </button>
       </form>
     </div>
