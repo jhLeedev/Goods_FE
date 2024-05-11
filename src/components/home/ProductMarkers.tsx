@@ -1,12 +1,13 @@
 import { MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk';
 import { useLocationDataQuery } from '../../service/map/useLocationDataQuery';
-import { useSetRecoilState } from 'recoil';
-import { homeListState } from '../../store/atom';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { homeListState, searchResultState } from '../../store/atom';
 import { IMapLocation } from '../../types/interface';
 
 export default function ProductMarkers() {
   const { data, isLoading } = useLocationDataQuery();
   const setListState = useSetRecoilState(homeListState);
+  const searchList = useRecoilValue(searchResultState);
 
   const handleClusterClick = (_: kakao.maps.MarkerClusterer, cluster: kakao.maps.Cluster) => {
     const markerList = cluster.getMarkers().map((item) => item.getPosition().getLat().toFixed(10));
@@ -32,16 +33,27 @@ export default function ProductMarkers() {
       onClusterclick={handleClusterClick}
       gridSize={100}
     >
-      {data?.map((pos) => (
-        <MapMarker
-          key={`${pos.lat}-${pos.lng}`}
-          position={{
-            lat: pos.lat,
-            lng: pos.lng,
-          }}
-          onClick={() => handleMarkerClick(pos)}
-        />
-      ))}
+      {searchList.length === 0
+        ? data?.map((pos) => (
+            <MapMarker
+              key={`${pos.lat}-${pos.lng}`}
+              position={{
+                lat: pos.lat,
+                lng: pos.lng,
+              }}
+              onClick={() => handleMarkerClick(pos)}
+            />
+          ))
+        : searchList.map((item) => (
+            <MapMarker
+              key={`${item.lat}-${item.lng}`}
+              position={{
+                lat: item.lat,
+                lng: item.lng,
+              }}
+              onClick={() => handleMarkerClick({ lat: item.lat, lng: item.lng })}
+            />
+          ))}
     </MarkerClusterer>
   );
 }
