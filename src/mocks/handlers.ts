@@ -3,6 +3,7 @@ import { IProfileData, IWishHistoryData } from '../types/interface';
 import { positions } from './data/positionData';
 import { purchaseHistoryData } from './data/purchaseHistoryData';
 import { salesHistoryData } from './data/salesHistoryData';
+import { searchData } from './data/searchData';
 // import { wishHistoryData } from './data/wishHistoryData';
 
 /* profile mock data */
@@ -95,5 +96,13 @@ export const handlers = [
     const req = await request.json();
     wishHistoryData.push(req as IWishHistoryData);
     return HttpResponse.json(wishHistoryData);
+  }),
+  http.get('/api/goods/all', () => HttpResponse.json(searchData)), // 임시
+  http.get('/api/goods/search', ({ request }) => {
+    const queryParams = new URL(request.url);
+    const keyword = queryParams.searchParams.get('word');
+    if (!keyword) return new HttpResponse(null, { status: 404 });
+    const res = searchData.filter((item) => item.name.toLowerCase() === keyword.toLowerCase());
+    return HttpResponse.json(res);
   }),
 ];
