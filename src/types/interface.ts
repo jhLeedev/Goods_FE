@@ -85,7 +85,7 @@ export interface ICardListItemProps {
 
 export interface IPostCreate {
   goods_name: string;
-  price: string;
+  price: number;
   description: string;
   goods_images: File[];
   lat: number;
@@ -109,4 +109,9 @@ export interface IGoodsData {
   lat: number;
   lng: number;
   detail_location: string;
+}
+
+export interface IEditPostData extends IPostCreate {
+  goods_id: string;
+  curImages: string[];
 }

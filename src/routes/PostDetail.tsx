@@ -112,7 +112,13 @@ export default function PostDetail() {
               )}
             </button>
             <h3 className='flex-1 text-xl font-bold'>{addComma(data!.price)}원</h3>
-            <button className='btn btn-primary md:btn-lg'>채팅하기</button>
+            {isAutor ? (
+              <Link to={`/posts/edit/${goodsId}`} className='btn btn-primary md:btn-lg'>
+                수정하기
+              </Link>
+            ) : (
+              <button className='btn btn-primary md:btn-lg'>채팅하기</button>
+            )}
           </div>
         </div>
       </div>
