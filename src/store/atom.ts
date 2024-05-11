@@ -1,5 +1,6 @@
 import { atom } from 'recoil';
 import { IMapLocation } from '../types/interface';
+import { ISearchData } from '../mocks/data/searchData';
 
 export const isLoggedInState = atom({
   // 임시 로그인 상태
@@ -19,5 +20,10 @@ export const imgFilesState = atom<File[]>({
 
 export const imgUrlListState = atom<string[]>({
   key: 'imgUrlList',
+  default: [],
+});
+
+export const searchResultState = atom<ISearchData[]>({
+  key: 'searchlist',
   default: [],
 });
