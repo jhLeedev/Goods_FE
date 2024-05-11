@@ -1,13 +1,13 @@
 import { Children, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { imgFilesState, imgUrlListState } from '../../store/atom';
+import { MAXFILECOUNT } from '../../constants';
 
 export default function PostImgList({ prevThumbnails }: { prevThumbnails: string[] }) {
   const [files, setFiles] = useRecoilState<File[]>(imgFilesState);
   const [imgUrls, setImgUrls] = useRecoilState<string[]>(imgUrlListState);
   const [allThumbnails, setAllThumbnails] = useState<string[]>(prevThumbnails);
   const imageRef = useRef<HTMLInputElement | null>(null);
-  const maxFileCount = 10;
 
   useEffect(() => {
     setImgUrls(prevThumbnails);
@@ -26,10 +26,10 @@ export default function PostImgList({ prevThumbnails }: { prevThumbnails: string
     if (!e.target.files) {
       return;
     }
-    const remainFileCount = maxFileCount - allThumbnails.length;
+    const remainFileCount = MAXFILECOUNT - allThumbnails.length;
     if (e.target.files.length > remainFileCount) {
       // eslint-disable-next-line no-alert
-      return alert(`사진은 최대 ${maxFileCount}개까지 첨부 가능합니다.`);
+      return alert(`사진은 최대 ${MAXFILECOUNT}개까지 첨부 가능합니다.`);
     }
     const newFiles = Array.from(e.target.files);
     const allFiles = [...files, ...newFiles];
@@ -85,7 +85,7 @@ export default function PostImgList({ prevThumbnails }: { prevThumbnails: string
           </div>
         ))}
         {Children.toArray(
-          [...Array(maxFileCount - allThumbnails.length)].map(() => (
+          [...Array(MAXFILECOUNT - allThumbnails.length)].map(() => (
             <div className='mr-4 avatar'>
               <div className='w-24 h-24 border-2 rounded-xl md:w-36 md:h-36' />
             </div>
