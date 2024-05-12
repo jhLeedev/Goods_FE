@@ -4,6 +4,7 @@ import { useReadPostQuery } from '../service/post/useReadPostQuery';
 import { Link, useParams } from 'react-router-dom';
 import { useUpdateStateMutation } from '../service/post/useUpdateStateMutation';
 import AddWishListButton from '../components/common/AddWishListButton';
+import PostDeleteBtn from '../components/postDelete/PostDeleteBtn';
 
 export default function PostDetail() {
   const { id: goodsId } = useParams();
@@ -59,18 +60,29 @@ export default function PostDetail() {
               </div>
             </Link>
             <div className='md:flex-1'>
-              <h1 className='my-4 text-2xl font-extrabold md:my-8 md:text-3xl'>
-                {data!.goods_name}
-              </h1>
+              <div className='flex items-center font-extrabold md:text-3xl'>
+                {data!.goods_status === '예약중' && (
+                  <div className='h-8 mr-2 text-white md:h-10 md:mr-4 badge badge-neutral-500 md:badge-lg bg-neutral-500'>
+                    {data!.goods_status}
+                  </div>
+                )}
+                {data!.goods_status === '거래완료' && (
+                  <div className='h-8 mr-2 text-white md:h-10 md:mr-4 badge badge-neutral md:badge-lg bg-neutral'>
+                    {data!.goods_status}
+                  </div>
+                )}
+                <h1 className='my-4 text-2xl md:my-8 md:text-3xl'>{data!.goods_name}</h1>
+              </div>
               <div className='flex items-center justify-between md:flex-1'>
                 <h2 className='text-sm text-stone-400 md:text-base'>{data!.uploadedBefore}</h2>
                 {isAutor && (
                   <select
                     name='goods-state'
+                    defaultValue={data.goods_status}
                     onChange={(e) => handleState(e.target.value)}
                     className='w-32 md:w-40 select select-bordered'
                   >
-                    <option defaultValue='판매중'>판매중</option>
+                    <option value='판매중'>판매중</option>
                     <option value='예약중'>예약중</option>
                     <option value='거래완료'>거래완료</option>
                   </select>
@@ -84,11 +96,28 @@ export default function PostDetail() {
             </div>
             <h3 className='flex-1 text-xl font-bold'>{addComma(data!.price)}원</h3>
             {isAutor ? (
-              <Link to={`/posts/edit/${goodsId}`} className='btn btn-primary md:btn-lg'>
-                수정하기
-              </Link>
+              <>
+                <Link to={`/posts/edit/${goodsId}`} className='mr-2 btn-primary btn'>
+                  수정
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    width='16'
+                    height='16'
+                    fill='currentColor'
+                    className='bi bi-pencil-square'
+                    viewBox='0 0 16 16'
+                  >
+                    <path d='M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z' />
+                    <path
+                      fillRule='evenodd'
+                      d='M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z'
+                    />
+                  </svg>
+                </Link>
+                <PostDeleteBtn goodsId={goodsId!} />
+              </>
             ) : (
-              <button className='btn btn-primary md:btn-lg'>채팅하기</button>
+              <button className='mr-2 btn btn-primary'>채팅하기</button>
             )}
           </div>
         </div>

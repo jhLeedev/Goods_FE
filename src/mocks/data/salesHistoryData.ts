@@ -8,7 +8,7 @@ export const salesHistoryData: ISalesHistoryData[] = [
       'https://m.thirdkit-mall.com/web/product/big/202303/f30c6ed12a4c69d6f9c0f6eadfb38024.jpg',
     goods_status: '거래완료',
     soldBefore: '1년전',
-    id: 1,
+    id: 3,
   },
   {
     goods_name: '유니폼',
