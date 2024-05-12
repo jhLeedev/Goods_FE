@@ -15,9 +15,9 @@ export default function Payment() {
           </div>
         </Link>
       </div>
-      <div className='flex flex-col items-center w-full px-5 md:mx-auto md:max-w-5xl'>
+      <div className='flex flex-col items-center w-full max-w-lg px-5 mx-auto'>
         <h1 className='my-12 text-2xl font-bold text-center md:text-3xl'>결제하기</h1>
-        <div className='flex justify-start w-full max-w-lg md:max-w-5xl'>
+        <div className='flex justify-start w-full max-w-lg'>
           <img
             className='object-cover w-24 h-24 mr-4 rounded-xl'
             src='https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.jpg'

@@ -77,7 +77,7 @@ export default function PostDetail() {
               </div>
             </div>
           </div>
-          <div className='fixed bottom-0 left-0 z-50 flex items-center w-full h-20 px-3 py-3 bg-white border-t md:relative md:border-0 md:p-0'>
+          <div className='fixed bottom-0 left-0 flex items-center w-full h-20 px-3 py-3 bg-white border-t z-49 md:relative md:border-0 md:p-0'>
             <button className='btn btn-ghost'>
               {data!.like ? (
                 <svg
