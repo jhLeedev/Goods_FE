@@ -49,7 +49,7 @@ export interface ISalesHistoryData {
   price: number;
   goods_thumbnail: string;
   goods_status: string;
-  soldBefore: string;
+  uploadedBefore: string;
   id: number;
 }
 export interface IPurchaseHistoryData extends ISalesHistoryData {
@@ -68,7 +68,7 @@ export interface IWishHistoryData {
   price: number;
   goods_thumbnail: string;
   goods_status: string;
-  uploadBefore: string;
+  uploadedBefore: string;
   detail_location: string;
   id: number;
 }
@@ -77,8 +77,7 @@ export interface ICardListItemProps {
   id: number;
   img: string;
   name: string;
-  soldBefore: string;
-  uploadBefore: string;
+  uploadedBefore: string;
   status: string;
   price: number;
 }
@@ -109,6 +108,7 @@ export interface IGoodsData {
   lat: number;
   lng: number;
   detail_location: string;
+  goods_id?: number;
 }
 
 export interface IEditPostData extends IPostCreate {

@@ -3,6 +3,8 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useReadPostQuery } from '../service/post/useReadPostQuery';
 import { Link, useParams } from 'react-router-dom';
 import { useUpdateStateMutation } from '../service/post/useUpdateStateMutation';
+import AddWishListButton from '../components/common/AddWishListButton';
+import PostDeleteBtn from '../components/postDelete/PostDeleteBtn';
 
 export default function PostDetail() {
   const { id: goodsId } = useParams();
@@ -77,47 +79,34 @@ export default function PostDetail() {
               </div>
             </div>
           </div>
-          <div className='fixed bottom-0 left-0 flex items-center w-full h-20 px-3 py-3 bg-white border-t z-49 md:relative md:border-0 md:p-0'>
-            <button className='btn btn-ghost'>
-              {data!.like ? (
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  className='w-6 h-6 fill-primary stroke-primary'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  className='w-6 h-6 stroke-primary'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'
-                  />
-                </svg>
-              )}
-            </button>
+          <div className='fixed bottom-0 left-0 z-40 flex items-center w-full h-20 px-3 py-3 bg-white border-t md:relative md:border-0 md:p-0'>
+            <div className='flex items-center ml-2 mr-4 md:ml-0'>
+              <AddWishListButton goodsId={Number(goodsId)} />
+            </div>
             <h3 className='flex-1 text-xl font-bold'>{addComma(data!.price)}원</h3>
             {isAutor ? (
-              <Link to={`/posts/edit/${goodsId}`} className='btn btn-primary md:btn-lg'>
-                수정하기
-              </Link>
+              <>
+                <Link to={`/posts/edit/${goodsId}`} className='mr-2 btn-primary btn'>
+                  수정
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    width='16'
+                    height='16'
+                    fill='currentColor'
+                    className='bi bi-pencil-square'
+                    viewBox='0 0 16 16'
+                  >
+                    <path d='M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z' />
+                    <path
+                      fillRule='evenodd'
+                      d='M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z'
+                    />
+                  </svg>
+                </Link>
+                <PostDeleteBtn goodsId={goodsId!} />
+              </>
             ) : (
-              <button className='btn btn-primary md:btn-lg'>채팅하기</button>
+              <button className='mr-2 btn btn-primary'>채팅하기</button>
             )}
           </div>
         </div>

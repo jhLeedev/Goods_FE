@@ -17,7 +17,7 @@ export default function AddWishListButton({ goodsId }: { goodsId: number }) {
     setIsAdded(false);
   };
   return (
-    <button onClick={handleLikeBtnClick} className='absolute right-2 top-2'>
+    <button onClick={handleLikeBtnClick}>
       <svg
         xmlns='http://www.w3.org/2000/svg'
         fill='none'
