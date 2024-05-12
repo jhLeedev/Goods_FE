@@ -3,6 +3,7 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useReadPostQuery } from '../service/post/useReadPostQuery';
 import { Link, useParams } from 'react-router-dom';
 import { useUpdateStateMutation } from '../service/post/useUpdateStateMutation';
+import AddWishListButton from '../components/common/AddWishListButton';
 
 export default function PostDetail() {
   const { id: goodsId } = useParams();
@@ -78,39 +79,9 @@ export default function PostDetail() {
             </div>
           </div>
           <div className='fixed bottom-0 left-0 z-50 flex items-center w-full h-20 px-3 py-3 bg-white border-t md:relative md:border-0 md:p-0'>
-            <button className='btn btn-ghost'>
-              {data!.like ? (
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  className='w-6 h-6 fill-primary stroke-primary'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  className='w-6 h-6 stroke-primary'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'
-                  />
-                </svg>
-              )}
-            </button>
+            <div className='flex items-center ml-2 mr-4 md:ml-0'>
+              <AddWishListButton goodsId={Number(goodsId)} wish={data!.like} />
+            </div>
             <h3 className='flex-1 text-xl font-bold'>{addComma(data!.price)}원</h3>
             {isAutor ? (
               <Link to={`/posts/edit/${goodsId}`} className='btn btn-primary md:btn-lg'>

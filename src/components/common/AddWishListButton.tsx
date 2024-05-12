@@ -1,15 +1,15 @@
 import { useState } from 'react';
-// import { useAddWishItemMutation } from '../../service/mypage/useAddWishItemMutation';
+import { useAddWishItemMutation } from '../../service/mypage/useAddWishItemMutation';
 import { useRemoveWishItemMutation } from '../../service/mypage/useRemoveWishItemMutation';
 
-export default function AddWishListButton({ goodsId }: { goodsId: number }) {
-  const [isAdded, setIsAdded] = useState(true);
-  //   const addItem = useAddWishItemMutation();
+export default function AddWishListButton({ goodsId, wish }: { goodsId: number; wish: boolean }) {
+  const [isAdded, setIsAdded] = useState(wish);
+  const addItem = useAddWishItemMutation();
   const removeItem = useRemoveWishItemMutation();
 
   const handleLikeBtnClick = () => {
     if (!isAdded) {
-      //   addItem({goodsId,item:});
+      addItem(goodsId);
       setIsAdded(true);
       return;
     }
@@ -17,7 +17,7 @@ export default function AddWishListButton({ goodsId }: { goodsId: number }) {
     setIsAdded(false);
   };
   return (
-    <button onClick={handleLikeBtnClick} className='absolute right-2 top-2'>
+    <button onClick={handleLikeBtnClick}>
       <svg
         xmlns='http://www.w3.org/2000/svg'
         fill='none'

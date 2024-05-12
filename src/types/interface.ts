@@ -78,7 +78,7 @@ export interface ICardListItemProps {
   img: string;
   name: string;
   soldBefore: string;
-  uploadBefore: string;
+  uploadedBefore: string;
   status: string;
   price: number;
 }
@@ -109,6 +109,7 @@ export interface IGoodsData {
   lat: number;
   lng: number;
   detail_location: string;
+  goods_id?: number;
 }
 
 export interface IEditPostData extends IPostCreate {

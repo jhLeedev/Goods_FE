@@ -47,7 +47,7 @@ export default function CardListPage({
                 price={item.price}
                 status={item.goods_status}
                 soldBefore={soldBefore}
-                uploadBefore={uploadBefore}
+                uploadedBefore={uploadBefore}
               />
             );
           })

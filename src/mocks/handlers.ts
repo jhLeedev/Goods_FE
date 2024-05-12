@@ -1,10 +1,10 @@
 import { http, HttpResponse } from 'msw';
-import { IGoodsData, IProfileData, IWishHistoryData } from '../types/interface';
+import { IProfileData, IWishHistoryData } from '../types/interface';
 import { positions } from './data/positionData';
 import { purchaseHistoryData } from './data/purchaseHistoryData';
 import { salesHistoryData } from './data/salesHistoryData';
 import { searchData } from './data/searchData';
-// import { wishHistoryData } from './data/wishHistoryData';
+import { goodsData } from './data/goodsDetailData';
 
 /* profile mock data */
 export const profileData: IProfileData = {
@@ -18,27 +18,6 @@ const badgeData = {
 };
 const tokenData = { accessToken: 'accessaccessaccess', refreshToken: 'refreshrefreshrefresh' };
 
-const goodsData: IGoodsData = {
-  seller_id: 1,
-  profile_img: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-  seller_name: '홍길동',
-  seller_badge: true,
-  manner_badge: false,
-  goods_name: '감자 1kg',
-  price: 20000,
-  description: '선물로 들어왔는데 많아서 내놔요 오늘 배송받았습니다',
-  goods_images: [
-    'https://health.chosun.com/site/data/img_dir/2023/06/27/2023062702164_0.jpg',
-    'https://health.chosun.com/site/data/img_dir/2020/05/07/2020050702573_0.jpg',
-    'https://cdn.mkhealth.co.kr/news/photo/202212/61768_65496_2151.jpg',
-  ],
-  goods_status: '거래 가능',
-  like: false,
-  uploadedBefore: '2시간 전',
-  lat: 37.52633,
-  lng: 127.028513,
-  detail_location: '압구정역 1번 출구',
-};
 let wishHistoryData: IWishHistoryData[] = [
   {
     seller_name: '유니티',
@@ -49,7 +28,7 @@ let wishHistoryData: IWishHistoryData[] = [
     goods_status: '예약중',
     uploadBefore: '2시간 전',
     detail_location: 'loc',
-    id: 1,
+    id: 4,
   },
   {
     seller_name: '유니티',
@@ -60,7 +39,7 @@ let wishHistoryData: IWishHistoryData[] = [
     goods_status: '예약중',
     uploadBefore: '2시간 전',
     detail_location: 'loc',
-    id: 2,
+    id: 5,
   },
   {
     seller_name: '유니티',
@@ -71,7 +50,7 @@ let wishHistoryData: IWishHistoryData[] = [
     goods_status: '예약중',
     uploadBefore: '2시간 전',
     detail_location: 'loc',
-    id: 3,
+    id: 6,
   },
 ];
 
@@ -102,8 +81,10 @@ export const handlers = [
 
     return HttpResponse.json(req);
   }),
-  http.get('/goods/:goodsId', () => {
-    return HttpResponse.json(goodsData);
+  http.get('/goods/:goodsId', ({ params }) => {
+    const { goodsId } = params;
+    const item = goodsData.filter((data) => data.goods_id === Number(goodsId));
+    return HttpResponse.json(item[0]);
   }),
   http.put('/goods/:goodsId/state', async ({ request }) => {
     const req = await request.json();
@@ -120,8 +101,7 @@ export const handlers = [
     wishHistoryData = wishHistoryData.filter((item) => item.id !== Number(params.goodsId));
     return HttpResponse.json(wishHistoryData);
   }),
-  http.post('/api/goods/:goodsId/likes', async ({ request }) => {
-    // 임시
+  http.post('/api/goods/likes', async ({ request }) => {
     const req = await request.json();
     wishHistoryData.push(req as IWishHistoryData);
     return HttpResponse.json(wishHistoryData);
