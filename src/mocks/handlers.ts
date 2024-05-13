@@ -8,13 +8,13 @@ import { goodsData } from './data/goodsDetailData';
 
 /* profile mock data */
 export const profileData: IProfileData = {
-  username: '홍길동',
-  phoneNumber: '010-1234-5678',
-  profile_image: 'www.google.com',
+  nick_name: '홍길동',
+  phone_number: '010-1234-5678',
+  profile_image: '',
   star: 3.5,
 };
 const badgeData = {
-  badge: 'sell',
+  badge: ['sell'],
 };
 const tokenData = { accessToken: 'accessaccessaccess', refreshToken: 'refreshrefreshrefresh' };
 
