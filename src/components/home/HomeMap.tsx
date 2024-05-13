@@ -5,6 +5,7 @@ import { IMyLocation } from '../../types/interface';
 import ProductMarkers from './ProductMarkers';
 import { useSetRecoilState } from 'recoil';
 import { homeListState, searchResultState } from '../../store/atom';
+import { Link } from 'react-router-dom';
 
 export default function HomeMap() {
   const setSearchList = useSetRecoilState(searchResultState);
@@ -44,6 +45,20 @@ export default function HomeMap() {
       >
         검색 초기화
       </button>
+      <Link to='/posts/new'>
+        <button className='absolute z-40 p-3 text-white transition-colors duration-200 bg-black rounded-full bottom-5 right-5 md:p-4 md:bottom-8 md:right-8 hover:bg-neutral-700'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            strokeWidth={1.5}
+            stroke='currentColor'
+            className='w-6 h-6'
+          >
+            <path strokeLinecap='round' strokeLinejoin='round' d='M12 4.5v15m7.5-7.5h-15' />
+          </svg>
+        </button>
+      </Link>
     </>
   );
 }
