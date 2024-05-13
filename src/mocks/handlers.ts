@@ -135,7 +135,17 @@ export const handlers = [
     const queryParams = new URL(request.url);
     const keyword = queryParams.searchParams.get('word');
     if (!keyword) return new HttpResponse(null, { status: 404 });
-    const res = searchData.filter((item) => item.name.toLowerCase() === keyword.toLowerCase());
+    const res = searchData.filter((item) =>
+      item.name.toLowerCase().includes(keyword.toLowerCase()),
+    );
+    return HttpResponse.json(res);
+  }),
+  http.post('/search', async ({ request }) => {
+    // 임시
+    const { word } = (await request.json()) as { word: string };
+    const res = searchData.filter((item) =>
+      item.name.toLowerCase().includes(String(word).toLowerCase()),
+    );
     return HttpResponse.json(res);
   }),
 ];
