@@ -5,7 +5,6 @@ import { purchaseHistoryData } from './data/purchaseHistoryData';
 import { salesHistoryData } from './data/salesHistoryData';
 import { searchData } from './data/searchData';
 import { goodsData } from './data/goodsDetailData';
-// import { wishHistoryData } from './data/wishHistoryData';
 
 /* profile mock data */
 export const profileData: IProfileData = {
@@ -29,7 +28,7 @@ let wishHistoryData: IWishHistoryData[] = [
     goods_status: '예약중',
     uploadedBefore: '2시간 전',
     detail_location: 'loc',
-    id: 1,
+    id: 4,
   },
   {
     seller_name: '유니티',
@@ -40,7 +39,7 @@ let wishHistoryData: IWishHistoryData[] = [
     goods_status: '예약중',
     uploadedBefore: '2시간 전',
     detail_location: 'loc',
-    id: 2,
+    id: 5,
   },
   {
     seller_name: '유니티',
@@ -51,7 +50,7 @@ let wishHistoryData: IWishHistoryData[] = [
     goods_status: '예약중',
     uploadedBefore: '2시간 전',
     detail_location: 'loc',
-    id: 3,
+    id: 6,
   },
 ];
 
@@ -102,8 +101,7 @@ export const handlers = [
     wishHistoryData = wishHistoryData.filter((item) => item.id !== Number(params.goodsId));
     return HttpResponse.json(wishHistoryData);
   }),
-  http.post('/api/goods/:goodsId/likes', async ({ request }) => {
-    // 임시
+  http.post('/api/goods/likes', async ({ request }) => {
     const req = await request.json();
     wishHistoryData.push(req as IWishHistoryData);
     return HttpResponse.json(wishHistoryData);

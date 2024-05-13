@@ -8,6 +8,7 @@ export const salesHistoryData: ISalesHistoryData[] = [
     goods_status: '판매중',
     uploadedBefore: '2시간 전',
     id: 1,
+    soldBefore: '',
   },
   {
     goods_name: '유니폼',
@@ -17,6 +18,7 @@ export const salesHistoryData: ISalesHistoryData[] = [
     goods_status: '거래완료',
     uploadedBefore: '1년전',
     id: 2,
+    soldBefore: '1년전',
   },
   {
     goods_name: '유니폼',
@@ -26,5 +28,6 @@ export const salesHistoryData: ISalesHistoryData[] = [
     goods_status: '거래완료',
     uploadedBefore: '1년전',
     id: 3,
+    soldBefore: '1년전',
   },
 ];

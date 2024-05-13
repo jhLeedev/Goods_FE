@@ -49,6 +49,7 @@ export interface ISalesHistoryData {
   price: number;
   goods_thumbnail: string;
   goods_status: string;
+  soldBefore: string;
   uploadedBefore: string;
   id: number;
 }

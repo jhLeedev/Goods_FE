@@ -62,7 +62,7 @@ export default function CardListItem({
             </div>
             {wishHistoryMatch && (
               <div className='absolute right-2 top-2'>
-                <AddWishListButton goodsId={id} />
+                <AddWishListButton goodsId={id} wish />
               </div>
             )}
           </div>

@@ -60,18 +60,29 @@ export default function PostDetail() {
               </div>
             </Link>
             <div className='md:flex-1'>
-              <h1 className='my-4 text-2xl font-extrabold md:my-8 md:text-3xl'>
-                {data!.goods_name}
-              </h1>
+              <div className='flex items-center font-extrabold md:text-3xl'>
+                {data!.goods_status === '예약중' && (
+                  <div className='h-8 mr-2 text-white md:h-10 md:mr-4 badge badge-neutral-500 md:badge-lg bg-neutral-500'>
+                    {data!.goods_status}
+                  </div>
+                )}
+                {data!.goods_status === '거래완료' && (
+                  <div className='h-8 mr-2 text-white md:h-10 md:mr-4 badge badge-neutral md:badge-lg bg-neutral'>
+                    {data!.goods_status}
+                  </div>
+                )}
+                <h1 className='my-4 text-2xl md:my-8 md:text-3xl'>{data!.goods_name}</h1>
+              </div>
               <div className='flex items-center justify-between md:flex-1'>
                 <h2 className='text-sm text-stone-400 md:text-base'>{data!.uploadedBefore}</h2>
                 {isAutor && (
                   <select
                     name='goods-state'
+                    defaultValue={data.goods_status}
                     onChange={(e) => handleState(e.target.value)}
                     className='w-32 md:w-40 select select-bordered'
                   >
-                    <option defaultValue='판매중'>판매중</option>
+                    <option value='판매중'>판매중</option>
                     <option value='예약중'>예약중</option>
                     <option value='거래완료'>거래완료</option>
                   </select>
@@ -79,9 +90,9 @@ export default function PostDetail() {
               </div>
             </div>
           </div>
-          <div className='fixed bottom-0 left-0 z-40 flex items-center w-full h-20 px-3 py-3 bg-white border-t md:relative md:border-0 md:p-0'>
+          <div className='fixed bottom-0 left-0 z-50 flex items-center w-full h-20 px-3 py-3 bg-white border-t md:relative md:border-0 md:p-0'>
             <div className='flex items-center ml-2 mr-4 md:ml-0'>
-              <AddWishListButton goodsId={Number(goodsId)} />
+              <AddWishListButton goodsId={Number(goodsId)} wish={data!.like} />
             </div>
             <h3 className='flex-1 text-xl font-bold'>{addComma(data!.price)}원</h3>
             {isAutor ? (
