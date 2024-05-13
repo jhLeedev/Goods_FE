@@ -61,6 +61,7 @@ export default function PostCreate({
     if (imgUrls.length + files.length < 1) {
       // eslint-disable-next-line no-alert
       alert('사진을 업로드해주세요.');
+      return;
     }
     const formData = new FormData();
     imgUrls.forEach((url) => {

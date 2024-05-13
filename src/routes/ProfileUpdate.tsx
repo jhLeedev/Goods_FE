@@ -157,7 +157,7 @@ export default function ProfileUpdate() {
                 className='w-full max-w-lg input input-bordered'
               />
               {errors?.phoneNumber && <p className='text-red-700'>{errors.phoneNumber.message}</p>}
-              <button className='w-full max-w-lg btn btn-neutral'>가입 완료</button>
+              <button className='w-full max-w-lg btn btn-neutral'>수정 완료</button>
             </form>
           </>
         )}

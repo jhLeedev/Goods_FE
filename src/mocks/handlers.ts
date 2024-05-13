@@ -1,9 +1,10 @@
 import { http, HttpResponse } from 'msw';
-import { IGoodsData, IProfileData, IWishHistoryData } from '../types/interface';
+import { IProfileData, IWishHistoryData } from '../types/interface';
 import { positions } from './data/positionData';
 import { purchaseHistoryData } from './data/purchaseHistoryData';
 import { salesHistoryData } from './data/salesHistoryData';
 import { searchData } from './data/searchData';
+import { goodsData } from './data/goodsDetailData';
 // import { wishHistoryData } from './data/wishHistoryData';
 
 /* profile mock data */
@@ -18,27 +19,6 @@ const badgeData = {
 };
 const tokenData = { accessToken: 'accessaccessaccess', refreshToken: 'refreshrefreshrefresh' };
 
-const goodsData: IGoodsData = {
-  seller_id: 1,
-  profile_img: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-  seller_name: '홍길동',
-  seller_badge: true,
-  manner_badge: false,
-  goods_name: '감자 1kg',
-  price: 20000,
-  description: '선물로 들어왔는데 많아서 내놔요 오늘 배송받았습니다',
-  goods_images: [
-    'https://health.chosun.com/site/data/img_dir/2023/06/27/2023062702164_0.jpg',
-    'https://health.chosun.com/site/data/img_dir/2020/05/07/2020050702573_0.jpg',
-    'https://cdn.mkhealth.co.kr/news/photo/202212/61768_65496_2151.jpg',
-  ],
-  goods_status: '거래 가능',
-  like: false,
-  uploadedBefore: '2시간 전',
-  lat: 37.52633,
-  lng: 127.028513,
-  detail_location: '압구정역 1번 출구',
-};
 let wishHistoryData: IWishHistoryData[] = [
   {
     seller_name: '유니티',
@@ -47,7 +27,7 @@ let wishHistoryData: IWishHistoryData[] = [
     goods_thumbnail:
       'https://images.samsung.com/kdp/goods/2023/08/03/98f31ad5-b606-4b93-8ed0-5a78af443e7d.png?$PD_GALLERY_L_PNG$',
     goods_status: '예약중',
-    uploadBefore: '2시간 전',
+    uploadedBefore: '2시간 전',
     detail_location: 'loc',
     id: 1,
   },
@@ -58,7 +38,7 @@ let wishHistoryData: IWishHistoryData[] = [
     goods_thumbnail:
       'https://image-us.samsung.com/SamsungUS/home/computing/galaxy-books/052820/NT930QCGI_001_Front-Open_QLED_Blue-Gallery-1600x1200.jpg?$product-details-jpg$',
     goods_status: '예약중',
-    uploadBefore: '2시간 전',
+    uploadedBefore: '2시간 전',
     detail_location: 'loc',
     id: 2,
   },
@@ -69,7 +49,7 @@ let wishHistoryData: IWishHistoryData[] = [
     goods_thumbnail:
       'https://media.wired.com/photos/65a6c0643d4e31ae36fab6d9/master/pass/Gear-Samsung-Galaxy-S24-Series-SOURCE-Julian-Chokkattu.jpg',
     goods_status: '예약중',
-    uploadBefore: '2시간 전',
+    uploadedBefore: '2시간 전',
     detail_location: 'loc',
     id: 3,
   },
@@ -102,8 +82,10 @@ export const handlers = [
 
     return HttpResponse.json(req);
   }),
-  http.get('/goods/:goodsId', () => {
-    return HttpResponse.json(goodsData);
+  http.get('/goods/:goodsId', ({ params }) => {
+    const { goodsId } = params;
+    const item = goodsData.filter((data) => data.goods_id === Number(goodsId));
+    return HttpResponse.json(item[0]);
   }),
   http.put('/goods/:goodsId/state', async ({ request }) => {
     const req = await request.json();
@@ -137,5 +119,11 @@ export const handlers = [
     if (!keyword) return new HttpResponse(null, { status: 404 });
     const res = searchData.filter((item) => item.name.toLowerCase() === keyword.toLowerCase());
     return HttpResponse.json(res);
+  }),
+  http.delete('/goods/:goodsId', ({ params }) => {
+    const { goodsId } = params;
+    const newSalesHistoryData = salesHistoryData.filter((item) => item.id !== Number(goodsId));
+    console.log(newSalesHistoryData);
+    return HttpResponse.json(newSalesHistoryData);
   }),
 ];
