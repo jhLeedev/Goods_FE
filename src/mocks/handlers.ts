@@ -26,7 +26,7 @@ let wishHistoryData: IWishHistoryData[] = [
     goods_thumbnail:
       'https://images.samsung.com/kdp/goods/2023/08/03/98f31ad5-b606-4b93-8ed0-5a78af443e7d.png?$PD_GALLERY_L_PNG$',
     goods_status: '예약중',
-    uploadBefore: '2시간 전',
+    uploadedBefore: '2시간 전',
     detail_location: 'loc',
     id: 4,
   },
@@ -37,7 +37,7 @@ let wishHistoryData: IWishHistoryData[] = [
     goods_thumbnail:
       'https://image-us.samsung.com/SamsungUS/home/computing/galaxy-books/052820/NT930QCGI_001_Front-Open_QLED_Blue-Gallery-1600x1200.jpg?$product-details-jpg$',
     goods_status: '예약중',
-    uploadBefore: '2시간 전',
+    uploadedBefore: '2시간 전',
     detail_location: 'loc',
     id: 5,
   },
@@ -48,7 +48,7 @@ let wishHistoryData: IWishHistoryData[] = [
     goods_thumbnail:
       'https://media.wired.com/photos/65a6c0643d4e31ae36fab6d9/master/pass/Gear-Samsung-Galaxy-S24-Series-SOURCE-Julian-Chokkattu.jpg',
     goods_status: '예약중',
-    uploadBefore: '2시간 전',
+    uploadedBefore: '2시간 전',
     detail_location: 'loc',
     id: 6,
   },
@@ -117,5 +117,11 @@ export const handlers = [
     if (!keyword) return new HttpResponse(null, { status: 404 });
     const res = searchData.filter((item) => item.name.toLowerCase() === keyword.toLowerCase());
     return HttpResponse.json(res);
+  }),
+  http.delete('/goods/:goodsId', ({ params }) => {
+    const { goodsId } = params;
+    const newSalesHistoryData = salesHistoryData.filter((item) => item.id !== Number(goodsId));
+    console.log(newSalesHistoryData);
+    return HttpResponse.json(newSalesHistoryData);
   }),
 ];

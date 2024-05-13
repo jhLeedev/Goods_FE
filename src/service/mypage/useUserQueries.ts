@@ -40,11 +40,14 @@ export const useUpdateProfileMutation = () => {
   return mutate;
 };
 
-export const useResignMutation = (dialogRef: React.RefObject<HTMLDialogElement>) => {
+export const useResignMutation = () => {
+  const navigate = useNavigate();
   const { mutate, isError } = useMutation({
     mutationFn: async (password: { password: string }) =>
       (await axios.put('/member/resign', password)).data,
-    onSuccess: () => dialogRef.current?.close(),
+    onSuccess: () => {
+      navigate('/');
+    },
   });
 
   return { mutate, isError };

@@ -10,6 +10,7 @@ export const purchaseHistoryData: IPurchaseHistoryData[] = [
     goods_status: '거래완료',
     soldBefore: '1년전',
     id: 7,
+    uploadedBefore: '1년전',
   },
   {
     seller_name: '유니티',
@@ -20,6 +21,7 @@ export const purchaseHistoryData: IPurchaseHistoryData[] = [
     goods_status: '거래완료',
     soldBefore: '1년전',
     id: 8,
+    uploadedBefore: '1년전',
   },
   {
     seller_name: '유니티',
@@ -30,6 +32,7 @@ export const purchaseHistoryData: IPurchaseHistoryData[] = [
     goods_status: '거래완료',
     soldBefore: '1년전',
     id: 9,
+    uploadedBefore: '1년전',
   },
   {
     seller_name: '유니티',
@@ -40,6 +43,7 @@ export const purchaseHistoryData: IPurchaseHistoryData[] = [
     goods_status: '거래완료',
     soldBefore: '1년전',
     id: 10,
+    uploadedBefore: '1년전',
   },
   {
     seller_name: '유니티',
@@ -50,5 +54,6 @@ export const purchaseHistoryData: IPurchaseHistoryData[] = [
     goods_status: '거래완료',
     soldBefore: '1년전',
     id: 11,
+    uploadedBefore: '1년전',
   },
 ];

@@ -36,8 +36,6 @@ export default function CardListPage({
           </div>
         ) : (
           data.map((item) => {
-            const { soldBefore } = item as IPurchaseHistoryData;
-            const { uploadBefore } = item as IWishHistoryData;
             return (
               <CardListItem
                 key={item.id}
@@ -46,8 +44,7 @@ export default function CardListPage({
                 name={item.goods_name}
                 price={item.price}
                 status={item.goods_status}
-                soldBefore={soldBefore}
-                uploadedBefore={uploadBefore}
+                uploadedBefore={item.uploadedBefore}
               />
             );
           })

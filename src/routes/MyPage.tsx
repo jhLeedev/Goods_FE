@@ -12,7 +12,7 @@ export default function MyPage() {
     dialogRef.current?.showModal();
   };
 
-  const { mutate, isError } = useResignMutation(dialogRef);
+  const { mutate, isError } = useResignMutation();
 
   const handleResign = () => {
     mutate({ password });
