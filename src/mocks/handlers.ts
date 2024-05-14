@@ -1,5 +1,10 @@
 import { http, HttpResponse } from 'msw';
-import { IProfileData, IWishHistoryData } from '../types/interface';
+import {
+  IProfileData,
+  ISignupRequest,
+  ISignUpResponseData,
+  IWishHistoryData,
+} from '../types/interface';
 import { positions } from './data/positionData';
 import { purchaseHistoryData } from './data/purchaseHistoryData';
 import { salesHistoryData } from './data/salesHistoryData';
@@ -111,7 +116,8 @@ export const handlers = [
     return HttpResponse.formData(req);
   }),
   http.get('/api/goods/all', () => HttpResponse.json(searchData)), // 임시
-  http.post('api/goods/search', async ({ request }) => {
+  http.post('/api/goods/search', async ({ request }) => {
+    // 검색
     const { word } = (await request.json()) as { word: string };
     const res = searchData.filter((item) =>
       item.name.toLowerCase().includes(String(word).toLowerCase()),
@@ -123,5 +129,16 @@ export const handlers = [
     const newSalesHistoryData = salesHistoryData.filter((item) => item.id !== Number(goodsId));
     console.log(newSalesHistoryData);
     return HttpResponse.json(newSalesHistoryData);
+  }),
+  http.post('/api/member/signup', async ({ request }) => {
+    // 회원 가입
+    const req = (await request.json()) as ISignupRequest;
+    const signupResponse: ISignUpResponseData = {
+      email: req.email,
+      phone_number: req.phone_number,
+      profile_img: req.profile_image,
+      username: req.user_name,
+    };
+    return HttpResponse.json(signupResponse);
   }),
 ];
