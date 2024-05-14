@@ -2,37 +2,53 @@ import { Link } from 'react-router-dom';
 import logo from '../assets/logo.webp';
 import { useForm } from 'react-hook-form';
 import { IProfileUpdate } from '../types/interface';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useProfileQuery, useUpdateProfileMutation } from '../service/mypage/useUserQueries';
+import PasswordModal from '../components/profile/PasswordModal';
 
 export default function ProfileUpdate() {
   const { isLoading, data } = useProfileQuery();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [curImg, setCurImg] = useState<string>(data?.profile_image || '');
+  const [curImg, setCurImg] = useState<string>('');
 
   const imageRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (data?.profile_image) {
+      setCurImg(data.profile_image);
+    }
+  }, [data?.profile_image]);
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<IProfileUpdate>();
+
+  const handleRemove = () => {
+    if (selectedFile) {
+      /* 새로 추가한 사진 삭제하는 경우 */
+      setSelectedFile(null);
+      URL.revokeObjectURL(curImg);
+      setCurImg(data!.profile_image);
+    } else {
+      /* 기존 사진 삭제하는 경우 */
+      setCurImg('');
+    }
+  };
 
   const mutate = useUpdateProfileMutation();
 
   const onSubmit = handleSubmit((form: IProfileUpdate) => {
     const formData = new FormData();
     if (selectedFile) {
-      formData.append('profileImage', selectedFile);
+      formData.append('profile_image_file', selectedFile);
     } else {
-      formData.append('profileImageUrl', data!.profile_image ?? '');
+      formData.append('profile_image_url', curImg ?? '');
     }
-    formData.append('username', form.username);
-    formData.append('curPassword', form.curPassword);
-    formData.append('newPassword', form.newPassword);
-    formData.append('phoneNumber', String(form.phoneNumber));
+    formData.append('nick_name', form.nick_name);
+    formData.append('phone_number', String(form.phone_number));
     mutate(formData);
   });
 
@@ -61,7 +77,7 @@ export default function ProfileUpdate() {
           </div>
         </Link>
       </div>
-      <div className='w-full px-5 md:mx-auto md:max-w-5xl'>
+      <div className='flex flex-col items-center justify-center w-full px-5 mx-auto md:max-w-5xl'>
         <h2 className='my-12 text-2xl font-bold text-center md:text-3xl'>프로필 수정</h2>
         {isLoading ? (
           'Loading...'
@@ -70,94 +86,116 @@ export default function ProfileUpdate() {
             <div className='flex justify-center mb-6'>
               <div className='avatar'>
                 <div className='w-28 rounded-xl md:w-36'>
-                  <img src={curImg} alt='profile_image' />
+                  {curImg ? (
+                    <div className='relative h-full'>
+                      <img src={curImg} alt='profile_image' />
+                      <button
+                        onClick={handleRemove}
+                        className='absolute top-1 right-1 btn btn-xs md:btn-sm btn-circle btn-neutral'
+                      >
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          className='w-4 h-4 md:w-6 md:h-6'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                          stroke='currentColor'
+                        >
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth='2'
+                            d='M6 18L18 6M6 6l12 12'
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  ) : (
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      width='16'
+                      height='16'
+                      fill='fill-neutral'
+                      className='w-full h-full bi bi-person-fill bg-neutral-200'
+                      viewBox='0 0 16 16'
+                    >
+                      <path d='M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6' />
+                    </svg>
+                  )}
                 </div>
               </div>
             </div>
+            <input
+              type='file'
+              accept='image/*'
+              name='thumbnail'
+              ref={imageRef}
+              onChange={onUploadImage}
+              className='hidden'
+            />
+            <button type='button' onClick={onUploadBtnClick} className='mb-10 btn btn-neutral'>
+              이미지 업로드
+            </button>
             <form
               onSubmit={onSubmit}
-              className='flex flex-col items-center justify-center w-full px-5 mb-10 gap-y-3 md:mx-auto md:max-w-5xl'
+              className='flex flex-col items-start justify-center w-full max-w-lg px-5 mb-10 gap-y-4'
             >
-              <input
-                type='file'
-                accept='image/*'
-                name='thumbnail'
-                ref={imageRef}
-                onChange={onUploadImage}
-                className='hidden'
-              />
-              <button type='button' onClick={onUploadBtnClick} className='mb-10 btn btn-neutral'>
-                이미지 업로드
-              </button>
+              <label
+                htmlFor='nickname'
+                className='flex items-center w-full max-w-lg gap-2 font-bold input input-bordered'
+              >
+                닉네임
+                <input
+                  {...register('nick_name', {
+                    required: { message: '필수항목입니다.', value: true },
+                    pattern: {
+                      value: /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/,
+                      message: '한글, 영문, 숫자만 가능하며 2-10자리로 설정',
+                    },
+                  })}
+                  id='nickname'
+                  type='text'
+                  placeholder='닉네임'
+                  defaultValue={data!.nick_name}
+                  className='font-normal text-right grow'
+                />
+              </label>
+              {errors?.nick_name && <p className='text-red-700'>{errors.nick_name.message}</p>}
 
-              <input
-                {...register('username', {
-                  required: { message: '필수항목입니다.', value: true },
-                  pattern: {
-                    value: /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/,
-                    message: '한글, 영문, 숫자만 가능하며 2-10자리로 설정',
-                  },
-                })}
-                type='text'
-                placeholder='닉네임'
-                defaultValue={data!.nick_name}
-                className='w-full max-w-lg input input-bordered'
-              />
-              {errors?.username && <p className='text-red-700'>{errors.username.message}</p>}
-
-              <input
-                {...register('curPassword', {
-                  required: { message: '필수항목입니다.', value: true },
-                })}
-                type='password'
-                placeholder='현재 비밀번호'
-                className='w-full max-w-lg input input-bordered'
-              />
-              {errors?.curPassword && <p className='text-red-700'>{errors.curPassword.message}</p>}
-              <input
-                {...register('newPassword', {
-                  required: { message: '필수항목입니다.', value: true },
-                  pattern: {
-                    value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/,
-                    message: '숫자, 문자만 포함 (8자 이상, 최대 20자)',
-                  },
-                })}
-                type='password'
-                placeholder='새로운 비밀번호'
-                className='w-full max-w-lg input input-bordered'
-              />
-              {errors?.newPassword && <p className='text-red-700'>{errors.newPassword.message}</p>}
-              <input
-                {...register('confirmPassword', {
-                  required: { message: '필수항목입니다.', value: true },
-                  pattern: {
-                    value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/,
-                    message: '숫자, 문자만 포함 (8자 이상, 최대 20자)',
-                  },
-                })}
-                type='password'
-                placeholder='새로운 비밀번호'
-                className='w-full max-w-lg input input-bordered'
-              />
-              {watch('newPassword') !== watch('confirmPassword') && (
-                <p className='text-red-700'>비밀번호가 일치하지 않습니다.</p>
-              )}
-              {errors?.confirmPassword && (
-                <p className='text-red-700'>{errors.confirmPassword.message}</p>
+              <label
+                htmlFor='phoneNumber'
+                className='flex items-center justify-between w-full max-w-lg gap-2 font-bold input input-bordered md:max-w-5xl'
+              >
+                전화번호
+                <input
+                  {...register('phone_number', {
+                    required: { message: '필수항목입니다.', value: true },
+                    pattern: {
+                      value: /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/,
+                      message: '전화번호를 올바르게 입력해주세요.',
+                    },
+                  })}
+                  id='phone_number'
+                  type='text'
+                  placeholder='000-0000-0000'
+                  defaultValue={data!.phone_number}
+                  className='font-normal text-right max-w-40'
+                />
+              </label>
+              {errors?.phone_number && (
+                <p className='text-red-700'>{errors.phone_number.message}</p>
               )}
 
-              <input
-                {...register('phoneNumber', {
-                  required: { message: '필수항목입니다.', value: true },
-                  pattern: { value: /^[0-9]{11}$/, message: '전화번호를 올바르게 입력해주세요.' },
-                })}
-                type='text'
-                placeholder='전화번호(-을 제회한 숫자만 입력해주세요.)'
-                defaultValue={data!.phone_number}
-                className='w-full max-w-lg input input-bordered'
-              />
-              {errors?.phoneNumber && <p className='text-red-700'>{errors.phoneNumber.message}</p>}
-              <button className='w-full max-w-lg btn btn-neutral'>수정 완료</button>
+              <div className='flex items-center justify-between w-full max-w-lg gap-2 font-bold input input-bordered md:max-w-5xl'>
+                <span>비밀번호</span>
+                <PasswordModal title='비밀번호' />
+              </div>
+
+              <div className='flex items-center justify-between w-full max-w-lg gap-2 font-bold input input-bordered md:max-w-5xl'>
+                <span>간편결제 비밀번호</span>
+                <PasswordModal title='간편결제 비밀번호' />
+              </div>
+
+              <button className='w-full max-w-lg btn btn-primary'>수정 완료</button>
             </form>
           </>
         )}

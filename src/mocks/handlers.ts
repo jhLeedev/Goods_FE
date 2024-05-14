@@ -10,7 +10,7 @@ import { goodsData } from './data/goodsDetailData';
 export const profileData: IProfileData = {
   nick_name: '홍길동',
   phone_number: '010-1234-5678',
-  profile_image: '',
+  profile_image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
   star: 3.5,
 };
 const badgeData = {
@@ -123,5 +123,13 @@ export const handlers = [
     const newSalesHistoryData = salesHistoryData.filter((item) => item.id !== Number(goodsId));
     console.log(newSalesHistoryData);
     return HttpResponse.json(newSalesHistoryData);
+  }),
+  http.put('/member/password', async ({ request }) => {
+    const req = await request.json();
+    return HttpResponse.json(req);
+  }),
+  http.put('/member/trade-password', async ({ request }) => {
+    const req = await request.json();
+    return HttpResponse.json(req);
   }),
 ];
