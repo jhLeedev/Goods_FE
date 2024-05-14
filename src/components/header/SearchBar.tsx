@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useMatch, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { ISearchData } from '../../mocks/data/searchData';
-import { useSearchMutation } from '../../service/map/useSearchMutation';
+import { useSearchMutation, useUpdateSearchMutation } from '../../service/map/useSearchMutation';
 
 export default function SearchBar() {
   const [word, setWord] = useState('');
@@ -12,6 +11,7 @@ export default function SearchBar() {
   const navigate = useNavigate();
   const homeMatch = useMatch('/');
   const search = useSearchMutation(setWord);
+  const updateSearch = useUpdateSearchMutation(setAutocomplete, word);
 
   const handleWordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWord(e.currentTarget.value);
@@ -37,18 +37,13 @@ export default function SearchBar() {
   };
 
   useEffect(() => {
-    const updateWord = async () => {
-      const res = (await axios.get(`/api/goods/search?word=${word}`)).data;
-      setAutocomplete([{ id: Date.now(), name: word }, ...res]);
-    };
-
     const debounce = setTimeout(() => {
-      if (word) updateWord();
+      if (word) updateSearch();
     }, 1000);
     return () => {
       clearTimeout(debounce);
     };
-  }, [word]);
+  }, [word, updateSearch]);
 
   return (
     <div className='relative w-1/2 md:w-1/3'>
