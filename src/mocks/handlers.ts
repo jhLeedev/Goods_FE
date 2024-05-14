@@ -111,11 +111,11 @@ export const handlers = [
     return HttpResponse.formData(req);
   }),
   http.get('/api/goods/all', () => HttpResponse.json(searchData)), // 임시
-  http.get('/api/goods/search', ({ request }) => {
-    const queryParams = new URL(request.url);
-    const keyword = queryParams.searchParams.get('word');
-    if (!keyword) return new HttpResponse(null, { status: 404 });
-    const res = searchData.filter((item) => item.name.toLowerCase() === keyword.toLowerCase());
+  http.post('api/goods/search', async ({ request }) => {
+    const { word } = (await request.json()) as { word: string };
+    const res = searchData.filter((item) =>
+      item.name.toLowerCase().includes(String(word).toLowerCase()),
+    );
     return HttpResponse.json(res);
   }),
   http.delete('/goods/:goodsId', ({ params }) => {
