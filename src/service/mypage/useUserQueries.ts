@@ -1,9 +1,10 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { IProfileData } from '../../types/interface';
 
 export const useProfileQuery = () => {
-  const { isLoading, data } = useQuery({
+  const { isLoading, data } = useQuery<IProfileData>({
     queryKey: ['profile'],
     queryFn: async () => (await axios.get('/member/profile')).data,
   });

@@ -27,7 +27,7 @@ export default function ProfileUpdate() {
     if (selectedFile) {
       formData.append('profileImage', selectedFile);
     } else {
-      formData.append('profileImageUrl', data.profile_image);
+      formData.append('profileImageUrl', data!.profile_image ?? '');
     }
     formData.append('username', form.username);
     formData.append('curPassword', form.curPassword);
@@ -100,7 +100,7 @@ export default function ProfileUpdate() {
                 })}
                 type='text'
                 placeholder='닉네임'
-                defaultValue={data.username}
+                defaultValue={data!.nick_name}
                 className='w-full max-w-lg input input-bordered'
               />
               {errors?.username && <p className='text-red-700'>{errors.username.message}</p>}
@@ -153,7 +153,7 @@ export default function ProfileUpdate() {
                 })}
                 type='text'
                 placeholder='전화번호(-을 제회한 숫자만 입력해주세요.)'
-                defaultValue={data.phoneNumber}
+                defaultValue={data!.phone_number}
                 className='w-full max-w-lg input input-bordered'
               />
               {errors?.phoneNumber && <p className='text-red-700'>{errors.phoneNumber.message}</p>}

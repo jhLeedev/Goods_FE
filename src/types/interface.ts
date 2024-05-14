@@ -9,8 +9,8 @@ export type FormValueTypes = {
 
 /* profile mock interface */
 export interface IProfileData {
-  username: string;
-  phoneNumber: string;
+  nick_name: string;
+  phone_number: string;
   profile_image: string;
   star: number;
 }
