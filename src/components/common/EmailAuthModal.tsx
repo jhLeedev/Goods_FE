@@ -1,4 +1,30 @@
-export default function EmailAuthModal({ closeModal }: { closeModal: () => void }) {
+import React, { useState } from 'react';
+import { useConfirmEmailAuth } from '../../service/signup/useConfirmEmailAuth';
+
+export default function EmailAuthModal({
+  closeModal,
+  setDisableModal,
+  email,
+}: {
+  closeModal: () => void;
+  setDisableModal: () => void;
+  email: string;
+}) {
+  const [code, setCode] = useState<number | string>('');
+  const confirmEmailAuth = useConfirmEmailAuth(closeModal, setDisableModal);
+
+  const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setCode(Number(e.currentTarget.value));
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      confirmEmailAuth({ email, code: code as number });
+    }
+  };
+  const handleSubmit = () => {
+    if (typeof code === 'string') return;
+    confirmEmailAuth({ email, code: code! });
+  };
   return (
     <div className='fixed top-0 left-0 z-50 flex items-center justify-center w-full h-screen bg-[rgba(0,0,0,.7)]'>
       <div className='relative flex items-center justify-center border-2 bg-neutral-100 rounded-lg boder w-72 h-48 md:w-[500px] md:h-72'>
@@ -17,9 +43,17 @@ export default function EmailAuthModal({ closeModal }: { closeModal: () => void 
                 clipRule='evenodd'
               />
             </svg>
-            <input id='emailAuth' type='password' className='grow' placeholder='인증번호' />
+            <input
+              value={code!}
+              onChange={handleCodeChange}
+              id='emailAuth'
+              type='number'
+              onKeyDown={handleKeyDown}
+              className='grow [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
+              placeholder='인증번호'
+            />
           </label>
-          <button type='button' className='w-full btn btn-neutral'>
+          <button onClick={handleSubmit} type='button' className='w-full btn btn-neutral'>
             인증 완료
           </button>
         </div>

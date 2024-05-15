@@ -111,7 +111,8 @@ export const handlers = [
     return HttpResponse.formData(req);
   }),
   http.get('/api/goods/all', () => HttpResponse.json(searchData)), // 임시
-  http.post('api/goods/search', async ({ request }) => {
+  http.post('/api/goods/search', async ({ request }) => {
+    // 검색
     const { word } = (await request.json()) as { word: string };
     const res = searchData.filter((item) =>
       item.name.toLowerCase().includes(String(word).toLowerCase()),
@@ -123,5 +124,20 @@ export const handlers = [
     const newSalesHistoryData = salesHistoryData.filter((item) => item.id !== Number(goodsId));
     console.log(newSalesHistoryData);
     return HttpResponse.json(newSalesHistoryData);
+  }),
+  http.post('/api/member/signup', async ({ request }) => {
+    // 회원 가입
+    const req = await request.formData();
+    return HttpResponse.formData(req);
+  }),
+  http.post('/api/email/verification', async ({ request }) => {
+    // 이메일 인증 요청
+    const { email } = (await request.json()) as { email: string };
+    return HttpResponse.json(`send to ${email}`);
+  }),
+  http.post('/api/email/verification/check', async ({ request }) => {
+    const req = (await request.json()) as { email: string; code: number };
+
+    return HttpResponse.json(req.code === 123);
   }),
 ];
