@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import { IPurchaseHistoryData, IWishHistoryData } from '../../types/interface';
+import { IPurchaseHistoryData, ISalesHistoryData, IWishHistoryData } from '../../types/interface';
 import CardListItem from './CardListItem';
 
 export default function CardListPage({
   data,
   title,
 }: {
-  data: IPurchaseHistoryData[] | IWishHistoryData[];
+  data: IPurchaseHistoryData[] | IWishHistoryData[] | ISalesHistoryData[];
   title: string;
 }) {
   return (

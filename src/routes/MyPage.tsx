@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import Profile from '../components/profile/Profile';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.webp';
-import { useResignMutation } from '../service/mypage/useUserQueries';
+import { useProfileQuery, useResignMutation } from '../service/mypage/useUserQueries';
 
 export default function MyPage() {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -12,6 +12,7 @@ export default function MyPage() {
     dialogRef.current?.showModal();
   };
 
+  const { data: profile, isLoading } = useProfileQuery();
   const { mutate, isError } = useResignMutation();
 
   const handleResign = () => {
@@ -30,7 +31,14 @@ export default function MyPage() {
       <div className='w-full px-5 md:mx-auto md:max-w-5xl'>
         <h1 className='my-12 text-2xl font-bold text-center md:text-3xl'>마이페이지</h1>
         <div className='flex flex-col md:flex-row md:items-end'>
-          <Profile />
+          {!isLoading && (
+            <Profile
+              nick_name={profile!.nick_name}
+              profile_image={profile!.profile_image}
+              star={profile!.star}
+              badgeList={profile!.badgeList}
+            />
+          )}
           <Link
             to='/mypage/update'
             className='w-full max-w-md mx-auto btn btn-lg btn-neutral no-animation md:flex-none md:btn md:btn-neutral md:w-28 md:mr-0'
