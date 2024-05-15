@@ -17,13 +17,10 @@ export interface IProfileData {
 
 /* profile update mock interface */
 export interface IProfileUpdate {
-  username: string;
-  curPassword: string;
-  newPassword: string;
-  confirmPassword: string;
-  phoneNumber: string;
-  profileImageUrl?: string;
-  profileImage?: File;
+  nick_name: string;
+  phone_number: string;
+  profile_image_url?: string;
+  profile_image_file?: File;
 }
 
 export interface IMapLocation {
