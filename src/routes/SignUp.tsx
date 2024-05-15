@@ -71,28 +71,42 @@ export default function SignUp() {
             onSubmit={onSubmit}
             className='flex flex-col items-center justify-center mb-5 gap-y-3'
           >
-            <label htmlFor='profile' className='cursor-pointer'>
-              <div className='flex flex-col gap-y-3'>
-                {preview ? (
-                  <img
-                    className='w-20 h-20 rounded-full md:w-28 md:h-28'
-                    src={preview}
-                    alt='preview img'
-                  />
-                ) : (
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='fill-neutral'
-                    className='w-20 h-20 p-2 rounded-full md:w-28 md:h-28 bi bi-person-fill bg-neutral-200'
-                    viewBox='0 0 16 16'
-                  >
-                    <path d='M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6' />
-                  </svg>
-                )}
-                <button onClick={handleImgReset} type='button' className='btn btn-neutral'>
-                  삭제
-                </button>
-              </div>
+            <div className='relative flex flex-col gap-y-3'>
+              {preview ? (
+                <img
+                  className='w-24 h-2w-24 rounded-xl md:w-36 md:h-36'
+                  src={preview}
+                  alt='preview img'
+                />
+              ) : (
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='fill-neutral'
+                  className='w-24 h-24 p-2 rounded-xl md:w-36 md:h-36 bi bi-person-fill bg-neutral-200'
+                  viewBox='0 0 16 16'
+                >
+                  <path d='M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6' />
+                </svg>
+              )}
+              <button
+                onClick={handleImgReset}
+                type='button'
+                className='absolute flex items-center justify-center w-6 h-6 p-1 text-white rounded-full bg-neutral top-1 right-1'
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='w-6 h-6'
+                >
+                  <path strokeLinecap='round' strokeLinejoin='round' d='M6 18 18 6M6 6l12 12' />
+                </svg>
+              </button>
+            </div>
+            <label htmlFor='profile' className='cursor-pointer '>
+              <div className='btn btn-neutral'>이미지 업로드</div>
               <input
                 onChange={handleImgChange}
                 accept='image/*'
@@ -113,7 +127,7 @@ export default function SignUp() {
               placeholder='이메일'
               className='w-full input input-bordered'
             />
-            {errors?.email && <p className='text-red-700'>{errors.email.message}</p>}
+            {errors?.email && <p className='mr-auto text-red-700'>{errors.email.message}</p>}
             <button
               onClick={handleAuthEmailClick}
               type='button'
@@ -142,7 +156,7 @@ export default function SignUp() {
               placeholder='비밀번호'
               className='w-full input input-bordered'
             />
-            {errors?.password && <p className='text-red-700'>{errors.password.message}</p>}
+            {errors?.password && <p className='mr-auto text-red-700'>{errors.password.message}</p>}
             <input
               {...register('confirmPassword', {
                 required: { message: '필수항목입니다.', value: true },
@@ -152,10 +166,10 @@ export default function SignUp() {
               className='w-full input input-bordered'
             />
             {watch('password') !== watch('confirmPassword') && (
-              <p className='text-red-700'>비밀번호가 일치하지 않습니다.</p>
+              <p className='mr-auto text-red-700'>비밀번호가 일치하지 않습니다.</p>
             )}
             {errors?.confirmPassword && (
-              <p className='text-red-700'>{errors.confirmPassword.message}</p>
+              <p className='mr-auto text-red-700'>{errors.confirmPassword.message}</p>
             )}
 
             <input
@@ -170,7 +184,7 @@ export default function SignUp() {
               placeholder='닉네임'
               className='w-full input input-bordered'
             />
-            {errors?.nickName && <p className='text-red-700'>{errors.nickName.message}</p>}
+            {errors?.nickName && <p className='mr-auto text-red-700'>{errors.nickName.message}</p>}
             <input
               {...register('phoneNumber', {
                 required: { message: '필수항목입니다.', value: true },
@@ -183,7 +197,9 @@ export default function SignUp() {
               placeholder='전화번호(- 포함)'
               className='w-full input input-bordered'
             />
-            {errors?.phoneNumber && <p className='text-red-700'>{errors.phoneNumber.message}</p>}
+            {errors?.phoneNumber && (
+              <p className='mr-auto text-red-700'>{errors.phoneNumber.message}</p>
+            )}
             <input
               {...register('paymentPassword', {
                 required: { message: '필수항목입니다.', value: true },
@@ -194,9 +210,9 @@ export default function SignUp() {
               className='w-full input input-bordered'
             />
             {errors?.paymentPassword && (
-              <p className='text-red-700'>{errors.paymentPassword.message}</p>
+              <p className='mr-auto text-red-700'>{errors.paymentPassword.message}</p>
             )}
-            <button className='w-full btn btn-neutral'>가입 완료</button>
+            <button className='w-full btn btn-primary'>가입 완료</button>
           </form>
         </div>
       </div>
