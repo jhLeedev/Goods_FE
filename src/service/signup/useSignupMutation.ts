@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-// import { ISignupRequest } from '../../types/interface';
 
 export const useSignupMutation = () => {
   const { mutate } = useMutation({

@@ -116,18 +116,3 @@ export interface IEditPostData extends IPostCreate {
   goods_id: string;
   curImages: string[];
 }
-
-export interface ISignupRequest {
-  email: string;
-  password: string;
-  user_name: string;
-  phone_number: string;
-  profile_image: string;
-  trade_password: number;
-}
-export interface ISignUpResponseData {
-  email: string;
-  username: string;
-  phone_number: string;
-  profile_img: string;
-}

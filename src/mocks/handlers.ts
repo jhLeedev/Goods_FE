@@ -127,14 +127,6 @@ export const handlers = [
   }),
   http.post('/api/member/signup', async ({ request }) => {
     // 회원 가입
-    // const req = (await request.json()) as ISignupRequest;
-    // const signupResponse: ISignUpResponseData = {
-    //   email: req.email,
-    //   phone_number: req.phone_number,
-    //   profile_img: req.profile_image,
-    //   username: req.user_name,
-    // };
-    // return HttpResponse.json(signupResponse);
     const req = await request.formData();
     return HttpResponse.formData(req);
   }),
