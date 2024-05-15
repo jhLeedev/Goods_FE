@@ -36,6 +36,12 @@ export default function PasswordModal({ title }: { title: string }) {
     dialogRef.current?.close();
   };
 
+  const handleCancelBtn = () => {
+    setCurPassword('');
+    setNewPassword('');
+    setValid(true);
+  };
+
   return (
     <>
       <button type='button' onClick={showModal} className='btn btn-sm btn-outline btn-neutral'>
@@ -95,11 +101,7 @@ export default function PasswordModal({ title }: { title: string }) {
                   변경
                 </button>
                 <button
-                  onClick={() => {
-                    setCurPassword('');
-                    setNewPassword('');
-                    setValid(true);
-                  }}
+                  onClick={handleCancelBtn}
                   className='w-32 ml-2 btn shrink md:w-40 btn-neutral'
                 >
                   취소
