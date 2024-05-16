@@ -8,14 +8,14 @@ import { goodsData } from './data/goodsDetailData';
 
 /* profile mock data */
 export const profileData: IProfileData = {
+  member_id: 1,
   nick_name: '홍길동',
   phone_number: '010-1234-5678',
   profile_image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
   star: 3.5,
+  badgeList: ['sell'],
 };
-const badgeData = {
-  badge: ['sell'],
-};
+
 const tokenData = { accessToken: 'accessaccessaccess', refreshToken: 'refreshrefreshrefresh' };
 
 let wishHistoryData: IWishHistoryData[] = [
@@ -58,9 +58,6 @@ export const handlers = [
   http.get('/member/profile', () => {
     return HttpResponse.json(profileData);
   }),
-  http.get('/member/badge', () => {
-    return HttpResponse.json(badgeData);
-  }),
   http.post('/auth/kakao', () => {
     return HttpResponse.json(tokenData);
   }),
@@ -95,7 +92,7 @@ export const handlers = [
     const req = await request.formData();
     return HttpResponse.formData(req);
   }),
-  http.get('/api/goods/sales', () => HttpResponse.json(salesHistoryData)),
+  http.get('/api/goods/sell-list/:sellerId', () => HttpResponse.json(salesHistoryData)),
   http.get('/api/goods/likes', () => HttpResponse.json(wishHistoryData)),
   http.delete('/api/goods/:goodsId/likes', ({ params }) => {
     wishHistoryData = wishHistoryData.filter((item) => item.id !== Number(params.goodsId));
@@ -147,5 +144,8 @@ export const handlers = [
     const req = (await request.json()) as { email: string; code: number };
 
     return HttpResponse.json(req.code === 123);
+  }),
+  http.get('/member/:sellerId/profile', () => {
+    return HttpResponse.json(profileData);
   }),
 ];

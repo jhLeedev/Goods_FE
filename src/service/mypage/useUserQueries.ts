@@ -12,14 +12,13 @@ export const useProfileQuery = () => {
   return { isLoading, data };
 };
 
-export const useProfileDataQuery = () => {
-  const { data: profile, isLoading: profileLoading } = useProfileQuery();
-  const { data: badge, isLoading: badgeLoading } = useQuery({
-    queryKey: ['badge'],
-    queryFn: async () => (await axios.get('/member/badge')).data,
+export const useSellerProfileQuery = (sellerId: string) => {
+  const { isLoading, data } = useQuery<IProfileData>({
+    queryKey: ['seller'],
+    queryFn: async () => (await axios.get(`/member/${sellerId}/profile`)).data,
   });
 
-  return { profile, badge, isLoading: profileLoading || badgeLoading };
+  return { isLoading, data };
 };
 
 export const useUpdateProfileMutation = () => {
