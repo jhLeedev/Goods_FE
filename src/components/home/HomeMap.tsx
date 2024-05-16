@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Map, ZoomControl } from 'react-kakao-maps-sdk';
 import MyLocationMarker from './MyLocationMarker';
 import { IMyLocation } from '../../types/interface';
@@ -7,7 +7,7 @@ import { useSetRecoilState } from 'recoil';
 import { homeListState, searchResultState } from '../../store/atom';
 import { Link } from 'react-router-dom';
 
-export default function HomeMap() {
+export default function HomeMap({ keyword }: { keyword: string }) {
   const setSearchList = useSetRecoilState(searchResultState);
   const setHomeList = useSetRecoilState(homeListState);
 
@@ -19,6 +19,24 @@ export default function HomeMap() {
     errMsg: null,
     isLoading: true,
   });
+
+  useEffect(() => {
+    const geocoder = new kakao.maps.services.Geocoder();
+
+    geocoder.addressSearch(keyword, (result, status) => {
+      if (status === kakao.maps.services.Status.OK) {
+        const newSearch = result[0];
+        setState({
+          center: {
+            lat: Number(newSearch.y),
+            lng: Number(newSearch.x),
+          },
+          errMsg: null,
+          isLoading: true,
+        });
+      }
+    });
+  }, [keyword]);
 
   const handleResetSearch = () => {
     setSearchList([]);
