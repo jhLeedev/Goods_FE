@@ -3,13 +3,14 @@ import { Map, ZoomControl } from 'react-kakao-maps-sdk';
 import MyLocationMarker from './MyLocationMarker';
 import { IMyLocation } from '../../types/interface';
 import ProductMarkers from './ProductMarkers';
-import { useSetRecoilState } from 'recoil';
-import { homeListState, searchResultState } from '../../store/atom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { homeListState, searchAddrState, searchResultState } from '../../store/atom';
 import { Link } from 'react-router-dom';
 
-export default function HomeMap({ keyword }: { keyword: string }) {
+export default function HomeMap() {
   const setSearchList = useSetRecoilState(searchResultState);
   const setHomeList = useSetRecoilState(homeListState);
+  const keyword = useRecoilValue(searchAddrState);
 
   const [state, setState] = useState<IMyLocation>({
     center: {
@@ -36,6 +37,8 @@ export default function HomeMap({ keyword }: { keyword: string }) {
         });
       }
     });
+
+    console.log(keyword);
   }, [keyword]);
 
   const handleResetSearch = () => {

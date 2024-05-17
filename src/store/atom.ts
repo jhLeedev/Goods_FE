@@ -27,3 +27,8 @@ export const searchResultState = atom<ISearchData[]>({
   key: 'searchlist',
   default: [],
 });
+
+export const searchAddrState = atom<string>({
+  key: 'searchAddr',
+  default: '',
+});
