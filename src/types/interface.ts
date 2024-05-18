@@ -9,10 +9,12 @@ export type FormValueTypes = {
 
 /* profile mock interface */
 export interface IProfileData {
+  member_id: number;
   nick_name: string;
   phone_number: string;
   profile_image: string;
   star: number;
+  badgeList: string[];
 }
 
 /* profile update mock interface */
