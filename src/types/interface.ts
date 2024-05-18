@@ -86,10 +86,11 @@ export interface IPostCreate {
   goods_name: string;
   price: number;
   description: string;
-  goods_images: File[];
+  goods_image_files: File[];
   lat: number;
   lng: number;
-  detail_location: string;
+  address: string;
+  user_defined_location: string;
 }
 
 export interface IGoodsData {
@@ -113,5 +114,6 @@ export interface IGoodsData {
 
 export interface IEditPostData extends IPostCreate {
   goods_id: string;
+  images_to_delete: string[];
   curImages: string[];
 }
