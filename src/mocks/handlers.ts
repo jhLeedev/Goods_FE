@@ -14,7 +14,7 @@ export const profileData: IProfileData = {
   phone_number: '010-1234-5678',
   profile_image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
   star: 3.5,
-  badgeList: ['sell'],
+  badge_List: ['판매왕'],
 };
 
 const tokenData = { accessToken: 'accessaccessaccess', refreshToken: 'refreshrefreshrefresh' };
@@ -27,9 +27,9 @@ let wishHistoryData: IWishHistoryData[] = [
     goods_thumbnail:
       'https://images.samsung.com/kdp/goods/2023/08/03/98f31ad5-b606-4b93-8ed0-5a78af443e7d.png?$PD_GALLERY_L_PNG$',
     goods_status: '예약중',
-    uploadedBefore: '2시간 전',
-    detail_location: 'loc',
-    id: 4,
+    uploaded_before: 2,
+    address: 'loc',
+    goods_id: 4,
   },
   {
     seller_name: '유니티',
@@ -38,9 +38,9 @@ let wishHistoryData: IWishHistoryData[] = [
     goods_thumbnail:
       'https://image-us.samsung.com/SamsungUS/home/computing/galaxy-books/052820/NT930QCGI_001_Front-Open_QLED_Blue-Gallery-1600x1200.jpg?$product-details-jpg$',
     goods_status: '예약중',
-    uploadedBefore: '2시간 전',
-    detail_location: 'loc',
-    id: 5,
+    uploaded_before: 2,
+    address: 'loc',
+    goods_id: 5,
   },
   {
     seller_name: '유니티',
@@ -49,9 +49,9 @@ let wishHistoryData: IWishHistoryData[] = [
     goods_thumbnail:
       'https://media.wired.com/photos/65a6c0643d4e31ae36fab6d9/master/pass/Gear-Samsung-Galaxy-S24-Series-SOURCE-Julian-Chokkattu.jpg',
     goods_status: '예약중',
-    uploadedBefore: '2시간 전',
-    detail_location: 'loc',
-    id: 6,
+    uploaded_before: 2,
+    address: 'loc',
+    goods_id: 6,
   },
 ];
 
@@ -96,7 +96,7 @@ export const handlers = [
   http.get('/api/goods/sell-list/:sellerId', () => HttpResponse.json(salesHistoryData)),
   http.get('/api/goods/likes', () => HttpResponse.json(wishHistoryData)),
   http.delete('/api/goods/:goodsId/likes', ({ params }) => {
-    wishHistoryData = wishHistoryData.filter((item) => item.id !== Number(params.goodsId));
+    wishHistoryData = wishHistoryData.filter((item) => item.goods_id !== Number(params.goodsId));
     return HttpResponse.json(wishHistoryData);
   }),
   http.post('/api/goods/likes', async ({ request }) => {
@@ -119,7 +119,9 @@ export const handlers = [
   }),
   http.delete('/goods/:goodsId', ({ params }) => {
     const { goodsId } = params;
-    const newSalesHistoryData = salesHistoryData.filter((item) => item.id !== Number(goodsId));
+    const newSalesHistoryData = salesHistoryData.filter(
+      (item) => item.goods_id !== Number(goodsId),
+    );
     console.log(newSalesHistoryData);
     return HttpResponse.json(newSalesHistoryData);
   }),
