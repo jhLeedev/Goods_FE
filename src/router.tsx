@@ -39,7 +39,7 @@ export default function Router() {
       <Route path='/shop/:id' element={<Shop />} />
       <Route path='/mypage/charge' element={<PointCharge />} />
       <Route path='/mypage/transfer' element={<Transfer />} />
-      <Route path='/payment/:id' element={<Payment />} />
+      <Route path='/payment' element={<Payment />} />
       <Route path='*' element={<NotFoundPage />} />
       <Route path='/chatroom/:roomId' element={<ChatRoom />} />
     </Routes>
