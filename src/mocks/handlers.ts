@@ -111,9 +111,9 @@ export const handlers = [
   http.get('/api/goods/all', () => HttpResponse.json(searchData)), // 임시
   http.post('/api/goods/search', async ({ request }) => {
     // 검색
-    const { word } = (await request.json()) as { word: string };
+    const { keyword } = (await request.json()) as { keyword: string };
     const res = searchData.filter((item) =>
-      item.name.toLowerCase().includes(String(word).toLowerCase()),
+      item.name.toLowerCase().includes(String(keyword).toLowerCase()),
     );
     return HttpResponse.json(res);
   }),
