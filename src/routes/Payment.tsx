@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/logo.webp';
 import PointCalc from '../components/common/PointCalc';
 import { useState } from 'react';
@@ -6,6 +6,7 @@ import { useState } from 'react';
 export default function Payment() {
   const [password, setPassword] = useState<number>();
 
+  const { state } = useLocation();
   return (
     <>
       <div className='flex h-20 px-3 py-3 md:px-7'>
@@ -18,14 +19,10 @@ export default function Payment() {
       <div className='flex flex-col items-center w-full max-w-lg px-5 mx-auto'>
         <h1 className='my-12 text-2xl font-bold text-center md:text-3xl'>결제하기</h1>
         <div className='flex justify-start w-full max-w-lg'>
-          <img
-            className='object-cover w-24 h-24 mr-4 rounded-xl'
-            src='https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.jpg'
-            alt='img'
-          />
+          <img className='object-cover w-24 h-24 mr-4 rounded-xl' src={state.image} alt='img' />
           <div className='flex flex-col justify-around w-full'>
-            <p>상품 이름</p>
-            <p className='text-xl font-bold'>500원</p>
+            <p>{state.title}</p>
+            <p className='text-xl font-bold'>{state.price}원</p>
           </div>
         </div>
         <div className='w-full max-w-lg mt-6'>

@@ -5,6 +5,7 @@ import { purchaseHistoryData } from './data/purchaseHistoryData';
 import { salesHistoryData } from './data/salesHistoryData';
 import { searchData } from './data/searchData';
 import { goodsData } from './data/goodsDetailData';
+import { chatHistoryData } from './data/chatHistoryData';
 
 /* profile mock data */
 export const profileData: IProfileData = {
@@ -144,6 +145,12 @@ export const handlers = [
     const req = (await request.json()) as { email: string; code: number };
 
     return HttpResponse.json(req.code === 123);
+  }),
+  http.get(`/api/chat/:roomId`, async () => {
+    // 채팅방 정보,대화 내역
+    // const { roomId } = params;
+
+    return HttpResponse.json(chatHistoryData);
   }),
   http.get('/member/:sellerId/profile', () => {
     return HttpResponse.json(profileData);

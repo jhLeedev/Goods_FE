@@ -115,3 +115,19 @@ export interface IEditPostData extends IPostCreate {
   goods_id: string;
   curImages: string[];
 }
+
+export interface IChatLog {
+  message: string;
+  sender: string;
+  receiver: string;
+  created_at: string;
+}
+export interface IChatHistoryData {
+  room_id: number;
+  goods_id: number;
+  goods_seller: string;
+  goods_name: string;
+  goods_image: string;
+  goods_price: number;
+  chatLog: IChatLog[];
+}
