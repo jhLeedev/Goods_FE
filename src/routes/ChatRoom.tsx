@@ -8,12 +8,12 @@ export default function ChatRoom() {
   const { roomId } = useParams();
   const navigate = useNavigate();
   const handleNavigate = () => navigate(-1);
-  const { data, isLoading } = useChatHistoryQuery(Number(roomId));
+  const { data, isLoading } = useChatHistoryQuery(roomId!);
 
   if (isLoading) return <h1>loading...</h1>;
   return (
     <div className='absolute top-0 left-0 flex items-center justify-center w-full h-screen overflow-y-hidden bg-slate-900 '>
-      <div className='relative w-full h-full md:rounded-3xl md:h-[95%] md:w-[450px] p-3 md:p-5 bg-neutral-300 md:border-4'>
+      <div className='relative w-full h-full md:rounded-3xl md:h-[95%] md:w-[450px] p-3 md:p-5 bg-white md:border-4'>
         <div className='relative '>
           <button onClick={handleNavigate}>
             <svg
