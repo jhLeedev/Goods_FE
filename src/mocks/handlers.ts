@@ -6,6 +6,7 @@ import { salesHistoryData } from './data/salesHistoryData';
 import { searchData } from './data/searchData';
 import { goodsData } from './data/goodsDetailData';
 import { chatRoomList } from './data/chatRoomListData';
+import { chatHistoryData } from './data/chatHistoryData';
 
 /* profile mock data */
 export const profileData: IProfileData = {
@@ -65,6 +66,9 @@ export const handlers = [
   http.post('/auth/email', () => HttpResponse.json(1234)),
   http.put('/member/profile', async ({ request }) => {
     const req = await request.formData();
+    for (const x of req) {
+      console.log(x);
+    }
     return HttpResponse.formData(req);
   }),
   http.get(`/location`, () => HttpResponse.json(positions)),
@@ -147,6 +151,12 @@ export const handlers = [
     const req = (await request.json()) as { email: string; code: number };
 
     return HttpResponse.json(req.code === 123);
+  }),
+  http.get(`/api/chat/:roomId`, async () => {
+    // 채팅방 정보,대화 내역
+    // const { roomId } = params;
+
+    return HttpResponse.json(chatHistoryData);
   }),
   http.get('/member/:sellerId/profile', () => {
     return HttpResponse.json(profileData);

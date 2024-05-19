@@ -19,7 +19,7 @@ export default function PostEdit() {
       curImages={data!.goods_images}
       lat={data!.lat}
       lng={data!.lng}
-      detail_location={data!.address}
+      user_defined_location={data!.address}
     />
   );
 }
