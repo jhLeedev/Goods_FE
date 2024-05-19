@@ -5,6 +5,7 @@ import { purchaseHistoryData } from './data/purchaseHistoryData';
 import { salesHistoryData } from './data/salesHistoryData';
 import { searchData } from './data/searchData';
 import { goodsData } from './data/goodsDetailData';
+import { chatRoomList } from './data/chatRoomListData';
 
 /* profile mock data */
 export const profileData: IProfileData = {
@@ -147,5 +148,8 @@ export const handlers = [
   }),
   http.get('/member/:sellerId/profile', () => {
     return HttpResponse.json(profileData);
+  }),
+  http.get('/api/chat/room', () => {
+    return HttpResponse.json(chatRoomList);
   }),
 ];
