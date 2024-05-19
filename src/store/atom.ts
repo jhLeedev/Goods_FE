@@ -23,6 +23,11 @@ export const imgUrlListState = atom<string[]>({
   default: [],
 });
 
+export const imgUrlsToDeleteState = atom<string[]>({
+  key: 'imgUrlsToDelete',
+  default: [],
+});
+
 export const searchResultState = atom<ISearchData[]>({
   key: 'searchlist',
   default: [],
@@ -31,4 +36,17 @@ export const searchResultState = atom<ISearchData[]>({
 export const searchAddrState = atom<string>({
   key: 'searchAddr',
   default: '',
+});
+
+export const clickedLocationState = atom({
+  key: 'clickedLocation',
+  default: {
+    lat: 0,
+    lng: 0,
+    address: '',
+    center: {
+      lat: 37.5696765,
+      lng: 126.976502,
+    },
+  },
 });

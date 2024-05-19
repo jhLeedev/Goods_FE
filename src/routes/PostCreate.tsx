@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react';
-import { Map, MapMarker, ZoomControl } from 'react-kakao-maps-sdk';
-import { IEditPostData, IMapLocation, IMyLocation, IPostCreate } from '../types/interface';
+import { IEditPostData, IPostCreate } from '../types/interface';
 import { useForm } from 'react-hook-form';
 import { useCreatePostMutation } from '../service/post/useCreatePostMutation';
 import { useRecoilValue } from 'recoil';
-import { imgFilesState, imgUrlListState } from '../store/atom';
+import {
+  clickedLocationState,
+  imgFilesState,
+  imgUrlListState,
+  imgUrlsToDeleteState,
+} from '../store/atom';
 import PostImgList from '../components/postImg/PostImgList';
 import { useMatch } from 'react-router-dom';
 import { useUpdatePostMutation } from '../service/post/useUpdatePostMutation';
+import PostMap from '../components/postMap/PostMap';
 
 export default function PostCreate({
   goods_id,
@@ -16,42 +20,19 @@ export default function PostCreate({
   description,
   lat,
   lng,
-  detail_location,
+  user_defined_location,
   curImages,
 }: Partial<IEditPostData>) {
   const newPostMatch = useMatch('/posts/new');
   const files = useRecoilValue<File[]>(imgFilesState);
   const imgUrls = useRecoilValue<string[]>(imgUrlListState);
-  const [position, setPosition] = useState<IMapLocation>();
-  const [state, setState] = useState<IMyLocation>({
-    center: {
-      lat: lat ?? 37.5696765,
-      lng: lng ?? 126.976502,
-    },
-    errMsg: null,
-    isLoading: true,
-  });
+  const imgUrlsToDelete = useRecoilValue<string[]>(imgUrlsToDeleteState);
+  const clickedLocation = useRecoilValue(clickedLocationState);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IPostCreate>();
-
-  /* 지도 현재 위치 나타내기 */
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setState((prev) => ({
-          ...prev,
-          center: {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          },
-          isLoading: false,
-        }));
-      });
-    }
-  }, []);
 
   /* 데이터 전송 관련 */
   const newPostMutate = useCreatePostMutation();
@@ -64,21 +45,28 @@ export default function PostCreate({
       return;
     }
     const formData = new FormData();
-    imgUrls.forEach((url) => {
-      formData.append('goods_imgesUrl', url);
-    });
     files.forEach((file) => {
-      formData.append('goods_images', file);
+      formData.append('goods_image_files', file);
     });
     formData.append('goods_name', form.goods_name);
     formData.append('price', String(form.price));
     formData.append('description', form.description);
-    formData.append('lat', String(position?.lat ?? state.center.lat));
-    formData.append('lng', String(position?.lng ?? state.center.lng));
-    formData.append('detail_location', form.detail_location);
+    formData.append(
+      'lat',
+      String(clickedLocation.lat !== 0 ? clickedLocation.lat : clickedLocation.center.lat),
+    );
+    formData.append(
+      'lng',
+      String(clickedLocation.lng !== 0 ? clickedLocation.lng : clickedLocation.center.lng),
+    );
+    formData.append('user_defined_location', form.user_defined_location);
+    formData.append('address', clickedLocation.address || '서울 종로구 세종로 1-80');
     if (newPostMatch) {
       newPostMutate(formData);
     } else {
+      imgUrlsToDelete.forEach((url) => {
+        formData.append('images_to_delete', url);
+      });
       updateMutate({
         post: formData,
         goods_id: goods_id!,
@@ -140,34 +128,18 @@ export default function PostCreate({
           className='w-full max-w-lg p-4 mt-4 text-base textarea md:mt-8 textarea-bordered textarea-sm md:max-w-5xl md:min-h-60'
         />
         {errors?.description && <p className='mt-2 text-red-700'>{errors.description.message}</p>}
-
-        <Map
-          id='map'
-          center={state.center}
-          level={4}
-          className='w-full h-48 max-w-lg mt-4 md:mt-8 md:h-80 md:max-w-5xl'
-          onClick={(_, mouseEvent) => {
-            const latlng = mouseEvent.latLng;
-            setPosition({
-              lat: latlng.getLat(),
-              lng: latlng.getLng(),
-            });
-          }}
-        >
-          <ZoomControl position='RIGHT' />
-          <MapMarker position={position ?? state.center} />
-        </Map>
+        <PostMap lat={lat!} lng={lng!} />
         <input
-          {...register('detail_location', {
+          {...register('user_defined_location', {
             required: { message: '필수항목입니다.', value: true },
           })}
           type='text'
           placeholder='상세 주소 입력'
-          defaultValue={detail_location}
+          defaultValue={user_defined_location}
           className='w-full max-w-lg mt-4 md:mt-8 input input-bordered md:max-w-5xl'
         />
-        {errors?.detail_location && (
-          <p className='mt-2 text-red-700'>{errors.detail_location.message}</p>
+        {errors?.user_defined_location && (
+          <p className='mt-2 text-red-700'>{errors.user_defined_location.message}</p>
         )}
 
         <button className='w-full max-w-lg mt-4 md:btn-lg md:mt-8 btn btn-primary md:max-w-32'>
