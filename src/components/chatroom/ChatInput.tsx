@@ -60,7 +60,7 @@ export default function ChatInput() {
         onChange={handleTextAreaChange}
         rows={1}
         onKeyDown={handleKeyDown}
-        className='w-3/4 px-5 py-3 resize-none max-h-24 rounded-3xl '
+        className='w-3/4 px-5 py-3 border resize-none max-h-24 rounded-3xl '
       />
       <button
         onClick={handleSendButtonClick}

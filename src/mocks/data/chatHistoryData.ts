@@ -45,5 +45,42 @@ export const chatHistoryData: IChatHistoryData = {
       receiver: '판매자',
       created_at: '2024-05-17',
     },
+    {
+      message: '안녕하세요',
+      sender: '구매자',
+      receiver: '판매자',
+      created_at: '2024-05-18',
+    },
+    {
+      message: '안녕하세요',
+      sender: '구매자',
+      receiver: '판매자',
+      created_at: '2024-05-19',
+    },
+    {
+      message: '안녕하세요',
+      sender: '구매자',
+      receiver: '판매자',
+      created_at: '2024-05-20',
+    },
+    {
+      message: '안녕하세요',
+      sender: '구매자',
+      receiver: '판매자',
+      created_at: '2024-05-21',
+    },
+    {
+      message: '안녕하세요',
+      sender: '판매자',
+      receiver: '판매자',
+      created_at: '2024-05-22',
+    },
+
+    {
+      message: '안녕하세요',
+      sender: '구매자',
+      receiver: '판매자',
+      created_at: '2024-05-24',
+    },
   ],
 };
