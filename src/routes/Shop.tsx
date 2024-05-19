@@ -28,7 +28,7 @@ export default function Shop() {
               nick_name={profile!.nick_name}
               profile_image={profile!.profile_image}
               star={profile!.star}
-              badge_List={profile!.badge_List}
+              badge_list={profile!.badge_list}
             />
           )}
         </div>

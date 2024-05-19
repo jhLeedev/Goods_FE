@@ -14,7 +14,7 @@ export interface IProfileData {
   phone_number: string;
   profile_image: string;
   star: number;
-  badge_List: string[];
+  badge_list: string[];
 }
 
 /* profile update mock interface */

@@ -15,7 +15,7 @@ export const profileData: IProfileData = {
   phone_number: '010-1234-5678',
   profile_image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
   star: 3.5,
-  badge_List: ['판매왕'],
+  badge_list: ['판매왕'],
 };
 
 const tokenData = { accessToken: 'accessaccessaccess', refreshToken: 'refreshrefreshrefresh' };
@@ -66,9 +66,6 @@ export const handlers = [
   http.post('/auth/email', () => HttpResponse.json(1234)),
   http.put('/member/profile', async ({ request }) => {
     const req = await request.formData();
-    for (const x of req) {
-      console.log(x);
-    }
     return HttpResponse.formData(req);
   }),
   http.get(`/location`, () => HttpResponse.json(positions)),
