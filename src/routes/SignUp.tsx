@@ -33,7 +33,9 @@ export default function SignUp() {
     formData.append('phoneNumber', String(data.phoneNumber));
     formData.append('tradePassword', String(data.paymentPassword));
     formData.append('nickName', data.nickName);
-    formData.append('profileImage', file ?? '');
+    if (file) {
+      formData.append('profileImage', file);
+    }
     signup(formData);
   });
 
