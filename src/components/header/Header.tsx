@@ -3,11 +3,11 @@ import Drawer from '../common/Drawer';
 import { useNavigate, useMatch, Link } from 'react-router-dom';
 import React from 'react';
 import logo from '../../assets/logo.webp';
-import { isLoggedInState } from '../../store/atom';
+import { isAuthState } from '../../store/atom';
 import SearchBar from './SearchBar';
 
 export default function Header() {
-  const isLoggedIn = useRecoilValue(isLoggedInState);
+  const isAuth = useRecoilValue(isAuthState);
   const signinMatch = useMatch('/signin');
   const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ export default function Header() {
         </div>
       </Link>
       <SearchBar />
-      {isLoggedIn ? (
+      {isAuth ? (
         <Drawer /> // 사이드바 (로그인 시)
       ) : (
         <button onClick={handleNavigateClick} className='btn btn-outline btn-xs md:btn-sm'>

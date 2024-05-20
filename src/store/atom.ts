@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 import { IMapLocation } from '../types/interface';
 import { ISearchData } from '../mocks/data/searchData';
 
-export const isLoggedInState = atom({
+export const isAuthState = atom({
   // 임시 로그인 상태
   key: 'isLoggedIn',
   default: false,
