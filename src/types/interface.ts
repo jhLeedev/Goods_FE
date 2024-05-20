@@ -133,3 +133,12 @@ export interface IChatHistoryData {
   goods_price: number;
   chatLog: IChatLog[];
 }
+
+export interface IMyInfo {
+  memberId: number;
+  nickName: string;
+  phoneNumber: string;
+  profileImage: string | null;
+  star: number;
+  badgeList: string[];
+}
