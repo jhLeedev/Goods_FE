@@ -11,7 +11,6 @@ export const useSignoutMutation = () => {
     mutationFn: async () => client.post('api/member/logout'),
     onSuccess: () => {
       localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
       setIsAuth(false);
       navigate('/');
     },
