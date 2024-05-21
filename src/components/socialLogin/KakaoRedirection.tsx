@@ -1,16 +1,15 @@
 import { useEffect } from 'react';
-import { useSendCodeMutation } from '../../service/socialLogin/useSendCodeMutation';
+import { useNavigate } from 'react-router-dom';
 
 export default function KakaoRedirection() {
-  const sendCode = useSendCodeMutation();
-
+  const navigate = useNavigate();
   useEffect(() => {
-    (async () => {
-      const code = new URL(window.location.toString()).searchParams.get('code');
-
-      sendCode(code!);
-    })();
-  }, [sendCode]);
+    const accessToken = new URL(window.location.toString()).searchParams.get('access');
+    if (accessToken) {
+      localStorage.setItem('accessToken', accessToken);
+      navigate('/');
+    }
+  }, [navigate]);
   return (
     <div className='absolute top-0 left-0 flex items-center justify-center w-full h-screen border gap-x-5'>
       <span className='loading loading-spinner loading-lg' />

@@ -4,24 +4,24 @@ import { ISearchData } from '../../mocks/data/searchData';
 import { useSearchMutation, useUpdateSearchMutation } from '../../service/map/useSearchMutation';
 
 export default function SearchBar() {
-  const [word, setWord] = useState('');
+  const [keyword, setKeyword] = useState('');
   const [autocomplete, setAutocomplete] = useState<ISearchData[]>([]);
   const [selectedItem, setSelectedItem] = useState(0);
 
   const navigate = useNavigate();
   const homeMatch = useMatch('/');
-  const search = useSearchMutation(setWord);
-  const updateSearch = useUpdateSearchMutation(setAutocomplete, word);
+  const search = useSearchMutation(setKeyword);
+  const updateSearch = useUpdateSearchMutation(setAutocomplete, keyword);
 
   const handleWordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setWord(e.currentTarget.value);
+    setKeyword(e.currentTarget.value);
   };
 
   const handleKeywordSubmit = (word: string) => search(word);
 
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     const { key } = e;
-    if (!word) return;
+    if (!keyword) return;
     if (selectedItem < autocomplete.length) {
       if (key === 'Enter') {
         search(autocomplete[selectedItem].name);
@@ -38,12 +38,12 @@ export default function SearchBar() {
 
   useEffect(() => {
     const debounce = setTimeout(() => {
-      if (word) updateSearch();
+      if (keyword) updateSearch();
     }, 1000);
     return () => {
       clearTimeout(debounce);
     };
-  }, [word, updateSearch]);
+  }, [keyword, updateSearch]);
 
   return (
     <div className='relative w-1/2 md:w-1/3'>
@@ -52,7 +52,7 @@ export default function SearchBar() {
         className='flex items-center w-full gap-2 input rounded-3xl input-bordered input-sm md:input-md'
       >
         <input
-          value={word}
+          value={keyword}
           onChange={handleWordChange}
           onKeyDown={handleKeyDown}
           id='searchInput'
@@ -74,7 +74,7 @@ export default function SearchBar() {
           />
         </svg>
       </label>
-      {word && autocomplete!.length > 0 && (
+      {keyword && autocomplete!.length > 0 && (
         <ul className='absolute left-0 w-full p-3 bg-neutral-50 rounded-xl '>
           {autocomplete?.map((item, index) => (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
