@@ -15,10 +15,10 @@ export default function ProfileUpdate() {
   const imageRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    if (data?.profile_image) {
-      setCurImg(data.profile_image);
+    if (data?.profileImage) {
+      setCurImg(data.profileImage);
     }
-  }, [data?.profile_image]);
+  }, [data?.profileImage]);
 
   const {
     register,
@@ -31,7 +31,7 @@ export default function ProfileUpdate() {
       /* 새로 추가한 사진 삭제하는 경우 */
       setSelectedFile(null);
       URL.revokeObjectURL(curImg);
-      setCurImg(data!.profile_image);
+      setCurImg(data!.profileImage ?? '');
     } else {
       /* 기존 사진 삭제하는 경우 */
       setCurImg('');
@@ -152,7 +152,7 @@ export default function ProfileUpdate() {
                   id='nickname'
                   type='text'
                   placeholder='닉네임'
-                  defaultValue={data!.nick_name}
+                  defaultValue={data!.nickName}
                   className='font-normal text-right grow'
                 />
               </label>
@@ -174,7 +174,7 @@ export default function ProfileUpdate() {
                   id='phone_number'
                   type='text'
                   placeholder='000-0000-0000'
-                  defaultValue={data!.phone_number}
+                  defaultValue={data!.phoneNumber}
                   className='font-normal text-right max-w-40'
                 />
               </label>

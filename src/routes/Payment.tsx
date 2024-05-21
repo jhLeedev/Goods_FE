@@ -41,7 +41,7 @@ export default function Payment() {
             />
           </label>
         </div>
-        <PointCalc type='payment' password={password} />
+        <PointCalc type='payment' password={password} price={state.price} goodsId={state.id} />
       </div>
     </>
   );
