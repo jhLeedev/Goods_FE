@@ -44,6 +44,7 @@ export default function Router() {
         <Route path='/mypage/transfer' element={<Transfer />} />
         <Route path='/payment' element={<Payment />} />
         <Route path='/chatroom/:roomId' element={<ChatRoom />} />
+        <Route path='/chatroom' element={<ChatRoomList />} />
       </Route>
       <Route path='/auth/kakao' element={<KakaoRedirection />} />
       <Route path='/shop/:id' element={<Shop />} />

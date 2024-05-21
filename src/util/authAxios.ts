@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import axios, { AxiosError } from 'axios';
 
-const client = axios.create({ baseURL: '/api' });
+const client = axios.create({ baseURL: '/api', withCredentials: true });
 
 client.interceptors.request.use(
   (config) => {
@@ -24,15 +24,24 @@ client.interceptors.response.use(
     return res;
   },
   async (err) => {
-    if (err instanceof AxiosError) {
+    if (err instanceof AxiosError && err.config) {
       if (err.response?.status === 401) {
-        // refresh
-        // error.config.headers = {
-        //     'Content-Type': 'application/json',
-        //     Authorization: `Bearer ${accessToken}`,
-        //   };
-        //   const response = await axios.request(error.config);
-        //   return response;
+        const { accessToken } = (
+          await axios.post(
+            '/api/api/member/reissue',
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              },
+              withCredentials: true,
+            },
+          )
+        ).data;
+        if (accessToken) {
+          localStorage.setItem('accessToken', accessToken);
+          return client(err.config);
+        }
       }
     }
     return Promise.reject(err);
