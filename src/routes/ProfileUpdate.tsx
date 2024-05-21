@@ -44,8 +44,8 @@ export default function ProfileUpdate() {
     const formData = new FormData();
     if (selectedFile) {
       formData.append('profile_image_file', selectedFile);
-    } else {
-      formData.append('profile_image_url', curImg ?? '');
+    } else if (curImg !== '') {
+      formData.append('profile_image_url', curImg);
     }
     formData.append('nick_name', form.nick_name);
     formData.append('phone_number', String(form.phone_number));
