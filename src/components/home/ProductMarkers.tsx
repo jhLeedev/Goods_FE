@@ -33,18 +33,8 @@ export default function ProductMarkers() {
       onClusterclick={handleClusterClick}
       gridSize={100}
     >
-      {searchList.length === 0
-        ? data?.map((pos) => (
-            <MapMarker
-              key={`${pos.lat}-${pos.lng}`}
-              position={{
-                lat: pos.lat,
-                lng: pos.lng,
-              }}
-              onClick={() => handleMarkerClick(pos)}
-            />
-          ))
-        : searchList.map((item) => (
+      {Array.isArray(searchList) && searchList.length > 0
+        ? searchList.map((item) => (
             <MapMarker
               key={`${item.lat}-${item.lng}`}
               position={{
@@ -52,6 +42,16 @@ export default function ProductMarkers() {
                 lng: item.lng,
               }}
               onClick={() => handleMarkerClick({ lat: item.lat, lng: item.lng })}
+            />
+          ))
+        : data?.map((pos) => (
+            <MapMarker
+              key={`${pos.lat}-${pos.lng}`}
+              position={{
+                lat: pos.lat,
+                lng: pos.lng,
+              }}
+              onClick={() => handleMarkerClick(pos)}
             />
           ))}
     </MarkerClusterer>

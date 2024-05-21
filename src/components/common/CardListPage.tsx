@@ -38,13 +38,13 @@ export default function CardListPage({
           data.map((item) => {
             return (
               <CardListItem
-                key={item.id}
-                id={item.id}
+                key={item.goods_id}
+                id={item.goods_id}
                 img={item.goods_thumbnail}
                 name={item.goods_name}
                 price={item.price}
                 status={item.goods_status}
-                uploadedBefore={item.uploadedBefore}
+                uploaded_before={item.uploaded_before}
               />
             );
           })
