@@ -29,10 +29,13 @@ export default function SignUp() {
     }
     formData.append('email', data.email);
     formData.append('password', data.password);
-    formData.append('phone_number', String(data.phoneNumber));
-    formData.append('trade_password', String(data.paymentPassword));
-    formData.append('user_name', data.nickName);
-    formData.append('profile_image', file ?? '');
+    formData.append('chkPassword', data.confirmPassword);
+    formData.append('phoneNumber', String(data.phoneNumber));
+    formData.append('tradePassword', String(data.paymentPassword));
+    formData.append('nickName', data.nickName);
+    if (file) {
+      formData.append('profileImage', file);
+    }
     signup(formData);
   });
 
@@ -203,7 +206,7 @@ export default function SignUp() {
             <input
               {...register('paymentPassword', {
                 required: { message: '필수항목입니다.', value: true },
-                pattern: { value: /^[0-9]{4}$/, message: '4자리 숫자만 입력해주세요.' },
+                pattern: { value: /^[0-9]{6}$/, message: '6자리 숫자를 입력해주세요.' },
               })}
               type='password'
               placeholder='간편 결제 비밀번호'

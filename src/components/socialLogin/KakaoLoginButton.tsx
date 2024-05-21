@@ -1,13 +1,11 @@
-import { kakaoSigninLink } from '../../constants';
+import { Link } from 'react-router-dom';
 
 export default function KakaoLoginButton() {
-  const handleLoginKakao = () => {
-    window.location.href = kakaoSigninLink;
-  };
   return (
-    <button
-      onClick={handleLoginKakao}
+    <Link
       className='flex items-center justify-center p-2 font-bold rounded-lg gap-x-2 bg-[rgb(247,225,17)] hover:bg-[rgba(193,177,30,0.8)]'
+      role='button'
+      to={`${import.meta.env.VITE_BACKEND_SERVER}oauth2/authorization/kakao`}
     >
       <svg
         aria-hidden='true'
@@ -25,6 +23,6 @@ export default function KakaoLoginButton() {
         />
       </svg>
       카카오 로그인
-    </button>
+    </Link>
   );
 }
