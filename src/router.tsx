@@ -17,6 +17,7 @@ import Payment from './routes/Payment';
 import SalesHistory from './routes/SalesHistory';
 import WishHistory from './routes/WishHistory';
 import NotFoundPage from './components/common/NotFoundPage';
+import ChatRoomList from './routes/ChatRoomList';
 import ChatRoom from './routes/ChatRoom';
 // protected route : home,signin,signup,kakaoRedirection,shop 제외 모든 페이지
 export default function Router() {
@@ -32,6 +33,7 @@ export default function Router() {
         <Route path='/purchase-history' element={<PurchaseHistory />} />
         <Route path='/sales-history' element={<SalesHistory />} />
         <Route path='/wish-history' element={<WishHistory />} />
+        <Route path='/chatroom' element={<ChatRoomList />} />
       </Route>
       <Route path='/mypage' element={<MyPage />} />
       <Route path='/mypage/update' element={<ProfileUpdate />} />

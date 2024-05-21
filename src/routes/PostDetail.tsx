@@ -46,16 +46,16 @@ export default function PostDetail() {
             >
               <div className='avatar'>
                 <div className='w-16 mr-4 rounded-xl md:w-20 md:mr-6'>
-                  <img src={data!.profile_img} alt='profile_image' />
+                  <img src={data!.seller_profile_image} alt='profile_image' />
                 </div>
               </div>
               <div className='flex flex-col items-start justify-around w-full'>
                 <p className='mb-2 card-title'>{data!.seller_name}</p>
                 <div className='justify-end card-actions'>
-                  {data!.seller_badge && (
+                  {data!.badge_list.includes('판매왕') && (
                     <div className='badge badge-secondary badge-outline md:badge-lg'>판매왕</div>
                   )}
-                  {data!.manner_badge && (
+                  {data!.badge_list.includes('매너왕') && (
                     <div className='badge badge-primary badge-outline md:badge-lg'>매너왕</div>
                   )}
                 </div>
@@ -63,24 +63,24 @@ export default function PostDetail() {
             </Link>
             <div className='md:flex-1'>
               <div className='flex items-center font-extrabold md:text-3xl'>
-                {data!.goods_status === '예약중' && (
+                {data!.status === '예약중' && (
                   <div className='h-8 mr-2 text-white md:h-10 md:mr-4 badge badge-neutral-500 md:badge-lg bg-neutral-500'>
-                    {data!.goods_status}
+                    {data!.status}
                   </div>
                 )}
-                {data!.goods_status === '거래완료' && (
+                {data!.status === '거래완료' && (
                   <div className='h-8 mr-2 text-white md:h-10 md:mr-4 badge badge-neutral md:badge-lg bg-neutral'>
-                    {data!.goods_status}
+                    {data!.status}
                   </div>
                 )}
                 <h1 className='my-4 text-2xl md:my-8 md:text-3xl'>{data!.goods_name}</h1>
               </div>
               <div className='flex items-center justify-between md:flex-1'>
-                <h2 className='text-sm text-stone-400 md:text-base'>{data!.uploadedBefore}</h2>
+                <h2 className='text-sm text-stone-400 md:text-base'>{data!.uploaded_before}</h2>
                 {isAutor && (
                   <select
                     name='goods-state'
-                    defaultValue={data.goods_status}
+                    defaultValue={data.status}
                     onChange={(e) => handleState(e.target.value)}
                     className='w-32 md:w-40 select select-bordered'
                   >
@@ -94,7 +94,7 @@ export default function PostDetail() {
           </div>
           <div className='fixed bottom-0 left-0 z-50 flex items-center w-full h-20 px-3 py-3 bg-white border-t md:relative md:border-0 md:p-0'>
             <div className='flex items-center ml-2 mr-4 md:ml-0'>
-              <AddWishListButton goodsId={Number(goodsId)} wish={data!.like} />
+              <AddWishListButton goodsId={Number(goodsId)} wish={data!.liked} />
             </div>
             <h3 className='flex-1 text-xl font-bold'>{addComma(data!.price)}원</h3>
             {isAutor ? (
@@ -132,7 +132,7 @@ export default function PostDetail() {
       <div className='pt-4 border-t pb-28 md:pb-4 md:mb-12'>
         <div className='flex items-center mb-4'>
           <h3 className='font-bold md:text-lg'>거래 희망 장소</h3>
-          <h4 className='ml-4'>{data!.detail_location}</h4>
+          <h4 className='ml-4'>{data!.address}</h4>
         </div>
         <Map
           center={{

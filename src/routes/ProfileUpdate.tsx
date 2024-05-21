@@ -135,10 +135,7 @@ export default function ProfileUpdate() {
             <button type='button' onClick={onUploadBtnClick} className='mb-10 btn btn-neutral'>
               이미지 업로드
             </button>
-            <form
-              onSubmit={onSubmit}
-              className='flex flex-col items-start justify-center w-full max-w-lg px-5 mb-10 gap-y-4'
-            >
+            <form className='flex flex-col items-start justify-center w-full max-w-lg px-5 mb-4 gap-y-4'>
               <label
                 htmlFor='nickname'
                 className='flex items-center w-full max-w-lg gap-2 font-bold input input-bordered'
@@ -162,7 +159,7 @@ export default function ProfileUpdate() {
               {errors?.nick_name && <p className='text-red-700'>{errors.nick_name.message}</p>}
 
               <label
-                htmlFor='phoneNumber'
+                htmlFor='phone_number'
                 className='flex items-center justify-between w-full max-w-lg gap-2 font-bold input input-bordered md:max-w-5xl'
               >
                 전화번호
@@ -184,19 +181,20 @@ export default function ProfileUpdate() {
               {errors?.phone_number && (
                 <p className='text-red-700'>{errors.phone_number.message}</p>
               )}
-
-              <div className='flex items-center justify-between w-full max-w-lg gap-2 font-bold input input-bordered md:max-w-5xl'>
+            </form>
+            <div className='w-full max-w-lg px-5 mb-10'>
+              <div className='flex items-center justify-between w-full max-w-lg gap-2 mb-4 font-bold input input-bordered md:max-w-5xl'>
                 <span>비밀번호</span>
                 <PasswordModal title='비밀번호' />
               </div>
-
-              <div className='flex items-center justify-between w-full max-w-lg gap-2 font-bold input input-bordered md:max-w-5xl'>
+              <div className='flex items-center justify-between w-full max-w-lg gap-2 mb-4 font-bold input input-bordered md:max-w-5xl'>
                 <span>간편결제 비밀번호</span>
                 <PasswordModal title='간편결제 비밀번호' />
               </div>
-
-              <button className='w-full max-w-lg btn btn-primary'>수정 완료</button>
-            </form>
+              <button onClick={onSubmit} className='w-full max-w-lg btn btn-primary'>
+                수정 완료
+              </button>
+            </div>
           </>
         )}
       </div>

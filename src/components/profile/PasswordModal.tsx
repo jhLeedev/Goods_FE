@@ -20,7 +20,13 @@ export default function PasswordModal({ title }: { title: string }) {
   };
 
   const handleValidPassword = (newValue: string) => {
-    if (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/.test(newValue)) {
+    if (
+      type === 'password' &&
+      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/.test(newValue)
+    ) {
+      setNewPassword(newValue);
+      setValid(true);
+    } else if (type === 'trade-password' && /^[0-9]{6}$/.test(newValue)) {
       setNewPassword(newValue);
       setValid(true);
     } else {
@@ -85,10 +91,13 @@ export default function PasswordModal({ title }: { title: string }) {
                   className='font-normal grow'
                 />
               </label>
-              {!valid && (
+              {!valid && type === 'password' && (
                 <p className='mt-2 text-sm font-normal text-right text-red-700'>
                   숫자, 문자만 포함 (8자 이상, 최대 20자)
                 </p>
+              )}
+              {!valid && type === 'trade-password' && (
+                <p className='mt-2 text-sm font-normal text-right text-red-700'>숫자 여섯자리</p>
               )}
               <div className='flex justify-around w-full mt-8 mb-4'>
                 <button

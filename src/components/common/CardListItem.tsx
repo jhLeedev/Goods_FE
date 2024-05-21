@@ -10,7 +10,7 @@ export default function CardListItem({
   name,
   status,
   price,
-  uploadedBefore,
+  uploaded_before,
 }: ICardListItemProps) {
   const [showModal, setShowModal] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
@@ -41,7 +41,7 @@ export default function CardListItem({
           <img className='object-cover w-24 h-24 rounded-xl md:w-32 md:h-32' src={img} alt='img' />
           <div className='relative flex flex-col flex-1 py-2'>
             <p className='text-lg font-bold'>{name}</p>
-            <p className='flex-1 mt-2 mb-4 text-sm text-neutral-500'>{uploadedBefore}</p>
+            <p className='flex-1 mt-2 mb-4 text-sm text-neutral-500'>{uploaded_before}</p>
             <div className='flex items-center justify-start text-base gap-x-2'>
               {status === '판매중' && (
                 <div className='flex items-center justify-center w-16 p-1 text-sm text-white bg-secondary rounded-xl'>

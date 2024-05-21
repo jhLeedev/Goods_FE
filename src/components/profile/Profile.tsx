@@ -5,7 +5,7 @@ export default function Profile({
   nick_name,
   profile_image,
   star,
-  badgeList,
+  badge_list,
 }: Partial<IProfileData>) {
   return (
     <div className='w-full max-w-md mx-auto h-36 md:flex-auto md:m-0'>
@@ -34,10 +34,10 @@ export default function Profile({
             <Star star={star!} />
           </div>
           <div className='justify-end card-actions'>
-            {badgeList!.includes('sell') && (
+            {Array.isArray(badge_list) && badge_list!.includes('판매왕') && (
               <div className='badge badge-secondary badge-outline md:badge-lg'>판매왕</div>
             )}
-            {badgeList!.includes('manner') && (
+            {Array.isArray(badge_list) && badge_list!.includes('매너왕') && (
               <div className='badge badge-primary badge-outline md:badge-lg'>매너왕</div>
             )}
           </div>
