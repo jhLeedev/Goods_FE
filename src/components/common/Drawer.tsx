@@ -43,7 +43,7 @@ export default function Drawer() {
               <Link to='/mypage'>마이페이지</Link>
             </li>
             <li>
-              <a href='/#'>알림</a>
+              <Link to='/chatroom'>채팅</Link>
             </li>
             <li>
               <Link to='/wish-history'>관심 목록</Link>
