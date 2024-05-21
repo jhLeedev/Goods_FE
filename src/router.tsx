@@ -17,6 +17,7 @@ import Payment from './routes/Payment';
 import SalesHistory from './routes/SalesHistory';
 import WishHistory from './routes/WishHistory';
 import NotFoundPage from './components/common/NotFoundPage';
+import ChatRoomList from './routes/ChatRoomList';
 import ChatRoom from './routes/ChatRoom';
 import ProtectedRoute from './components/common/ProtectedRoute';
 // protected route : home,signin,signup,kakaoRedirection,shop 제외 모든 페이지

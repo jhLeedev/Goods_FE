@@ -25,6 +25,7 @@ export default function HomeMap() {
   useEffect(() => {
     const geocoder = new kakao.maps.services.Geocoder();
 
+    if (!keyword) return;
     geocoder.addressSearch(keyword, (result, status) => {
       if (status === kakao.maps.services.Status.OK) {
         const newSearch = result[0];
@@ -38,8 +39,6 @@ export default function HomeMap() {
         });
       }
     });
-
-    console.log(keyword);
   }, [keyword]);
 
   const handleResetSearch = () => {

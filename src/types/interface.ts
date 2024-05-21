@@ -14,7 +14,7 @@ export interface IProfileData {
   phone_number: string;
   profile_image: string;
   star: number;
-  badgeList: string[];
+  badge_list: string[];
 }
 
 /* profile update mock interface */
@@ -48,12 +48,13 @@ export interface ISalesHistoryData {
   price: number;
   goods_thumbnail: string;
   goods_status: string;
-  soldBefore: string;
-  uploadedBefore: string;
-  id: number;
+  uploaded_before: number;
+  goods_id: number;
 }
 export interface IPurchaseHistoryData extends ISalesHistoryData {
   seller_name: string;
+  member_id: number;
+  traded_before: number;
 }
 
 export interface IRatingModal {
@@ -68,16 +69,16 @@ export interface IWishHistoryData {
   price: number;
   goods_thumbnail: string;
   goods_status: string;
-  uploadedBefore: string;
-  detail_location: string;
-  id: number;
+  uploaded_before: number;
+  address: string;
+  goods_id: number;
 }
 
 export interface ICardListItemProps {
   id: number;
   img: string;
   name: string;
-  uploadedBefore: string;
+  uploaded_before: number;
   status: string;
   price: number;
 }
@@ -95,20 +96,19 @@ export interface IPostCreate {
 
 export interface IGoodsData {
   seller_id: number;
-  profile_img: string;
+  seller_profile_image: string;
   seller_name: string;
-  seller_badge: boolean;
-  manner_badge: boolean;
+  badge_list: string[];
   goods_name: string;
   price: number;
   description: string;
   goods_images: string[];
-  goods_status: string;
-  like: boolean;
-  uploadedBefore: string;
+  status: string;
+  liked: boolean;
+  uploaded_before: number;
   lat: number;
   lng: number;
-  detail_location: string;
+  address: string;
   goods_id?: number;
 }
 
@@ -118,12 +118,26 @@ export interface IEditPostData extends IPostCreate {
   curImages: string[];
 }
 
+export interface IChatRoomListData {
+  room_id: number;
+  goods_id: number;
+  goods_name: string;
+  goods_image: string;
+  goods_price: number;
+  sender: string;
+  receiver: string;
+  non_read: number;
+  last_message: string;
+  updated_at: string;
+}
+
 export interface IChatLog {
   message: string;
   sender: string;
   receiver: string;
   created_at: string;
 }
+
 export interface IChatHistoryData {
   room_id: number;
   goods_id: number;

@@ -24,7 +24,7 @@ export const useSearchAddrMutation = () => {
   const setSearchList = useSetRecoilState(searchResultState);
   const { mutate } = useMutation({
     mutationFn: async (word: string) =>
-      (await axios.post('api/goods/search', { keyword: word })).data,
+      (await axios.post('/api/api/goods/search', { keyword: word })).data,
     onSuccess: (data: ISearchData[]) => {
       setHomeList(data);
       setSearchList(data);
