@@ -33,8 +33,10 @@ export const useUpdateProfileMutation = () => {
           },
         })
       ).data,
-    onSuccess: () => {
-      navigate('/mypage');
+    onSuccess: (req) => {
+      if (req.nickName) {
+        navigate('/mypage');
+      }
     },
   });
 

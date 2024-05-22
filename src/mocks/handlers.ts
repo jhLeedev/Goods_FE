@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import { IProfileData, IWishHistoryData } from '../types/interface';
+import { IWishHistoryData } from '../types/interface';
 import { positions } from './data/positionData';
 import { purchaseHistoryData } from './data/purchaseHistoryData';
 import { salesHistoryData } from './data/salesHistoryData';
@@ -9,7 +9,7 @@ import { chatRoomList } from './data/chatRoomListData';
 import { chatHistoryData } from './data/chatHistoryData';
 
 /* profile mock data */
-export const profileData: IProfileData = {
+export const profileData = {
   member_id: 1,
   nick_name: '홍길동',
   phone_number: '010-1234-5678',

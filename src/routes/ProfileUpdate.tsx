@@ -135,7 +135,10 @@ export default function ProfileUpdate() {
             <button type='button' onClick={onUploadBtnClick} className='mb-10 btn btn-neutral'>
               이미지 업로드
             </button>
-            <form className='flex flex-col items-start justify-center w-full max-w-lg px-5 mb-4 gap-y-4'>
+            <form
+              id='userInfo'
+              className='flex flex-col items-start justify-center w-full max-w-lg px-5 mb-4 gap-y-4'
+            >
               <label
                 htmlFor='nickname'
                 className='flex items-center w-full max-w-lg gap-2 font-bold input input-bordered'
@@ -191,7 +194,11 @@ export default function ProfileUpdate() {
                 <span>간편결제 비밀번호</span>
                 <PasswordModal title='간편결제 비밀번호' />
               </div>
-              <button onClick={onSubmit} className='w-full max-w-lg btn btn-primary'>
+              <button
+                onClick={onSubmit}
+                form='updateUser'
+                className='w-full max-w-lg btn btn-primary'
+              >
                 수정 완료
               </button>
             </div>
