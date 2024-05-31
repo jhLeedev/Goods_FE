@@ -1,21 +1,15 @@
-import { useRecoilValue } from 'recoil';
-import { testState } from '../store/test';
+import HomeList from '../components/home/HomeList';
+import HomeMap from '../components/home/HomeMap';
+import HomeAddr from '../components/home/HomeAddr';
 
 export default function Home() {
-  const test = useRecoilValue(testState);
-  const onClick = () => {
-    return fetch('/test', {
-      method: 'POST',
-      body: JSON.stringify({ id: Date.now(), content: 'aa' }),
-    });
-  };
   return (
-    <div>
-      <h1 className='text-3xl font-bold underline mb-5'>Home</h1>
-      <h1>recoil test : {test ?? 'fail'}</h1>
-      <button className='btn btn-outline' onClick={onClick}>
-        add
-      </button>
+    <div className='absolute top-0 left-0 flex flex-col w-full h-full pt-20 overflow-hidden'>
+      <HomeAddr />
+      <div className='flex flex-col h-full md:flex-row-reverse'>
+        <HomeMap />
+        <HomeList />
+      </div>
     </div>
   );
 }
