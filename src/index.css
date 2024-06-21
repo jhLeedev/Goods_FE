@@ -24,4 +24,18 @@
     }
     font-family: 'Nanum Gothic', sans-serif;
   }
+  details > summary {
+    list-style: none;
+  }
+
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+@layer components {
+  /* 스크롤바 여백 설정*/
+  html:has(.drawer-toggle:checked) {
+    scrollbar-gutter: auto;
+  }
 }

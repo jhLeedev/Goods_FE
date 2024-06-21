@@ -14,14 +14,14 @@ import Transfer from './routes/Transfer';
 import PurchaseHistory from './routes/PurchaseHistory';
 import MyPage from './routes/MyPage';
 import Payment from './routes/Payment';
-import SalesHistory from './routes/SalesHistory';
 import WishHistory from './routes/WishHistory';
 import NotFoundPage from './components/common/NotFoundPage';
 import ChatRoomList from './routes/ChatRoomList';
 import ChatRoom from './routes/ChatRoom';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import PayRedirect from './routes/PayRedirect';
-// protected route : home,signin,signup,kakaoRedirection,shop 제외 모든 페이지
+import SalesHistoryContainer from './components/common/SalesHistoryContainer';
+
 export default function Router() {
   return (
     <Routes>
@@ -34,7 +34,7 @@ export default function Router() {
           <Route path='/posts/new' element={<PostCreate />} />
           <Route path='/posts/edit/:id' element={<PostEdit />} />
           <Route path='/purchase-history' element={<PurchaseHistory />} />
-          <Route path='/sales-history' element={<SalesHistory />} />
+          <Route path='/sales-history' element={<SalesHistoryContainer />} />
           <Route path='/wish-history' element={<WishHistory />} />
         </Route>
       </Route>
@@ -50,6 +50,7 @@ export default function Router() {
       </Route>
       <Route path='/oauth/kakao' element={<KakaoRedirection />} />
       <Route path='/shop/:id' element={<Shop />} />
+      <Route path='/posts/undefined' element={<NotFoundPage />} />
       <Route path='*' element={<NotFoundPage />} />
     </Routes>
   );
