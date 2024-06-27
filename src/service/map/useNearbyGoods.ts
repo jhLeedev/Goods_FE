@@ -2,12 +2,13 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { IGoodsList } from '../../types/interface';
 
-export const useNearbyGoodsPage = (payload: { lat: number; lng: number }) => {
+export const useNearbyGoodsPage = (payload: { lat: number; lng: number }, enabled: boolean) => {
   const {
     data: page,
     isLoading,
     hasNextPage,
     fetchNextPage,
+    refetch,
   } = useInfiniteQuery({
     queryKey: ['nearbyPage', `${payload.lat}_${payload.lng}`],
     queryFn: async ({ pageParam = 0 }: { pageParam: number }) => {
@@ -24,18 +25,19 @@ export const useNearbyGoodsPage = (payload: { lat: number; lng: number }) => {
     },
     initialPageParam: 0,
     getNextPageParam: (lastPage, _, lastPageParams) => {
-      if (lastPage && lastPage.length > 0) {
+      if (Array.isArray(lastPage) && lastPage.length > 0) {
         return lastPageParams + 1;
       }
       return undefined;
     },
+      enabled,
   });
-  return { page, isLoading, hasNextPage, fetchNextPage };
+  return { page, isLoading, hasNextPage, fetchNextPage, refetch };
 };
 
 export const useNearbyGoodsList = (payload: { lat: number; lng: number }) => {
   const {
-    data: listdata,
+    data: listData,
     isLoading,
     refetch: refetchList,
   } = useQuery({
@@ -47,5 +49,5 @@ export const useNearbyGoodsList = (payload: { lat: number; lng: number }) => {
       return response.data;
     },
   });
-  return { listdata, isLoading, refetchList };
+  return { listData, isLoading, refetchList };
 };
